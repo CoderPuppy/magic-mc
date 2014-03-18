@@ -1,0 +1,12 @@
+[
+	{
+		"modid": "magic",
+		"name": "Magic Mod",
+		"version": "$version",
+		"mcversion": "$mcVersion",
+		"authors": ["CoderPuppy"],
+		"dependencies": [
+			"required-after:cpup-mc"
+		]
+	}
+]
