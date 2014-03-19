@@ -42,5 +42,7 @@ object Content extends CPupContent[TMagicMod] {
 			'W', "woodPlank",
 			'C', "cobblestone"
 		)
+
+		registerBlock(new BlockWritingDesk().setName("writingDesk").setCreativeTab(CreativeTabs.tabBlock).asInstanceOf[TBlockBase], classOf[ItemWritingDesk])
 	}
 }
