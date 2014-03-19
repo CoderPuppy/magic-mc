@@ -4,8 +4,15 @@ import net.minecraft.item.{ItemStack, Item}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
 import cpup.mc.lib.util.ItemUtil
+import cpup.lib.Util
+import cpup.mc.magic.api.TWritableItem
 
-class ItemDeed extends Item with TItemBase {
+class ItemDeed extends Item with TItemBase with TWritableItem {
+	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("name"), "")
+	def writeRunes(stack: ItemStack, runes: String) {
+		ItemUtil.compound(stack).setString("name", runes)
+	}
+
 	override def getItemStackLimit(stack: ItemStack) = if(stack.getTagCompound == null) { 64 } else { 1 }
 
 	override def onItemUseFirst(stack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float) = {
