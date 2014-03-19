@@ -16,6 +16,12 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 	setHardness(1)
 	setResistance(2.5f)
 
+	def getMaster(pos: BlockPos) = if((pos.metadata & 1) == 1) {
+		pos
+	} else {
+		pos.offset(Direction.fromFacing(pos.metadata >> 1).rotated(Direction.Up))
+	}
+
 	override def breakBlock(world: World, x: Int, y: Int, z: Int, block: Block, meta: Int): Unit = {
 		super.breakBlock(world, x, y, z, block, meta)
 
