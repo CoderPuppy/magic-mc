@@ -15,7 +15,7 @@ object Content extends CPupContent[TMagicMod] {
 
 		registerItem(new ItemSpell().setName("spell"))
 
-		registerItem(new ItemDeed().setName("deed"))
+		registerItem(new ItemDeed().setName("deed").setCreativeTab(CreativeTabs.tabMisc).asInstanceOf[TItemBase])
 
 		addRecipe(
 			new ItemStack(items("deed")),
