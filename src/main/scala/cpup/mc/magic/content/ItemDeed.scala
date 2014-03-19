@@ -20,15 +20,11 @@ class ItemDeed extends Item with TItemBase {
 		true
 	}
 
-	override def onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer) = {
-		player.openGui(mod, ItemDeed.guiID, player.worldObj, 0, 0, 0)
-
-		stack
-	}
-
 	override def addInformation(stack: ItemStack, player: EntityPlayer, list: java.util.List[_], advanced: Boolean) {
 		val info = list.asInstanceOf[java.util.List[String]]
 		val nbt = ItemUtil.compound(stack)
+
+		info.add("Name: " + Util.checkNull(nbt.getString("name"), ""))
 
 		var first = nbt.getIntArray("first")
 
