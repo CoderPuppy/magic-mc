@@ -21,7 +21,7 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 		val thisPos = BlockPos(world, x, y, z)
 			.setMetadata((dir.facing << 1) | 1, 2)
 		val slavePos = thisPos.offset(dir.unrotated(Direction.Up))
-		if(slavePos.block == Blocks.air) {
+		if(slavePos.isReplaceable) {
 			slavePos
 				.setBlock(this)
 				.setMetadata(dir.facing << 1, 2)
@@ -32,7 +32,7 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 				player.inventory.addItemStackToInventory(stack)
 			} else {
 				// This might be buggy...
-				placer.entityDropItem(stack, 0.4)
+				placer.entityDropItem(stack, 0.4f)
 			}
 		}
 	}
