@@ -6,7 +6,7 @@ import cpup.mc.magic.content.Content
 
 trait TMagicMod extends CPupMod[TRef] {
 	def ref = Ref
-	final val content = Content
+	override def content = Content
 }
 
 @Mod(modid = Ref.modID, modLanguage = "scala")
