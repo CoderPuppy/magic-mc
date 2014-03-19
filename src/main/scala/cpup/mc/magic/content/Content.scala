@@ -43,6 +43,6 @@ object Content extends CPupContent[TMagicMod] {
 			'C', "cobblestone"
 		)
 
-		registerBlock(new BlockWritingDesk().setName("writingDesk").setCreativeTab(CreativeTabs.tabBlock).asInstanceOf[TBlockBase], classOf[ItemWritingDesk])
+		registerBlock(new BlockWritingDesk().setName("writingDesk").setCreativeTab(CreativeTabs.tabBlock).asInstanceOf[TBlockBase])
 	}
 }
