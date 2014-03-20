@@ -5,13 +5,14 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
 import cpup.mc.lib.util.ItemUtil
 import cpup.lib.Util
-import cpup.mc.magic.api.TWritableItem
+import cpup.mc.magic.api.{WritingType, TWritableItem}
 
 class ItemDeed extends Item with TItemBase with TWritableItem {
 	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("name"), "")
 	def writeRunes(stack: ItemStack, runes: String) {
 		ItemUtil.compound(stack).setString("name", runes)
 	}
+	def writingType = WritingType.Ink
 
 	override def getItemStackLimit(stack: ItemStack) = if(stack.getTagCompound == null) { 64 } else { 1 }
 
