@@ -51,6 +51,8 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 			.setMetadata((dir.facing << 1) | 1, 2)
 		val slavePos = pos.offset(dir.unrotated(Direction.Up))
 		if(slavePos.isReplaceable) {
+			pos.tileEntity = new TEWritingDesk
+
 			slavePos
 				.setBlock(this)
 				.setMetadata(dir.facing << 1, 2)
@@ -67,17 +69,19 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 	}
 
 	@Override
-	def createNewTileEntity(world: World, meta: Int) = new TEWritingDesk
+	def createNewTileEntity(world: World, meta: Int) = null
 
 	override def onBlockActivated(world: World, x: Int, y: Int, z: Int, player: EntityPlayer, side: Int, hitX : Float, hitY: Float, hitZ: Float) = {
 		super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ)
 		val pos = BlockPos(world, x, y, z)
+		val masterPos = getMaster(pos)
 
 		if(player.isSneaking) { false }
 		else {
-			val rawTE = pos.tileEntity
-			if(rawTE.isInstanceOf[TEWritingDesk]) {
-				mod.guis.open(player, pos, WritingDeskGUI)
+			val rawTE = masterPos.tileEntity
+			if(rawTE != null && rawTE.isInstanceOf[TEWritingDesk]) {
+				println(rawTE)
+				mod.guis.open(player, masterPos, WritingDeskGUI)
 			}
 
 			true
