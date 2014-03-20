@@ -60,6 +60,73 @@ class InvContainer(val player: EntityPlayer, val te: TEWritingDesk) extends Cont
 	@Override
 	def canInteractWith(player: EntityPlayer) = true
 
+	// mergeItemStack(stack, start, end, reverse)
+	override def mergeItemStack(stack: ItemStack, min: Int, max: Int, reverse: Boolean): Boolean = {
+		var flag1 = false
+		var i = min
+
+		if(reverse) {
+			i = max - 1
+		}
+
+		var slot: Slot = null
+		var stack1: ItemStack = null
+
+		if(stack.isStackable) {
+			while(stack.stackSize > 0 && (!reverse && i < max || reverse && i >= min)) {
+				slot = this.inventorySlots.get(i).asInstanceOf[Slot]
+				stack1 = slot.getStack
+				if(stack1 != null && stack1.getItem == stack.getItem && (!stack.getHasSubtypes || stack.getItemDamage == stack1.getItemDamage) && ItemStack.areItemStackTagsEqual(stack, stack1)) {
+					val l: Int = stack1.stackSize + stack.stackSize
+					if(l <= stack.getMaxStackSize) {
+						stack.stackSize = 0
+						stack1.stackSize = l
+						slot.onSlotChanged
+						flag1 = true
+					}
+					else if(stack1.stackSize < stack.getMaxStackSize) {
+						stack.stackSize -= stack.getMaxStackSize - stack1.stackSize
+						stack1.stackSize = stack.getMaxStackSize
+						slot.onSlotChanged
+						flag1 = true
+					}
+				}
+				if(reverse) {
+					i -= 1
+				}
+				else {
+					i += 1
+				}
+			}
+		}
+
+		if(stack.stackSize > 0) {
+			if(reverse) {
+				i = max - 1
+			} else {
+				i = min
+			}
+			while(stack1 != null && (!reverse && i < max || reverse && i >= min)) {
+				slot = this.inventorySlots.get(i).asInstanceOf[Slot]
+				stack1 = slot.getStack
+				if(stack1 == null && slot.isItemValid(stack)) {
+					slot.putStack(stack.copy)
+					slot.onSlotChanged
+					stack.stackSize = 0
+					flag1 = true
+				} else {
+					if(reverse) {
+						i -= 1
+					} else {
+						i += 1
+					}
+				}
+			}
+		}
+
+		return flag1
+	}
+
 	override def transferStackInSlot(player: EntityPlayer, slotID: Int): ItemStack = {
 		var stack: ItemStack = null
 		val slot = inventorySlots.get(slotID).asInstanceOf[Slot]
