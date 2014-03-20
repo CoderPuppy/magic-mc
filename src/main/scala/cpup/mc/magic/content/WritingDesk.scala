@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
 import cpup.mc.magic.client.gui.writingDesk.WritingDeskGUI
 import net.minecraft.inventory.IInventory
+import cpup.mc.magic.api.{WritingType, TWritableItem}
 
 class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlockContainer[TMagicMod] {
 	setHardness(1)
@@ -110,7 +111,12 @@ class WritingDeskInventory(te: TileEntity) extends IInventory {
 		te.markDirty
 	}
 
-	def isItemValidForSlot(slot: Int, stack: ItemStack) = true // TODO: limit slots
+	def isItemValidForSlot(slot: Int, stack: ItemStack) = if(stack == null) { true } else slot match {
+		case 0 => stack.getItem == mod.content.items("quill")
+		case 1 => stack.getItem == mod.content.items("inkWell")
+		case 2 => stack.getItem.isInstanceOf[TWritableItem] && stack.getItem.asInstanceOf[TWritableItem].writingType == WritingType.Ink
+		case _ => false
+	}
 
 	def setInventorySlotContents(slot: Int, stack: ItemStack) {
 		inv(slot) = stack
