@@ -98,7 +98,7 @@ class WritingDeskInventory(te: TileEntity) extends IInventory {
 
 	protected var inv = Array.fill[ItemStack](3) {null}
 
-	def getInventoryName = "container." + mod.ref.modID + ":writingDesk"
+	def getInventoryName = "container." + mod.ref.modID + ":writingDesk.name"
 	def getInventoryStackLimit = 64
 	def getSizeInventory = inv.size
 	def hasCustomInventoryName = false

@@ -1,2 +1,4 @@
 tile.magic:deedOffice.name=Deed Office
 item.magic:deed.name=Deed
+container.magic:writingDesk.name=Writing Desk
+tile.magic:writingDesk.name=Writing Desk
