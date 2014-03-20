@@ -10,6 +10,7 @@ import org.lwjgl.opengl.GL11
 import net.minecraft.util.ResourceLocation
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
+import cpup.mc.lib.client.BetterSlot
 
 object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 	def name = "writingDesk"
@@ -41,19 +42,19 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 }
 
 class InvContainer(val player: EntityPlayer, val te: TEWritingDesk) extends Container {
-	addSlotToContainer(new Slot(te.inv, 0, 8, 18))
-	addSlotToContainer(new Slot(te.inv, 1, 8, 36))
-	addSlotToContainer(new Slot(te.inv, 2, 151, 27))
+	addSlotToContainer(new BetterSlot(te.inv, 0, 8, 18))
+	addSlotToContainer(new BetterSlot(te.inv, 1, 8, 36))
+	addSlotToContainer(new BetterSlot(te.inv, 2, 151, 27))
 
 	for {
 		x <- 0 to 8
 		y <- 0 to 2
 	} {
-		addSlotToContainer(new Slot(player.inventory, x + y * 9 + 9, 8 + x * 18, WritingDeskGUI.playerOffset + 12 + y * 18))
+		addSlotToContainer(new BetterSlot(player.inventory, x + y * 9 + 9, 8 + x * 18, WritingDeskGUI.playerOffset + 12 + y * 18))
 	}
 
 	for(x <- 0 to 8) {
-		addSlotToContainer(new Slot(player.inventory, x, 8 + x * 18, WritingDeskGUI.playerOffset + 16 + (18 * 3)))
+		addSlotToContainer(new BetterSlot(player.inventory, x, 8 + x * 18, WritingDeskGUI.playerOffset + 16 + (18 * 3)))
 	}
 
 	@Override
