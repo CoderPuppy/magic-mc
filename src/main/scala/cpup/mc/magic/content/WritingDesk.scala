@@ -2,7 +2,7 @@ package cpup.mc.magic.content
 
 import net.minecraft.block.Block
 import cpup.mc.lib.content.{CPupTE, CPupBlockContainer}
-import cpup.mc.magic.TMagicMod
+import cpup.mc.magic.{MagicMod, TMagicMod}
 import net.minecraft.world.World
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemStack
@@ -13,6 +13,7 @@ import net.minecraft.init.Blocks
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
 import cpup.mc.magic.client.gui.writingDesk.WritingDeskGUI
+import net.minecraft.inventory.IInventory
 
 class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlockContainer[TMagicMod] {
 	setHardness(1)
@@ -89,5 +90,68 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 }
 
 class TEWritingDesk extends TileEntity with CPupTE {
+	val inv = new WritingDeskInventory(this)
+}
 
+class WritingDeskInventory(te: TileEntity) extends IInventory {
+	def mod = MagicMod
+
+	protected var inv = Array.fill[ItemStack](3) {null}
+
+	def getInventoryName = "container." + mod.ref.modID + ":writingDesk"
+	def getInventoryStackLimit = 64
+	def getSizeInventory = inv.size
+	def hasCustomInventoryName = false
+	def isUseableByPlayer(player: EntityPlayer) = true
+
+	def markDirty {
+		te.markDirty
+	}
+
+	def isItemValidForSlot(slot: Int, stack: ItemStack) = true // TODO: limit slots
+
+	def setInventorySlotContents(slot: Int, stack: ItemStack) {
+		inv(slot) = stack
+
+		if(stack != null && stack.stackSize > getInventoryStackLimit) {
+			stack.stackSize = getInventoryStackLimit
+		}
+
+		markDirty
+	}
+	def getStackInSlot(slot: Int) = inv(slot)
+	def getStackInSlotOnClosing(slot: Int) = {
+		if(inv(slot) == null) { null }
+		else {
+			val stack = inv(slot)
+			inv(slot) = null
+			stack
+		}
+	}
+
+	def decrStackSize(slot: Int, amt: Int) = {
+		if(inv(slot) != null) {
+			var stack: ItemStack = null
+			if(inv(slot).stackSize <= amt) {
+				stack = inv(slot)
+				inv(slot) = null
+				markDirty
+				stack
+			}
+			else {
+				stack = inv(slot).splitStack(amt)
+				if(inv(slot).stackSize == 0) {
+					inv(slot) = null
+				}
+				markDirty
+				stack
+			}
+		} else {
+			null
+		}
+
+	}
+
+	def openInventory {}
+	def closeInventory {}
 }
