@@ -12,11 +12,10 @@ import net.minecraft.util.ResourceLocation
 object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 	def name = "writingDesk"
 	def clientGUI(player: EntityPlayer, pos: BlockPos) = new ClientGUI(container(player, pos))
-	def container(player: EntityPlayer, pos: BlockPos) = {
-		val te = pos.tileEntity
-		if(te.isInstanceOf[TEWritingDesk]) {
-			new InvContainer(te.asInstanceOf[TEWritingDesk])
-		} else { null }
+	def container(player: EntityPlayer, pos: BlockPos) = pos.tileEntity match {
+		case desk: TEWritingDesk =>
+			new InvContainer(desk)
+		case _ => null
 	}
 
 	final val background = new ResourceLocation(mod.ref.modID + ":textures/gui/writingDesk.png")
