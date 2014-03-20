@@ -61,7 +61,9 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 			pos.setBlock(Blocks.air)
 			if(placer.isInstanceOf[EntityPlayer]) {
 				val player = placer.asInstanceOf[EntityPlayer]
-				player.inventory.addItemStackToInventory(stack)
+				val newStack = stack.copy
+				newStack.stackSize = 1
+				player.inventory.addItemStackToInventory(newStack)
 			} else {
 				// This might be buggy...
 				placer.entityDropItem(stack, 0.4f)
