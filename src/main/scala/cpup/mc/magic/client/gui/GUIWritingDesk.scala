@@ -49,11 +49,11 @@ class InvContainer(val player: EntityPlayer, val te: TEWritingDesk) extends Cont
 		x <- 0 to 8
 		y <- 0 to 2
 	} {
-		addSlotToContainer(new Slot(player.inventory, x + y * 9 + 9, 8 + x * 18, WritingDeskGUI.playerOffset + y * 18))
+		addSlotToContainer(new Slot(player.inventory, x + y * 9 + 9, 8 + x * 18, WritingDeskGUI.playerOffset + 12 + y * 18))
 	}
 
 	for(x <- 0 to 8) {
-		addSlotToContainer(new Slot(player.inventory, x, 8 + x * 18, WritingDeskGUI.playerOffset + 4 + (18 * 3)))
+		addSlotToContainer(new Slot(player.inventory, x, 8 + x * 18, WritingDeskGUI.playerOffset + 16 + (18 * 3)))
 	}
 
 	@Override
