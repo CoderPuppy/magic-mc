@@ -9,6 +9,7 @@ import cpup.mc.lib.util.pos.BlockPos
 import org.lwjgl.opengl.GL11
 import net.minecraft.util.ResourceLocation
 import net.minecraft.client.resources.I18n
+import net.minecraft.item.ItemStack
 
 object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 	def name = "writingDesk"
@@ -57,4 +58,27 @@ class InvContainer(val player: EntityPlayer, val te: TEWritingDesk) extends Cont
 
 	@Override
 	def canInteractWith(player: EntityPlayer) = true
+
+	override def transferStackInSlot(player: EntityPlayer, slotID: Int): ItemStack = {
+		var stack: ItemStack = null
+		val slot = inventorySlots.get(slotID).asInstanceOf[Slot]
+		if(slot != null && slot.getHasStack) {
+			val stack1 = slot.getStack
+			stack = stack1.copy
+			if(slotID < 2) {
+				if(!mergeItemStack(stack1, 2, inventorySlots.size, true)) {
+					return null
+				}
+			} else if(!mergeItemStack(stack1, 0, 2, false)) {
+				return null
+			}
+			if(stack1.stackSize == 0) {
+				slot.putStack(null)
+			}
+			else {
+				slot.onSlotChanged
+			}
+		}
+		return stack
+	}
 }
