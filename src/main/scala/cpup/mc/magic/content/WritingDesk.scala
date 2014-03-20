@@ -80,7 +80,6 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 		else {
 			val rawTE = masterPos.tileEntity
 			if(rawTE != null && rawTE.isInstanceOf[TEWritingDesk]) {
-				println(rawTE)
 				mod.guis.open(player, masterPos, WritingDeskGUI)
 			}
 
