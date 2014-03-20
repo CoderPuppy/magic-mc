@@ -1,7 +1,7 @@
 package cpup.mc.magic.content
 
 import net.minecraft.block.Block
-import cpup.mc.lib.content.CPupBlockContainer
+import cpup.mc.lib.content.{CPupTE, CPupBlockContainer}
 import cpup.mc.magic.TMagicMod
 import net.minecraft.world.World
 import net.minecraft.entity.EntityLivingBase
@@ -11,6 +11,7 @@ import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.block.material.Material
 import net.minecraft.init.Blocks
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.tileentity.TileEntity
 
 class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlockContainer[TMagicMod] {
 	setHardness(1)
@@ -63,4 +64,8 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 			}
 		}
 	}
+}
+
+class TEWritingDesk extends TileEntity with CPupTE {
+
 }
