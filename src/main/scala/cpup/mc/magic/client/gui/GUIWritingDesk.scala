@@ -65,11 +65,11 @@ class InvContainer(val player: EntityPlayer, val te: TEWritingDesk) extends Cont
 		if(slot != null && slot.getHasStack) {
 			val stack1 = slot.getStack
 			stack = stack1.copy
-			if(slotID < 2) {
-				if(!mergeItemStack(stack1, 2, inventorySlots.size, true)) {
+			if(slotID < te.inv.getSizeInventory) {
+				if(!mergeItemStack(stack1, te.inv.getSizeInventory, inventorySlots.size, true)) {
 					return null
 				}
-			} else if(!mergeItemStack(stack1, 0, 2, false)) {
+			} else if(!mergeItemStack(stack1, 0, te.inv.getSizeInventory, false)) {
 				return null
 			}
 			if(stack1.stackSize == 0) {
