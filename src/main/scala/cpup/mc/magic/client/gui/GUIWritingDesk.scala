@@ -42,6 +42,7 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 class InvContainer(val player: EntityPlayer, val te: TEWritingDesk) extends Container {
 	addSlotToContainer(new Slot(te.inv, 0, 8, 18))
 	addSlotToContainer(new Slot(te.inv, 1, 8, 36))
+	addSlotToContainer(new Slot(te.inv, 1, 8 + 18 * 8, 27))
 
 	for {
 		x <- 0 to 8
