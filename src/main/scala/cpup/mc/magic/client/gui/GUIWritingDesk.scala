@@ -19,7 +19,7 @@ object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 		} else { null }
 	}
 
-	final val background = new ResourceLocation(mod.ref.modID + ":textures/gui/writingDesk")
+	final val background = new ResourceLocation(mod.ref.modID + ":textures/gui/writingDesk.png")
 }
 
 class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
