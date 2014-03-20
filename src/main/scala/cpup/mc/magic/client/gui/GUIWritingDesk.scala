@@ -40,7 +40,7 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 
 class InvContainer(val player: EntityPlayer, val te: TEWritingDesk) extends Container {
 	addSlotToContainer(new Slot(te.inv, 0, 8, 18))
-	addSlotToContainer(new Slot(te.inv, 1, 26, 36))
+	addSlotToContainer(new Slot(te.inv, 1, 8, 36))
 
 	for {
 		x <- 0 to 8
@@ -50,10 +50,10 @@ class InvContainer(val player: EntityPlayer, val te: TEWritingDesk) extends Cont
 	}
 
 	for(x <- 0 to 8) {
-		addSlotToContainer(new Slot(player.inventory, x, 8 + x * 18, playerOffset + (18 * 3)))
+		addSlotToContainer(new Slot(player.inventory, x, 8 + x * 18, playerOffset + 4 + (18 * 3)))
 	}
 
-	def playerOffset = 75
+	def playerOffset = 68
 
 	@Override
 	def canInteractWith(player: EntityPlayer) = true
