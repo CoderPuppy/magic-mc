@@ -6,8 +6,10 @@ import cpup.mc.magic.content.TEWritingDesk
 import cpup.mc.magic.client.gui.GUIBase
 import net.minecraft.entity.player.EntityPlayer
 import cpup.mc.lib.util.pos.BlockPos
+import org.lwjgl.opengl.GL11
+import net.minecraft.util.ResourceLocation
 
-object GUI extends GUIBase[ClientGUI, InvContainer] {
+object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 	def name = "writingDesk"
 	def clientGUI(player: EntityPlayer, pos: BlockPos) = new ClientGUI(container(player, pos))
 	def container(player: EntityPlayer, pos: BlockPos) = {
@@ -16,12 +18,18 @@ object GUI extends GUIBase[ClientGUI, InvContainer] {
 			new InvContainer(te.asInstanceOf[TEWritingDesk])
 		} else { null }
 	}
+
+	final val background = new ResourceLocation(mod.ref.modID + ":textures/gui/writingDesk")
 }
 
 class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 	@Override
-	def drawGuiContainerBackgroundLayer(par1: Float, par2: Int, par3: Int) {
-
+	def drawGuiContainerBackgroundLayer(partialTicks: Float, width: Int, height: Int) {
+		GL11.glColor4f(1, 1, 1, 1)
+		mc.renderEngine.bindTexture(WritingDeskGUI.background)
+		val x = (width - xSize) / 2
+		val y = (height - ySize) / 2
+		drawTexturedModalRect(x, y, 0, 0, xSize, ySize)
 	}
 }
 

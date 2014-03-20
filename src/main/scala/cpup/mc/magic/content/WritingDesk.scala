@@ -12,6 +12,7 @@ import net.minecraft.block.material.Material
 import net.minecraft.init.Blocks
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
+import cpup.mc.magic.client.gui.writingDesk.WritingDeskGUI
 
 class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlockContainer[TMagicMod] {
 	setHardness(1)
@@ -62,6 +63,24 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 				// This might be buggy...
 				placer.entityDropItem(stack, 0.4f)
 			}
+		}
+	}
+
+	@Override
+	def createNewTileEntity(world: World, meta: Int) = new TEWritingDesk
+
+	override def onBlockActivated(world: World, x: Int, y: Int, z: Int, player: EntityPlayer, side: Int, hitX : Float, hitY: Float, hitZ: Float) = {
+		super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ)
+		val pos = BlockPos(world, x, y, z)
+
+		if(player.isSneaking) { false }
+		else {
+			val rawTE = pos.tileEntity
+			if(rawTE.isInstanceOf[TEWritingDesk]) {
+				mod.guis.open(player, pos, WritingDeskGUI)
+			}
+
+			true
 		}
 	}
 }

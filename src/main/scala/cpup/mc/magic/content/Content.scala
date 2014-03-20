@@ -6,6 +6,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import net.minecraft.init.{Blocks, Items}
+import cpw.mods.fml.common.registry.GameRegistry
 
 object Content extends CPupContent[TMagicMod] {
 	def mod = MagicMod
@@ -44,5 +45,6 @@ object Content extends CPupContent[TMagicMod] {
 		)
 
 		registerBlock(new BlockWritingDesk().setName("writingDesk").setCreativeTab(CreativeTabs.tabBlock).asInstanceOf[TBlockBase])
+		GameRegistry.registerTileEntity(classOf[TEWritingDesk], "writingDesk")
 	}
 }
