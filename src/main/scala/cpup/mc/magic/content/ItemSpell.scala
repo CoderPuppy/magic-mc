@@ -6,6 +6,7 @@ import java.util
 import cpup.mc.magic.api.impl.{InvalidTransformException, ContextFactory, Parser}
 import cpup.lib.Util
 import cpup.mc.lib.util.ItemUtil
+import net.minecraft.world.World
 
 class ItemSpell extends ItemBase {
 	override def addInformation(stack: ItemStack, player: EntityPlayer, _lore: util.List[_], par4: Boolean) {
@@ -25,5 +26,10 @@ class ItemSpell extends ItemBase {
 				println(e.getMessage)
 			}
 		}
+	}
+
+	override def onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer) = {
+		mod.proxy.activateSpellCasting(stack)
+		stack
 	}
 }
