@@ -110,7 +110,6 @@ class InvContainer(val player: EntityPlayer, val te: TEWritingDesk) extends Cont
 			Breaks.breakable { while(!reverse && i < max || reverse && i >= min) {
 				slot = this.inventorySlots.get(i).asInstanceOf[Slot]
 				stack1 = slot.getStack
-				println(i, slot, stack1, stack, slot.isItemValid(stack))
 				if(stack1 == null && slot.isItemValid(stack)) {
 					slot.putStack(stack.copy)
 					slot.onSlotChanged
