@@ -4,6 +4,7 @@ import cpw.mods.fml.common.FMLCommonHandler
 import net.minecraftforge.common.MinecraftForge
 import cpup.mc.lib.CPupCommonProxy
 import net.minecraft.item.ItemStack
+import net.minecraft.entity.player.EntityPlayer
 
 class CommonProxy extends CPupCommonProxy[TMagicMod] {
 	def mod = MagicMod
@@ -14,6 +15,6 @@ class CommonProxy extends CPupCommonProxy[TMagicMod] {
 		MinecraftForge.EVENT_BUS.register(commonEvents)
 	}
 
-	def activateSpellCasting(stack: ItemStack) {}
-	def stopSpellCasting {}
+	def activateSpellCasting(player: EntityPlayer, stack: ItemStack) {}
+	def stopSpellCasting(player: EntityPlayer) {}
 }

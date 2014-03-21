@@ -29,6 +29,7 @@ class ClientEvents(val proxy: ClientProxy) {
 					case cat: Category =>
 						proxy.category = cat
 					case runeOpt: RuneOption =>
+						proxy.spell ++= List(runeOpt.text)
 						println("adding", runeOpt.text)
 					case _ => {
 						println("unknown")
@@ -43,7 +44,8 @@ class ClientEvents(val proxy: ClientProxy) {
 					proxy.category = proxy.category.parent
 				}
 			} else if(key == Keyboard.KEY_F) {
-				proxy.stopSpellCasting
+				println("casting: " + proxy.spell.mkString(" "))
+				proxy.stopSpellCasting(mc.thePlayer)
 			}
 
 			KeyBinding.unPressAllKeys
