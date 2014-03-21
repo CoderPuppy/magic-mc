@@ -37,5 +37,7 @@ class Category(val name: String) extends SelectionOption {
 		this
 	}
 
-	def apply(index: Int) = options(index + scroll * 6)
+	def apply(index: Int) = if(index + scroll * 6 < options.size) {
+		options(index + scroll * 6)
+	} else { null }
 }
