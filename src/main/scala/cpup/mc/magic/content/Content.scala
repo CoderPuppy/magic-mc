@@ -47,8 +47,8 @@ object Content extends CPupContent[TMagicMod] {
 		registerBlock(new BlockWritingDesk().setName("writingDesk").setCreativeTab(CreativeTabs.tabBlock).asInstanceOf[TBlockBase])
 		GameRegistry.registerTileEntity(classOf[TEWritingDesk], "writingDesk")
 
-		registerItem(new ItemBase().setName("quill").setMaxDamage(500).asInstanceOf[TItemBase])
-		registerItem(new ItemBase().setName("inkWell").setMaxDamage(200).asInstanceOf[TItemBase])
+		registerItem(new ItemBase().setName("quill").setMaxDamage(500).setMaxStackSize(1).asInstanceOf[TItemBase])
+		registerItem(new ItemBase().setName("inkWell").setMaxDamage(200).setMaxStackSize(1).asInstanceOf[TItemBase])
 
 		addShapelessRecipe(
 			new ItemStack(items("inkWell")),
