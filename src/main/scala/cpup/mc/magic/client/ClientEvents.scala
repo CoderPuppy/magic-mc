@@ -9,6 +9,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase
 import net.minecraft.client.Minecraft
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import cpup.mc.magic.client.runeSelection.{Category, RuneOption}
+import org.lwjgl.opengl.GL11
 
 class ClientEvents(val proxy: ClientProxy) {
 	val mc = Minecraft.getMinecraft
@@ -53,6 +54,8 @@ class ClientEvents(val proxy: ClientProxy) {
 	@SubscribeEvent
 	def renderOptions(e: RenderGameOverlayEvent) {
 		if(proxy.category != null && !e.isCancelable && e.`type` == RenderGameOverlayEvent.ElementType.HOTBAR) {
+			GL11.glColor4f(1, 1, 1, 1)
+			GL11.glDisable(GL11.GL_LIGHTING)
 			for(i <- 0 to 5) {
 				val option = proxy.category(i)
 				mc.fontRenderer.drawString(option match {
