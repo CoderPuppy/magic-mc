@@ -22,8 +22,8 @@ class ClientEvents(val proxy: ClientProxy) {
 			val key = Keyboard.getEventKey
 			println(Keyboard.getKeyName(key))
 
-			if(key >= Keyboard.KEY_Q && key <= Keyboard.KEY_Y) {
-				val index = key - Keyboard.KEY_Q
+			if(key >= Keyboard.KEY_1 && key <= Keyboard.KEY_6) {
+				val index = key - Keyboard.KEY_1
 				val option = proxy.category(index)
 				option match {
 					case cat: Category =>
@@ -34,18 +34,26 @@ class ClientEvents(val proxy: ClientProxy) {
 						println("unknown")
 					}
 				}
-			} else if(key == Keyboard.KEY_A) {
+			} else if(key == Keyboard.KEY_Q) {
 				proxy.category.scrollUp
-			} else if(key == Keyboard.KEY_D) {
+			} else if(key == Keyboard.KEY_E) {
 				proxy.category.scrollDown
-			} else if(key == Keyboard.KEY_S) {
+			} else if(key == Keyboard.KEY_R) {
 				if(proxy.category.parent != null) {
 					proxy.category = proxy.category.parent
 				}
 			} else if(key == Keyboard.KEY_F) {
 				proxy.stopSpellCasting
 			}
+
 			KeyBinding.unPressAllKeys
+
+			// TODO: Only do this if the player has unlocked some upgrade
+			KeyBinding.onTick(Keyboard.KEY_W)
+			KeyBinding.onTick(Keyboard.KEY_A)
+			KeyBinding.onTick(Keyboard.KEY_S)
+			KeyBinding.onTick(Keyboard.KEY_D)
+			KeyBinding.onTick(Keyboard.KEY_SPACE)
 		}
 	}
 
