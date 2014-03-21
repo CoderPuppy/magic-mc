@@ -10,14 +10,19 @@ import net.minecraft.client.Minecraft
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import cpup.mc.magic.client.runeSelection.{Category, RuneOption}
 import org.lwjgl.opengl.GL11
+import scala.collection.mutable
 
 class ClientEvents(val proxy: ClientProxy) {
 	val mc = Minecraft.getMinecraft
 
 	def mod = MagicMod
 
+	val keys = new mutable.HashMap[Int, Boolean]()
+
 	@SubscribeEvent
 	def handleKeyboardInput(e: InputEvent.KeyInputEvent) {
+		keys(Keyboard.getEventKey) = Keyboard.getEventKeyState
+
 		if(proxy.category != null && mc.theWorld != null) {
 			val key = Keyboard.getEventKey
 			println(Keyboard.getKeyName(key))
@@ -51,12 +56,17 @@ class ClientEvents(val proxy: ClientProxy) {
 			KeyBinding.unPressAllKeys
 
 			// TODO: Only do this if the player has unlocked some upgrade
-			KeyBinding.onTick(Keyboard.KEY_W)
-			KeyBinding.onTick(Keyboard.KEY_A)
-			KeyBinding.onTick(Keyboard.KEY_S)
-			KeyBinding.onTick(Keyboard.KEY_D)
-			KeyBinding.onTick(Keyboard.KEY_SPACE)
+			update(Keyboard.KEY_W)
+			update(Keyboard.KEY_A)
+			update(Keyboard.KEY_S)
+			update(Keyboard.KEY_D)
+			update(Keyboard.KEY_SPACE)
 		}
+	}
+
+	def update(key: Int) {
+		KeyBinding.onTick(key)
+		KeyBinding.setKeyBindState(key, keys.getOrElse(key, false))
 	}
 
 	@SubscribeEvent
