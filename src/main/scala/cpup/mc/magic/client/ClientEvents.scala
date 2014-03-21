@@ -65,7 +65,7 @@ class ClientEvents(val proxy: ClientProxy) {
 	}
 
 	def update(key: Int) {
-		KeyBinding.onTick(key)
+		if(keys.getOrElse(key, false)) KeyBinding.onTick(key)
 		KeyBinding.setKeyBindState(key, keys.getOrElse(key, false))
 	}
 
@@ -76,6 +76,13 @@ class ClientEvents(val proxy: ClientProxy) {
 				//				println(mc.thePlayer.inventory.getCurrentItem, proxy.castingItem)
 				//				proxy.stopSpellCasting
 			}
+		}
+	}
+
+	@SubscribeEvent
+	def clearKeys(e: TickEvent.ClientTickEvent) {
+		if(e.phase == Phase.END && mc.theWorld != null) {
+			keys.clear
 		}
 	}
 
