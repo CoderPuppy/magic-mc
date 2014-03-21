@@ -35,8 +35,6 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 	var category = RootCategory.create
 
 	override def keyTyped(char: Char, key: Int): Unit = {
-		super.keyTyped(char, key)
-
 		if(key >= Keyboard.KEY_Q && key <= Keyboard.KEY_Y) {
 			val index = key - Keyboard.KEY_Q
 			category(index) match {
@@ -53,6 +51,8 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 			if(category.parent != null) {
 				category = category.parent
 			}
+		} else {
+			super.keyTyped(char, key)
 		}
 	}
 
