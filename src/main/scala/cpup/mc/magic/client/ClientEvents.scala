@@ -18,42 +18,50 @@ class ClientEvents(val proxy: ClientProxy) {
 
 	@SubscribeEvent
 	def handleKeyboardInput(e: InputEvent.KeyInputEvent) {
-		if(proxy.category != null) {
+		if(proxy.category != null && mc.theWorld != null) {
 			val key = Keyboard.getEventKey
-			println(key)
-			if(
-				if(key >= Keyboard.KEY_Q && key <= Keyboard.KEY_Y) {
-					true
-				} else if(key == Keyboard.KEY_A) {
-					proxy.category.scrollUp
-					true
-				} else if(key == Keyboard.KEY_D) {
-					proxy.category.scrollDown
-					true
-				} else if(key == Keyboard.KEY_S) {
-					if(proxy.category.parent != null) {
-						proxy.category = proxy.category.parent
+			println(Keyboard.getKeyName(key))
+
+			if(key >= Keyboard.KEY_Q && key <= Keyboard.KEY_Y) {
+				val index = key - Keyboard.KEY_Q
+				val option = proxy.category(index)
+				option match {
+					case cat: Category =>
+						proxy.category = cat
+					case runeOpt: RuneOption =>
+						println("adding", runeOpt.text)
+					case _ => {
+						println("unknown")
 					}
-					true
-				} else { false }
-			) {
-				KeyBinding.setKeyBindState(key, false)
+				}
+			} else if(key == Keyboard.KEY_A) {
+				proxy.category.scrollUp
+			} else if(key == Keyboard.KEY_D) {
+				proxy.category.scrollDown
+			} else if(key == Keyboard.KEY_S) {
+				if(proxy.category.parent != null) {
+					proxy.category = proxy.category.parent
+				}
+			} else if(key == Keyboard.KEY_F) {
+				proxy.stopSpellCasting
 			}
+			KeyBinding.unPressAllKeys
 		}
 	}
 
 	@SubscribeEvent
 	def checkCastingItem(e: TickEvent.ClientTickEvent) {
-		if(e.phase == Phase.END && proxy.category != null && proxy.castingItem != null) {
+		if(e.phase == Phase.END && mc.theWorld != null && proxy.category != null && proxy.castingItem != null) {
 			if(mc.thePlayer.inventory.getCurrentItem != proxy.castingItem) {
-				proxy.stopSpellCasting
+				//				println(mc.thePlayer.inventory.getCurrentItem, proxy.castingItem)
+				//				proxy.stopSpellCasting
 			}
 		}
 	}
 
 	@SubscribeEvent
 	def renderOptions(e: RenderGameOverlayEvent) {
-		if(proxy.category != null && !e.isCancelable && e.`type` == RenderGameOverlayEvent.ElementType.HOTBAR) {
+		if(proxy.category != null && mc.theWorld != null && !e.isCancelable && e.`type` == RenderGameOverlayEvent.ElementType.HOTBAR) {
 			GL11.glColor4f(1, 1, 1, 1)
 			GL11.glDisable(GL11.GL_LIGHTING)
 			for(i <- 0 to 5) {
