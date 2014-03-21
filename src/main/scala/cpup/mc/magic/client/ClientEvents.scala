@@ -17,12 +17,19 @@ class ClientEvents(val proxy: ClientProxy) {
 
 	def mod = MagicMod
 
-	val keys = new mutable.HashMap[Int, Boolean]()
+	val keysDown = new mutable.HashMap[Int, Boolean]()
+	var firstEvent = true
+	val allowedKeys = List(
+		mc.gameSettings.keyBindForward,
+		mc.gameSettings.keyBindLeft,
+		mc.gameSettings.keyBindBack,
+		mc.gameSettings.keyBindRight,
+		mc.gameSettings.keyBindJump,
+		mc.gameSettings.keyBindSneak
+	).map(_.getKeyCode)
 
 	@SubscribeEvent
 	def handleKeyboardInput(e: InputEvent.KeyInputEvent) {
-		keys(Keyboard.getEventKey) = Keyboard.getEventKeyState
-
 		if(proxy.category != null && mc.theWorld != null) {
 			val key = Keyboard.getEventKey
 			println(Keyboard.getKeyName(key))
@@ -53,20 +60,23 @@ class ClientEvents(val proxy: ClientProxy) {
 				proxy.stopSpellCasting(mc.thePlayer)
 			}
 
+			if(firstEvent) {
+				firstEvent = false
+
+				for(key <- allowedKeys) {
+					val binding = KeyBinding.getKeybinds.toArray.asInstanceOf[Array[KeyBinding]].find(_.getKeyCode == key)
+					if(binding.isDefined) {
+						keysDown(key) = binding.get.getIsKeyPressed
+					}
+				}
+			}
+
 			KeyBinding.unPressAllKeys
 
-			// TODO: Only do this if the player has unlocked some upgrade
-			update(Keyboard.KEY_W)
-			update(Keyboard.KEY_A)
-			update(Keyboard.KEY_S)
-			update(Keyboard.KEY_D)
-			update(Keyboard.KEY_SPACE)
+			for((key, isDown) <- keysDown) {
+				KeyBinding.setKeyBindState(key, isDown)
+			}
 		}
-	}
-
-	def update(key: Int) {
-		if(keys.getOrElse(key, false)) KeyBinding.onTick(key)
-		KeyBinding.setKeyBindState(key, keys.getOrElse(key, false))
 	}
 
 	@SubscribeEvent
@@ -80,9 +90,10 @@ class ClientEvents(val proxy: ClientProxy) {
 	}
 
 	@SubscribeEvent
-	def clearKeys(e: TickEvent.ClientTickEvent) {
+	def resetKeys(e: TickEvent.ClientTickEvent) {
 		if(e.phase == Phase.END && mc.theWorld != null) {
-			keys.clear
+			firstEvent = true
+			keysDown.clear
 		}
 	}
 
