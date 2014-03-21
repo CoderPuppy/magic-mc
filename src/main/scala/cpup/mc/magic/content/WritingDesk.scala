@@ -15,6 +15,12 @@ import net.minecraft.tileentity.TileEntity
 import cpup.mc.magic.client.gui.writingDesk.WritingDeskGUI
 import net.minecraft.inventory.IInventory
 import cpup.mc.magic.api.{WritingType, TWritableItem}
+import net.minecraft.nbt.{NBTTagList, NBTTagCompound}
+import cpup.mc.lib.network.BlockMessage
+import cpup.mc.magic.network.Message
+import io.netty.channel.ChannelHandlerContext
+import io.netty.buffer.ByteBuf
+import cpw.mods.fml.common.network.ByteBufUtils
 
 class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlockContainer[TMagicMod] {
 	setHardness(1)
@@ -90,16 +96,66 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 			true
 		}
 	}
+
+	override def handleMessage(rawMsg: BlockMessage[TMagicMod]) {
+		rawMsg match {
+			case WritingDeskMessage(pos: BlockPos, rune: String) => {
+				val rawTE = pos.tileEntity
+				if(rawTE.isInstanceOf[TEWritingDesk]) {
+					val te = rawTE.asInstanceOf[TEWritingDesk]
+					val stack = te.inv.getStackInSlot(3)
+					val item = stack.getItem.asInstanceOf[TWritableItem]
+					item.writeRunes(stack, item.readRunes(stack) ++ Array(rune))
+				}
+			}
+			case _ => super.handleMessage(rawMsg)
+		}
+	}
 }
 
 class TEWritingDesk extends TileEntity with CPupTE {
 	val inv = new WritingDeskInventory(this)
+
+	override def writeToNBT(nbt: NBTTagCompound) {
+		super.writeToNBT(nbt)
+		nbt.setTag("Items", inv.serialize)
+	}
+
+	override def readFromNBT(nbt: NBTTagCompound) {
+		super.readFromNBT(nbt)
+		inv.unserialize(nbt.getTagList("Items", 10))
+	}
 }
 
 class WritingDeskInventory(te: TileEntity) extends IInventory {
 	def mod = MagicMod
 
 	protected var inv = Array.fill[ItemStack](3) {null}
+
+	def serialize = {
+		val items = new NBTTagList
+
+		for((stack, i) <- inv.zipWithIndex) {
+			if(stack != null) {
+				val nbt = new NBTTagCompound
+				nbt.setByte("Slot", i.toByte)
+				stack.writeToNBT(nbt)
+				items.appendTag(nbt)
+			}
+		}
+
+		items
+	}
+
+	def unserialize(items: NBTTagList) {
+		for(i <- 0 to items.tagCount - 1) {
+			val nbt = items.getCompoundTagAt(i)
+			val slot = nbt.getByte("Slot")
+			if(slot >= 0 && slot < inv.length) {
+				inv(slot) = ItemStack.loadItemStackFromNBT(nbt)
+			}
+		}
+	}
 
 	def getInventoryName = "container." + mod.ref.modID + ":writingDesk.name"
 	def getInventoryStackLimit = 64
@@ -162,4 +218,26 @@ class WritingDeskInventory(te: TileEntity) extends IInventory {
 
 	def openInventory {}
 	def closeInventory {}
+}
+
+case class WritingDeskMessage(pos: BlockPos, val rune: String) extends Message with BlockMessage[TMagicMod] {
+	val x = pos.x
+	val y = pos.y
+	val z = pos.z
+
+	def this(ctx: ChannelHandlerContext, buf: ByteBuf, player: EntityPlayer) {
+		this(BlockPos(
+			player.worldObj,
+			buf.readInt,
+			buf.readInt,
+			buf.readInt
+		), ByteBufUtils.readUTF8String(buf))
+	}
+
+	def writeTo(ctx: ChannelHandlerContext, buf: ByteBuf) {
+		buf.writeInt(x)
+		buf.writeInt(y)
+		buf.writeInt(z)
+		ByteBufUtils.writeUTF8String(buf, rune)
+	}
 }

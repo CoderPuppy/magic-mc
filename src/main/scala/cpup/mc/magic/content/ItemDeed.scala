@@ -8,9 +8,9 @@ import cpup.lib.Util
 import cpup.mc.magic.api.{WritingType, TWritableItem}
 
 class ItemDeed extends Item with TItemBase with TWritableItem {
-	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("name"), "")
-	def writeRunes(stack: ItemStack, runes: String) {
-		ItemUtil.compound(stack).setString("name", runes)
+	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("name"), "").split(' ')
+	def writeRunes(stack: ItemStack, runes: Seq[String]) {
+		ItemUtil.compound(stack).setString("name", runes.mkString(" "))
 	}
 	def writingType = WritingType.Ink
 

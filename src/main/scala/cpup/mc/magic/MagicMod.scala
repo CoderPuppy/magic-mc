@@ -11,23 +11,27 @@ import net.minecraft.inventory.Container
 import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent}
 import cpw.mods.fml.common.Mod.EventHandler
 import cpup.mc.magic.client.gui.writingDesk.WritingDeskGUI
+import cpup.mc.magic.network.Network
 
-trait TMagicMod extends CPupMod[TRef, CPupMessage] {
+trait TMagicMod extends CPupMod[TRef] {
 	def ref = Ref
 	override def content = Content
 	final val guis = new CPupGUIManager[TMagicMod, GUIBase[_ <: GuiScreen, _ <: Container]](this)
 	guis.register(WritingDeskGUI)
+	def network = Network
 
 	@EventHandler
 	override def init(e: FMLInitializationEvent) {
 		super.init(e)
 		guis.register
+		network.register
 	}
 
 	@EventHandler
 	override def postInit(e: FMLPostInitializationEvent) {
 		super.postInit(e)
 		guis.finish
+		network.finish
 	}
 }
 

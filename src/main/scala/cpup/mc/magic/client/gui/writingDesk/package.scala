@@ -2,7 +2,7 @@ package cpup.mc.magic.client.gui.writingDesk
 
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.inventory.{Slot, Container}
-import cpup.mc.magic.content.TEWritingDesk
+import cpup.mc.magic.content.{WritingDeskMessage, TEWritingDesk}
 import cpup.mc.magic.client.gui.GUIBase
 import net.minecraft.entity.player.EntityPlayer
 import cpup.mc.lib.util.pos.BlockPos
@@ -14,6 +14,7 @@ import cpup.mc.lib.client.BetterSlot
 import scala.util.control.Breaks
 import cpup.mc.magic.client.runeSelection.{RootCategory, RuneOption, Category}
 import org.lwjgl.input.Keyboard
+import cpup.mc.magic.MagicMod
 
 object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 	def name = "writingDesk"
@@ -29,6 +30,8 @@ object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 }
 
 class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
+	def mod = MagicMod
+
 	var category = RootCategory.create
 
 	override def keyTyped(char: Char, key: Int): Unit = {
@@ -40,6 +43,7 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 				case cat: Category => category = cat
 				case runeOpt: RuneOption =>
 					println("adding", runeOpt.text)
+					mod.network.sendToServer(WritingDeskMessage(container.te.pos, runeOpt.text))
 			}
 		} else if(key == Keyboard.KEY_A) {
 			category.scrollUp
@@ -71,7 +75,7 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 				case cat: Category => cat.name
 				case any: Any => "unknown: " + any.toString
 				case null => "null"
-			}), -50, i * 10, 4210752)
+			}), -200, i * 10, 4210752)
 		}
 	}
 }
