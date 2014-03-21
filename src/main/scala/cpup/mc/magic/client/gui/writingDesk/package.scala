@@ -35,19 +35,19 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 	var category = RootCategory.create
 
 	override def keyTyped(char: Char, key: Int): Unit = {
-		if(key >= Keyboard.KEY_Q && key <= Keyboard.KEY_Y) {
-			val index = key - Keyboard.KEY_Q
+		if(key >= Keyboard.KEY_1 && key <= Keyboard.KEY_6) {
+			val index = key - Keyboard.KEY_1
 			category(index) match {
 				case cat: Category => category = cat
 				case runeOpt: RuneOption =>
 					println("adding", runeOpt.text)
 					mod.network.sendToServer(WritingDeskMessage(container.te.pos, runeOpt.text))
 			}
-		} else if(key == Keyboard.KEY_A) {
+		} else if(key == Keyboard.KEY_Q) {
 			category.scrollUp
-		} else if(key == Keyboard.KEY_D) {
+		} else if(key == Keyboard.KEY_E) {
 			category.scrollDown
-		} else if(key == Keyboard.KEY_S) {
+		} else if(key == Keyboard.KEY_R) {
 			if(category.parent != null) {
 				category = category.parent
 			}
