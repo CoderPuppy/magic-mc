@@ -12,6 +12,8 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import cpup.mc.lib.client.BetterSlot
 import scala.util.control.Breaks
+import cpup.mc.magic.client.runeSelection.{RootCategory, RuneOption, Category}
+import org.lwjgl.input.Keyboard
 
 object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 	def name = "writingDesk"
@@ -27,6 +29,29 @@ object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 }
 
 class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
+	var category = RootCategory.create
+
+	override def keyTyped(char: Char, key: Int): Unit = {
+		super.keyTyped(char, key)
+
+		if(key >= Keyboard.KEY_Q && key <= Keyboard.KEY_Y) {
+			val index = key - Keyboard.KEY_Q
+			category(index) match {
+				case cat: Category => category = cat
+				case runeOpt: RuneOption =>
+					println("adding", runeOpt.text)
+			}
+		} else if(key == Keyboard.KEY_A) {
+			category.scrollUp
+		} else if(key == Keyboard.KEY_D) {
+			category.scrollDown
+		} else if(key == Keyboard.KEY_S) {
+			if(category.parent != null) {
+				category = category.parent
+			}
+		}
+	}
+
 	@Override
 	def drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {
 		GL11.glColor4f(1, 1, 1, 1)
@@ -39,6 +64,14 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 	override def drawGuiContainerForegroundLayer(mouseX: Int, mouseY: Int) {
 		fontRendererObj.drawString(I18n.format(container.te.inv.getInventoryName), 8, 6, 4210752)
 		fontRendererObj.drawString(I18n.format(container.player.inventory.getInventoryName), 8, WritingDeskGUI.playerOffset, 4210752)
+
+		for(i <- 0 to 5) {
+			fontRendererObj.drawString(category(i) match {
+				case runeOpt: RuneOption => runeOpt.text
+				case cat: Category => cat.name
+				case any: Any => "unknown: " + any.toString
+			}, -50, i * 10, 4210752)
+		}
 	}
 }
 
