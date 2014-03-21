@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import cpup.mc.lib.client.BetterSlot
+import scala.util.control.Breaks
 
 object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 	def name = "writingDesk"
@@ -106,14 +107,16 @@ class InvContainer(val player: EntityPlayer, val te: TEWritingDesk) extends Cont
 			} else {
 				i = min
 			}
-			while(stack1 != null && (!reverse && i < max || reverse && i >= min)) {
+			Breaks.breakable { while(!reverse && i < max || reverse && i >= min) {
 				slot = this.inventorySlots.get(i).asInstanceOf[Slot]
 				stack1 = slot.getStack
+				println(i, slot, stack1, stack, slot.isItemValid(stack))
 				if(stack1 == null && slot.isItemValid(stack)) {
 					slot.putStack(stack.copy)
 					slot.onSlotChanged
 					stack.stackSize = 0
 					flag1 = true
+					Breaks.break
 				} else {
 					if(reverse) {
 						i -= 1
@@ -121,7 +124,7 @@ class InvContainer(val player: EntityPlayer, val te: TEWritingDesk) extends Cont
 						i += 1
 					}
 				}
-			}
+			} }
 		}
 
 		return flag1
