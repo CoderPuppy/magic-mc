@@ -66,11 +66,12 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 		fontRendererObj.drawString(I18n.format(container.player.inventory.getInventoryName), 8, WritingDeskGUI.playerOffset, 4210752)
 
 		for(i <- 0 to 5) {
-			fontRendererObj.drawString(category(i) match {
+			fontRendererObj.drawString(i.toString + ": " + (category(i) match {
 				case runeOpt: RuneOption => runeOpt.text
 				case cat: Category => cat.name
 				case any: Any => "unknown: " + any.toString
-			}, -50, i * 10, 4210752)
+				case null => "null"
+			}), -50, i * 10, 4210752)
 		}
 	}
 }
