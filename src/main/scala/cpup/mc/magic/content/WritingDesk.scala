@@ -103,9 +103,12 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 			case WritingDeskMessage(pos: BlockPos, rune: String) => {
 				pos.tileEntity match {
 					case te: TEWritingDesk =>
-						val stack = te.inv.getStackInSlot(3)
-						val item = stack.getItem.asInstanceOf[TWritableItem]
-						item.writeRunes(stack, item.readRunes(stack) ++ Array(rune))
+						te.inv.getStackInSlot(2) match {
+							case stack: ItemStack =>
+								val item = stack.getItem.asInstanceOf[TWritableItem]
+								item.writeRunes(stack, item.readRunes(stack) ++ Array(rune))
+							case _ =>
+						}
 					case _ =>
 				}
 			}
