@@ -66,14 +66,15 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 				.setMetadata(dir.facing << 1, 2)
 		} else {
 			pos.setBlock(Blocks.air)
-			if(placer.isInstanceOf[EntityPlayer]) {
-				val player = placer.asInstanceOf[EntityPlayer]
-				val newStack = stack.copy
-				newStack.stackSize = 1
-				player.inventory.addItemStackToInventory(newStack)
-			} else {
-				// This might be buggy...
-				placer.entityDropItem(stack, 0.4f)
+			placer match {
+				case player: EntityPlayer =>
+					val player = placer.asInstanceOf[EntityPlayer]
+					val newStack = stack.copy
+					newStack.stackSize = 1
+					player.inventory.addItemStackToInventory(newStack)
+				case _ =>
+					// This might be buggy...
+					placer.entityDropItem(stack, 0.4f)
 			}
 		}
 	}
@@ -100,12 +101,12 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 	override def handleMessage(rawMsg: BlockMessage[TMagicMod]) {
 		rawMsg match {
 			case WritingDeskMessage(pos: BlockPos, rune: String) => {
-				val rawTE = pos.tileEntity
-				if(rawTE.isInstanceOf[TEWritingDesk]) {
-					val te = rawTE.asInstanceOf[TEWritingDesk]
-					val stack = te.inv.getStackInSlot(3)
-					val item = stack.getItem.asInstanceOf[TWritableItem]
-					item.writeRunes(stack, item.readRunes(stack) ++ Array(rune))
+				pos.tileEntity match {
+					case te: TEWritingDesk =>
+						val stack = te.inv.getStackInSlot(3)
+						val item = stack.getItem.asInstanceOf[TWritableItem]
+						item.writeRunes(stack, item.readRunes(stack) ++ Array(rune))
+					case _ =>
 				}
 			}
 			case _ => super.handleMessage(rawMsg)
