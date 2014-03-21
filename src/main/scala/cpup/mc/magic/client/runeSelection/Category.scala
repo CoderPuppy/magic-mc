@@ -1,6 +1,6 @@
 package cpup.mc.magic.client.runeSelection
 
-class Category(val name: String) extends SelectionOption {
+case class Category(val name: String) extends SelectionOption {
 	protected var _parent: Category = null
 	def parent = _parent
 
@@ -32,7 +32,7 @@ class Category(val name: String) extends SelectionOption {
 			}
 		}
 
-		_options ::= option
+		_options ++= List(option)
 
 		this
 	}
