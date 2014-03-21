@@ -81,7 +81,7 @@ class ClientEvents(val proxy: ClientProxy) {
 					case cat: Category => cat.name
 					case any: Any => any.toString
 					case null => "null"
-				}, 20, 20 + i * 10, 4210752)
+				}, 20, 20 + i * 10, 0x909090)
 			}
 		}
 	}
