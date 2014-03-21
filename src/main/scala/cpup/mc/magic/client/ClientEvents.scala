@@ -17,7 +17,7 @@ class ClientEvents(val proxy: ClientProxy) {
 
 	def mod = MagicMod
 
-	val keysDown = new mutable.HashMap[Int, Boolean]()
+	val keysDown = new mutable.HashMap[KeyBinding, Boolean]()
 	var firstEvent = true
 	val allowedKeys = List(
 		mc.gameSettings.keyBindForward,
@@ -26,7 +26,7 @@ class ClientEvents(val proxy: ClientProxy) {
 		mc.gameSettings.keyBindRight,
 		mc.gameSettings.keyBindJump,
 		mc.gameSettings.keyBindSneak
-	).map(_.getKeyCode)
+	)
 
 	@SubscribeEvent
 	def handleKeyboardInput(e: InputEvent.KeyInputEvent) {
@@ -64,17 +64,14 @@ class ClientEvents(val proxy: ClientProxy) {
 				firstEvent = false
 
 				for(key <- allowedKeys) {
-					val binding = KeyBinding.getKeybinds.toArray.asInstanceOf[Array[KeyBinding]].find(_.getKeyCode == key)
-					if(binding.isDefined) {
-						keysDown(key) = binding.get.getIsKeyPressed
-					}
+					keysDown(key) = key.getIsKeyPressed
 				}
 			}
 
 			KeyBinding.unPressAllKeys
 
 			for((key, isDown) <- keysDown) {
-				KeyBinding.setKeyBindState(key, isDown)
+				KeyBinding.setKeyBindState(key.getKeyCode, isDown)
 			}
 		}
 	}
