@@ -7,7 +7,8 @@ case class ParsedRune(val transformName: String, val content: String) {
 		this(null, content)
 	}
 
-	def apply(context: TContext) = {
+	def apply(context: TContext) = if(transformName == null) { TextRune(content) }
+	else {
 		val transform = context.transform(transformName).asInstanceOf[TTransform[Any]]
 		val rune = TextRune(content)
 		if(transform == null) {
