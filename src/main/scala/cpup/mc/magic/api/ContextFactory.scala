@@ -1,6 +1,4 @@
-package cpup.mc.magic.api.impl
-
-import cpup.mc.magic.api.{Context, TContext}
+package cpup.mc.magic.api
 
 object ContextFactory {
 	def create: TContext = {

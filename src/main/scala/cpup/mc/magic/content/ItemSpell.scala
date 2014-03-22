@@ -3,13 +3,12 @@ package cpup.mc.magic.content
 import net.minecraft.item.ItemStack
 import net.minecraft.entity.player.EntityPlayer
 import java.util
-import cpup.mc.magic.api.impl.{InvalidTransformException, ContextFactory, Parser}
 import cpup.lib.Util
 import cpup.mc.lib.util.ItemUtil
 import net.minecraft.world.World
 import net.minecraft.client.renderer.texture.IIconRegister
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import cpup.mc.magic.api.RuneRegistry
+import cpup.mc.magic.api.{InvalidTransformException, ContextFactory, Parser, RuneRegistry}
 
 class ItemSpell extends ItemBase {
 	override def addInformation(stack: ItemStack, player: EntityPlayer, _lore: util.List[_], par4: Boolean) {
@@ -36,7 +35,7 @@ class ItemSpell extends ItemBase {
 		super.registerIcons(register)
 
 		for(runeType <- RuneRegistry.runeTypes) {
-			runeType.registerIcons(register)
+			runeType.registerIcons((iconStr: String) => register.registerIcon(iconStr))
 		}
 	}
 

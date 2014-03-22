@@ -7,6 +7,8 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import net.minecraft.init.{Blocks, Items}
 import cpw.mods.fml.common.registry.GameRegistry
+import cpup.mc.magic.api.RuneRegistry
+import cpup.mc.magic.content.runes.{PlayerRune, TextRune}
 
 object Content extends CPupContent[TMagicMod] {
 	def mod = MagicMod
@@ -55,5 +57,8 @@ object Content extends CPupContent[TMagicMod] {
 			Items.dye,
 			Blocks.flower_pot
 		)
+
+		RuneRegistry.register(TextRune)
+		RuneRegistry.register(PlayerRune)
 	}
 }

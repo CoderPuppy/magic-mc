@@ -1,6 +1,6 @@
-package cpup.mc.magic.api.impl
+package cpup.mc.magic.api
 
-import cpup.mc.magic.api.{TRune, TextRune, TContext}
+import cpup.mc.magic.content.runes.TextRune
 
 object Parser {
 	def parse(context: TContext, str: String) = str.split(" ").map(parseRune(context, _))
