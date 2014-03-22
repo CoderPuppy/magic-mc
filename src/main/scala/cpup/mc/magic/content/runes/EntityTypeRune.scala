@@ -12,6 +12,7 @@ import net.minecraft.world.chunk.IChunkProvider
 import java.util
 import net.minecraft.entity.item.EntityItem
 import cpup.mc.lib.util.GUIUtil
+import java.util.Random
 
 case class EntityTypeRune(name: String) extends TRune {
 	val drops = (() => {
@@ -28,8 +29,12 @@ case class EntityTypeRune(name: String) extends TRune {
 		val entity = constructor.get.newInstance(null).asInstanceOf[Entity]
 		entity.captureDrops = true
 		entity.capturedDrops = new util.ArrayList[EntityItem]
+
+		// TODO: obfuscated: field_70146_Z
+		cla.getField("rand").set(entity, new StackedRandom(List(0)))
 		// TODO: obfuscated: func_70628_a
 		cla.getMethod("dropFew", java.lang.Boolean.TYPE, java.lang.Integer.TYPE).invoke(entity, true: java.lang.Boolean, 100: java.lang.Integer)
+
 		entity.capturedDrops.toArray.toList.asInstanceOf[List[EntityItem]].map(_.getEntityItem)
 	})()
 
@@ -80,4 +85,28 @@ object EntityTypeRune extends TRuneType {
 
 object EntityTypeTransform extends TTransform {
 	def transform(context: TContext, rune: TextRune) = EntityTypeRune(rune.txt)
+}
+
+class StackedRandom(val stack: List[Int]) extends Random {
+	if(stack.size == 0) {
+		throw new ArrayIndexOutOfBoundsException("There must be at least one value stacked")
+	}
+
+	var current = 0
+	override def nextInt() = {
+		val res = stack(current)
+		current += 1
+		if(current >= stack.size) {
+			current = 0
+		}
+		res
+	}
+
+	override def nextInt(n: Int) = {
+		var int = nextInt()
+		if(int > n) {
+			int = n
+		}
+		int
+	}
 }
