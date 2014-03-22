@@ -1,5 +1,10 @@
 package cpup.mc.magic.api
 
-trait TRune {
+import net.minecraft.util.IIcon
+import net.minecraft.nbt.NBTTagCompound
 
+trait TRune {
+	def runeType: TRuneType
+	def icons: List[IIcon]
+	def writeToNBT(nbt: NBTTagCompound)
 }
