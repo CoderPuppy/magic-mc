@@ -18,7 +18,7 @@ case class EntityTypeRune(name: String) extends TRune {
 	val drops = (() => {
 		val cla = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[_ <: Entity]]
 		val constructor = cla.getConstructors.find((constr: Constructor[_]) => {
-			val types = constr.getTypeParameters
+			val types = constr.getParameterTypes
 			types.length == 1 && types(0) == classOf[World]
 		})
 
