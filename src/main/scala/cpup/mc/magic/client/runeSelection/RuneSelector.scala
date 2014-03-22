@@ -40,13 +40,13 @@ class RuneSelector(val player: EntityPlayer, val x: Int, val y: Int, val addRune
 	def render {
 		GL11.glColor4f(1, 1, 1, 1)
 		GL11.glDisable(GL11.GL_LIGHTING)
+		var currentY = 0
 		for(i <- 0 to 5) {
 			val option = category(i)
-			var currentY = 0
 			option match {
 				case runeOpt: RuneOption =>
 					for((icon, iconIndex) <- runeOpt.rune.icons.zipWithIndex) {
-						GUIUtil.drawItemIconAt(icon, x, y + i * 10, iconIndex, 32, 32)
+						GUIUtil.drawItemIconAt(icon, x, y + currentY, iconIndex, 32, 32)
 						currentY += 36
 					}
 				case _ =>
