@@ -1,8 +1,3 @@
 package cpup.mc.magic.api.oldenLanguage
 
-/**
- * Created by cpup on 3/22/14.
- */
-class InvalidTransformException {
-
-}
+class InvalidTransformException(msg: String) extends Exception(msg)

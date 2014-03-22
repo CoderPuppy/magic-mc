@@ -1,8 +1,9 @@
 package cpup.mc.magic.api.oldenLanguage
 
-/**
- * Created by cpup on 3/22/14.
- */
-trait TWritableItem {
+import net.minecraft.item.ItemStack
 
+trait TWritableItem {
+	def writeRunes(stack: ItemStack, runes: Seq[String])
+	def readRunes(stack: ItemStack): Seq[String]
+	def writingType: WritingType
 }

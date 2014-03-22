@@ -1,4 +1,4 @@
-package cpup.mc.magic.api
+package cpup.mc.magic.api.oldenLanguage
 
 abstract class WritingType
 

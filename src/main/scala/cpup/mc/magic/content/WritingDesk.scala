@@ -14,13 +14,14 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
 import cpup.mc.magic.client.gui.writingDesk.WritingDeskGUI
 import net.minecraft.inventory.IInventory
-import cpup.mc.magic.api.{WritingType, TWritableItem}
+import cpup.mc.magic.api.TWritableItem
 import net.minecraft.nbt.{NBTTagList, NBTTagCompound}
 import cpup.mc.lib.network.BlockMessage
 import cpup.mc.magic.network.Message
 import io.netty.channel.ChannelHandlerContext
 import io.netty.buffer.ByteBuf
 import cpw.mods.fml.common.network.ByteBufUtils
+import cpup.mc.magic.api.oldenLanguage.{TWritableItem, WritingType}
 
 class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlockContainer[TMagicMod] {
 	setHardness(1)

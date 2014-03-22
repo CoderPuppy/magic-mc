@@ -1,10 +1,11 @@
 package cpup.mc.magic.content.runes
 
-import cpup.mc.magic.api.{TRuneType, TRune}
+import cpup.mc.magic.api.TRuneType
 import net.minecraft.util.IIcon
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.magic.MagicMod
+import cpup.mc.magic.api.oldenLanguage.{TRune, TRuneType}
 
 case class PlayerRune(name: String) extends TRune {
 	@SideOnly(Side.CLIENT)

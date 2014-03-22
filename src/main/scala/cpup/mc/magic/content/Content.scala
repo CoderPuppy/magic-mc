@@ -7,8 +7,8 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import net.minecraft.init.{Blocks, Items}
 import cpw.mods.fml.common.registry.GameRegistry
-import cpup.mc.magic.api.RuneRegistry
 import cpup.mc.magic.content.runes.{PlayerRune, TextRune}
+import cpup.mc.magic.api.oldenLanguage.OldenLanguageRegistry
 
 object Content extends CPupContent[TMagicMod] {
 	def mod = MagicMod
@@ -58,7 +58,7 @@ object Content extends CPupContent[TMagicMod] {
 			Blocks.flower_pot
 		)
 
-		RuneRegistry.register(TextRune)
-		RuneRegistry.register(PlayerRune)
+		OldenLanguageRegistry.registerRune(TextRune)
+		OldenLanguageRegistry.registerRune(PlayerRune)
 	}
 }

@@ -8,7 +8,8 @@ import cpup.mc.lib.util.ItemUtil
 import net.minecraft.world.World
 import net.minecraft.client.renderer.texture.IIconRegister
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import cpup.mc.magic.api.{InvalidTransformException, ContextFactory, Parser, RuneRegistry}
+import cpup.mc.magic.api.Parser
+import cpup.mc.magic.api.oldenLanguage.{InvalidTransformException, OldenLanguageRegistry, Parser, ContextFactory}
 
 class ItemSpell extends ItemBase {
 	override def addInformation(stack: ItemStack, player: EntityPlayer, _lore: util.List[_], par4: Boolean) {
@@ -34,7 +35,7 @@ class ItemSpell extends ItemBase {
 	override def registerIcons(register: IIconRegister) {
 		super.registerIcons(register)
 
-		for(runeType <- RuneRegistry.runeTypes) {
+		for(runeType <- OldenLanguageRegistry.runeTypes) {
 			runeType.registerIcons((iconStr: String) => register.registerIcon(iconStr))
 		}
 	}

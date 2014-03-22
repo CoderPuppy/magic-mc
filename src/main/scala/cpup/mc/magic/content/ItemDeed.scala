@@ -5,7 +5,8 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
 import cpup.mc.lib.util.ItemUtil
 import cpup.lib.Util
-import cpup.mc.magic.api.{WritingType, TWritableItem}
+import cpup.mc.magic.api.WritingType
+import cpup.mc.magic.api.oldenLanguage.{TWritableItem, WritingType}
 
 class ItemDeed extends Item with TItemBase with TWritableItem {
 	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("name"), "").split(' ')
