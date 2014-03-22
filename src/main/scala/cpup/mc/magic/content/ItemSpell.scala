@@ -29,8 +29,8 @@ class ItemSpell extends ItemBase {
 			}
 		} catch {
 			case e: Exception => {
-				lore.add(e.getMessage)
-				println(e.getMessage)
+				lore.add(e.toString)
+				println(e)
 			}
 		}
 	}
