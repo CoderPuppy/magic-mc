@@ -24,6 +24,7 @@ class ItemSpell extends ItemBase {
 				parsedRune <- Parser.parse(spell)
 				rune = parsedRune(context)
 			} {
+				lore.add(parsedRune.toString)
 				lore.add(rune.toString)
 			}
 		} catch {
