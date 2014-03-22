@@ -28,7 +28,7 @@ class ItemSpell extends ItemBase {
 				lore.add(rune.toString)
 			}
 		} catch {
-			case e: InvalidTransformException => {
+			case e: Exception => {
 				lore.add(e.getMessage)
 				println(e.getMessage)
 			}
