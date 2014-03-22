@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import org.lwjgl.opengl.GL11
 import org.lwjgl.input.Keyboard
 import net.minecraft.client.Minecraft
+import cpup.mc.lib.util.GUIUtil
 
 @SideOnly(Side.CLIENT)
 class RuneSelector(val player: EntityPlayer, val x: Int, val y: Int, val addRune: (RuneOption) => Unit) {
@@ -41,12 +42,21 @@ class RuneSelector(val player: EntityPlayer, val x: Int, val y: Int, val addRune
 		GL11.glDisable(GL11.GL_LIGHTING)
 		for(i <- 0 to 5) {
 			val option = category(i)
-			mc.fontRenderer.drawString(option match {
-				case runeOpt: RuneOption => runeOpt.parsedRune.toString
-				case cat: Category => cat.name
-				case any: Any => "unknown: " + any.toString
-				case null => "null"
-			}, x, y + i * 10, 0x909090)
+			var currentY = 0
+			option match {
+				case runeOpt: RuneOption =>
+					for((icon, iconIndex) <- runeOpt.rune.icons.zipWithIndex) {
+						GUIUtil.drawItemIconAt(icon, x, y + i * 10, iconIndex, 32, 32)
+						currentY += 36
+					}
+				case _ =>
+					mc.fontRenderer.drawString(option match {
+						case cat: Category => cat.name
+						case any: Any => "unknown: " + any.toString
+						case null => "null"
+					}, x, y + currentY, 0x909090)
+					currentY += 10
+			}
 		}
 	}
 }
