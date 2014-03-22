@@ -32,11 +32,6 @@ object PlayerRune extends TRuneType {
 	}
 }
 
-object PlayerTransform extends TTransform[String] {
-	def isValid(context: TContext, rune: TRune) = rune match {
-		case TextRune(playerName) => Some(playerName)
-		case _ => None
-	}
-
-	def transform(context: TContext, rune: TRune, playerName: String) = new PlayerRune(playerName)
+object PlayerTransform extends TTransform {
+	def transform(context: TContext, rune: TextRune) = PlayerRune(rune.txt)
 }
