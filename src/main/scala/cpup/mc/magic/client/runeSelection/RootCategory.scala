@@ -12,12 +12,11 @@ object RootCategory {
 
 		val entities = root.createSubCategory("entities")
 
-		for(entry <- EntityList.stringToClassMapping.entrySet.toArray.asInstanceOf[Array[util.Map.Entry[String, Class[_ <: Entity]]]]) {
-			if(entry.getValue.getConstructors.exists((constr: Constructor[_]) => {
-				val types = constr.getTypeParameters
-				types.length == 1 && types(0) == classOf[World]
-			})) {
-				entities.addRune("tn!entity!" + entry.getKey)
+		for(name <- EntityList.stringToClassMapping.keySet.toArray) {
+			try {
+				entities.addRune("tn!entity!" + name)
+			} catch {
+				case e: NullPointerException if e.getMessage == "No constructor: " + name + "(World)" =>
 			}
 		}
 
