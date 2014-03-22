@@ -8,8 +8,7 @@ import cpup.mc.lib.util.ItemUtil
 import net.minecraft.world.World
 import net.minecraft.client.renderer.texture.IIconRegister
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import cpup.mc.magic.api.Parser
-import cpup.mc.magic.api.oldenLanguage.{InvalidTransformException, OldenLanguageRegistry, Parser, ContextFactory}
+import cpup.mc.magic.api.oldenLanguage.{InvalidTransformException, OldenLanguageRegistry, Parser, RootContext}
 
 class ItemSpell extends ItemBase {
 	override def addInformation(stack: ItemStack, player: EntityPlayer, _lore: util.List[_], par4: Boolean) {
@@ -20,7 +19,11 @@ class ItemSpell extends ItemBase {
 		lore.add(spell)
 
 		try {
-			for(rune <- Parser.parse(ContextFactory.create, spell)) {
+			val context = RootContext.create
+			for {
+				parsedRune <- Parser.parse(spell)
+				rune = parsedRune(context)
+			} {
 				lore.add(rune.toString)
 			}
 		} catch {

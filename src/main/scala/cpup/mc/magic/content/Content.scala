@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.init.{Blocks, Items}
 import cpw.mods.fml.common.registry.GameRegistry
 import cpup.mc.magic.content.runes.{PlayerRune, TextRune}
-import cpup.mc.magic.api.oldenLanguage.OldenLanguageRegistry
+import cpup.mc.magic.api.oldenLanguage.{SubContextTransform, Context, TContext, OldenLanguageRegistry}
 
 object Content extends CPupContent[TMagicMod] {
 	def mod = MagicMod
@@ -60,5 +60,8 @@ object Content extends CPupContent[TMagicMod] {
 
 		OldenLanguageRegistry.registerRune(TextRune)
 		OldenLanguageRegistry.registerRune(PlayerRune)
+		OldenLanguageRegistry.registerRootContextTransformer((context: Context) => {
+			context.transforms("sn") = new SubContextTransform("specificNoun")
+		})
 	}
 }

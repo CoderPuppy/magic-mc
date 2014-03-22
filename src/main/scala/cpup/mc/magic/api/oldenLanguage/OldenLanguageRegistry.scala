@@ -1,8 +1,5 @@
 package cpup.mc.magic.api.oldenLanguage
 
-/**
- * Created by cpup on 3/22/14.
- */
 object OldenLanguageRegistry {
 	protected var _runeTypes = Set[TRuneType]()
 	def runeTypes = _runeTypes
@@ -11,10 +8,10 @@ object OldenLanguageRegistry {
 		_runeTypes += runeType
 	}
 
-	protected var _rootContextTransformers = List[(TContext) => Unit]()
-	def rootContextTransformer = _rootContextTransformers
+	protected var _rootContextTransformers = List[(Context) => Unit]()
+	def rootContextTransformers = _rootContextTransformers
 
-	def registerRootContextTransformer(transformer: (TContext) => Unit) {
+	def registerRootContextTransformer(transformer: (Context) => Unit) {
 		_rootContextTransformers ++= List(transformer)
 	}
 }

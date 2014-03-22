@@ -3,8 +3,6 @@ package cpup.mc.magic.content.runes
 import net.minecraft.util.IIcon
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.client.renderer.texture.IIconRegister
-import cpup.mc.magic.api.TRune
 import cpup.mc.magic.MagicMod
 import cpup.mc.magic.api.oldenLanguage.{TRuneType, TRune}
 

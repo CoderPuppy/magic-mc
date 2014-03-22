@@ -1,6 +1,5 @@
 package cpup.mc.magic.content.runes
 
-import cpup.mc.magic.api.TRuneType
 import net.minecraft.util.IIcon
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
