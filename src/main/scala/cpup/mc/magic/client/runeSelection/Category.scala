@@ -29,7 +29,7 @@ class Category(val context: TContext, val name: String) extends SelectionOption 
 			val container = option.asInstanceOf[Category]
 			if(container._parent == null) {
 				container._parent = this
-			} else {
+			} else if(container._parent != this) {
 				throw new Exception("Attempt to reparent a container")
 			}
 		}

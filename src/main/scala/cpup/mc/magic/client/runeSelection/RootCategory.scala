@@ -13,11 +13,8 @@ object RootCategory {
 			entities.addRune("tn!entity!" + name)
 		}
 
-		root.addOption(entities)
-
 		val stuff = root.createSubCategory("stuff")
 		stuff.addRune("p!of")
-		root.addOption(stuff)
 
 		root
 	}
