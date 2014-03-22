@@ -8,9 +8,15 @@ import cpup.mc.lib.util.ItemUtil
 import net.minecraft.world.World
 import net.minecraft.client.renderer.texture.IIconRegister
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import cpup.mc.magic.api.oldenLanguage.{InvalidTransformException, OldenLanguageRegistry, Parser, RootContext}
+import cpup.mc.magic.api.oldenLanguage._
 
-class ItemSpell extends ItemBase {
+class ItemSpell extends ItemBase with TWritableItem {
+	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "").split(' ')
+	def writeRunes(stack: ItemStack, runes: Seq[String]) {
+		ItemUtil.compound(stack).setString("spell", runes.mkString(" "))
+	}
+	def writingType = WritingType.Ink
+
 	override def addInformation(stack: ItemStack, player: EntityPlayer, _lore: util.List[_], par4: Boolean) {
 		val lore = _lore.asInstanceOf[util.List[String]]
 
