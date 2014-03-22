@@ -45,7 +45,7 @@ class ItemSpell extends ItemBase {
 	}
 
 	override def onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer) = {
-		mod.proxy.activateSpellCasting(player, stack)
+		mod.proxy.activateSpellCasting(player)
 		stack
 	}
 }

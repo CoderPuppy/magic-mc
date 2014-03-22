@@ -15,6 +15,6 @@ class CommonProxy extends CPupCommonProxy[TMagicMod] {
 		MinecraftForge.EVENT_BUS.register(commonEvents)
 	}
 
-	def activateSpellCasting(player: EntityPlayer, stack: ItemStack) {}
+	def activateSpellCasting(player: EntityPlayer) {}
 	def stopSpellCasting(player: EntityPlayer) {}
 }

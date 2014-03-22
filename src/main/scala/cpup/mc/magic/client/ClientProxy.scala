@@ -3,27 +3,28 @@ package cpup.mc.magic.client
 import cpup.mc.magic.CommonProxy
 import cpw.mods.fml.common.FMLCommonHandler
 import net.minecraftforge.common.MinecraftForge
-import cpup.mc.magic.client.runeSelection.{RuneOption, RootCategory, Category}
-import net.minecraft.item.ItemStack
+import cpup.mc.magic.client.runeSelection.{RuneSelector, RuneOption}
 import net.minecraft.entity.player.EntityPlayer
 
 class ClientProxy extends CommonProxy {
 	val clientEvents = new ClientEvents(this)
 
-	var category: Category = null
-	var castingItem: ItemStack = null
+	var selector: RuneSelector = null
+	var castingItem: Int = -1
 	var spell: List[RuneOption] = null
-	override def activateSpellCasting(player: EntityPlayer, stack: ItemStack) {
-		super.activateSpellCasting(player, stack)
-		category = RootCategory.create
-		castingItem = stack
+	override def activateSpellCasting(player: EntityPlayer) {
+		super.activateSpellCasting(player)
+		selector = new RuneSelector(player, 20, 20, (runeOpt: RuneOption) => {
+			spell ++= List(runeOpt)
+		})
+		castingItem = player.inventory.currentItem
 		spell = List[RuneOption]()
 	}
 	override def stopSpellCasting(player: EntityPlayer) {
 		super.stopSpellCasting(player)
-		category = null
-		castingItem = null
+		selector = null
 		spell = null
+		castingItem = -1
 	}
 
 	override def registerEvents {
