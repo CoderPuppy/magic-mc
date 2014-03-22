@@ -5,8 +5,11 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.IIcon
 import cpup.mc.magic.MagicMod
+import net.minecraft.entity.EntityList
 
 case class EntityTypeRune(name: String) extends TRune {
+	EntityList.stringToClassMapping
+
 	@SideOnly(Side.CLIENT)
 	def icons = List(EntityTypeRune.icon)
 

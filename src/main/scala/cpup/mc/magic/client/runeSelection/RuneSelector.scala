@@ -45,13 +45,7 @@ class RuneSelector(val player: EntityPlayer, val x: Int, val y: Int, val addRune
 			val option = category(i)
 			option match {
 				case runeOpt: RuneOption =>
-					for((icon, iconIndex) <- runeOpt.rune.icons.zipWithIndex) {
-						if(icon == null) {
-							mc.fontRenderer.drawString(runeOpt.parsedRune.toString, x, y + currentY, 0x909090)
-						} else {
-							GUIUtil.drawItemIconAt(icon, x, y + currentY, iconIndex, 32, 32)
-						}
-					}
+					runeOpt.rune.render(x, y + currentY, 32, 32)
 					currentY += 36
 				case _ =>
 					mc.fontRenderer.drawString(option match {

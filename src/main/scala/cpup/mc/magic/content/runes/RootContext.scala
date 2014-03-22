@@ -1,4 +1,6 @@
-package cpup.mc.magic.api.oldenLanguage
+package cpup.mc.magic.content.runes
+
+import cpup.mc.magic.api.oldenLanguage.{OldenLanguageRegistry, Context, TContext}
 
 object RootContext {
 	def create: TContext = {
