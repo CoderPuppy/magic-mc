@@ -4,7 +4,7 @@ import net.minecraft.util.IIcon
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.magic.MagicMod
-import cpup.mc.magic.api.oldenLanguage.{TRune, TRuneType}
+import cpup.mc.magic.api.oldenLanguage.{TContext, TTransform, TRune, TRuneType}
 
 case class PlayerRune(name: String) extends TRune {
 	@SideOnly(Side.CLIENT)
@@ -30,4 +30,13 @@ object PlayerRune extends TRuneType {
 	def registerIcons(registerIcon: (String) => IIcon) {
 		icon = registerIcon(mod.ref.modID + ":runes/player")
 	}
+}
+
+object PlayerTransform extends TTransform[String] {
+	def isValid(context: TContext, rune: TRune) = rune match {
+		case TextRune(playerName) => Some(playerName)
+		case _ => None
+	}
+
+	def transform(context: TContext, rune: TRune, playerName: String) = new PlayerRune(playerName)
 }
