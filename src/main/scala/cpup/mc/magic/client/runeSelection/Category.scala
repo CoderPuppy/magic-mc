@@ -50,8 +50,15 @@ class Category(val context: TContext, val name: String) extends SelectionOption 
 	}
 
 	def addRune(rune: String) = {
-		val runeOpt = new RuneOption(context, rune)
-		addOption(runeOpt)
-		runeOpt
+		try {
+			val runeOpt = new RuneOption(context, rune)
+			addOption(runeOpt)
+			runeOpt
+		} catch {
+			case e: Exception => {
+				println(e.getMessage)
+				null
+			}
+		}
 	}
 }
