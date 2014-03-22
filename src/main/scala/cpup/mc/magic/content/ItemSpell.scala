@@ -39,8 +39,6 @@ class ItemSpell extends ItemBase {
 	override def registerIcons(register: IIconRegister) {
 		super.registerIcons(register)
 
-		println("registering icons")
-
 		for(runeType <- OldenLanguageRegistry.runeTypes) {
 			runeType.registerIcons((iconStr: String) => register.registerIcon(iconStr))
 		}

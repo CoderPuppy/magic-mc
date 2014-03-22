@@ -5,7 +5,6 @@ object OldenLanguageRegistry {
 	def runeTypes = _runeTypes
 
 	def registerRune(runeType: TRuneType) {
-		println("registering rune", runeType)
 		_runeTypes += runeType
 	}
 
