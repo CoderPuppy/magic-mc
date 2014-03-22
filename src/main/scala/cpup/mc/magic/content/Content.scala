@@ -7,8 +7,8 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import net.minecraft.init.{Blocks, Items}
 import cpw.mods.fml.common.registry.GameRegistry
-import cpup.mc.magic.content.runes.{PlayerTransform, PlayerRune, TextRune}
-import cpup.mc.magic.api.oldenLanguage.{SubContextTransform, Context, TContext, OldenLanguageRegistry}
+import cpup.mc.magic.content.runes.{PlayerTransform, PlayerRune}
+import cpup.mc.magic.api.oldenLanguage._
 
 object Content extends CPupContent[TMagicMod] {
 	def mod = MagicMod

@@ -1,7 +1,5 @@
 package cpup.mc.magic.api.oldenLanguage
 
-import cpup.mc.magic.content.runes.TextRune
-
 case class ParsedRune(val transformName: String, val content: String) {
 	def this(content: String) {
 		this(null, content)

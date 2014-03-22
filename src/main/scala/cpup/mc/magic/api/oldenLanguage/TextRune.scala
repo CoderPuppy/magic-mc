@@ -1,10 +1,9 @@
-package cpup.mc.magic.content.runes
+package cpup.mc.magic.api.oldenLanguage
 
 import net.minecraft.util.IIcon
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.magic.MagicMod
-import cpup.mc.magic.api.oldenLanguage.{TRuneType, TRune}
 
 case class TextRune(txt: String) extends TRune {
 	@SideOnly(Side.CLIENT)
