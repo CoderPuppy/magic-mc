@@ -46,6 +46,7 @@ class RuneSelector(val player: EntityPlayer, val x: Int, val y: Int, val addRune
 			option match {
 				case runeOpt: RuneOption =>
 					for((icon, iconIndex) <- runeOpt.rune.icons.zipWithIndex) {
+						println(icon, iconIndex)
 						GUIUtil.drawItemIconAt(icon, x, y + currentY, iconIndex, 32, 32)
 						currentY += 36
 					}
