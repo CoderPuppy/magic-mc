@@ -3,7 +3,7 @@ package cpup.mc.magic.client
 import cpup.mc.magic.CommonProxy
 import cpw.mods.fml.common.FMLCommonHandler
 import net.minecraftforge.common.MinecraftForge
-import cpup.mc.magic.client.runeSelection.{RootCategory, Category}
+import cpup.mc.magic.client.runeSelection.{RuneOption, RootCategory, Category}
 import net.minecraft.item.ItemStack
 import net.minecraft.entity.player.EntityPlayer
 
@@ -12,12 +12,12 @@ class ClientProxy extends CommonProxy {
 
 	var category: Category = null
 	var castingItem: ItemStack = null
-	var spell: List[String] = null
+	var spell: List[RuneOption] = null
 	override def activateSpellCasting(player: EntityPlayer, stack: ItemStack) {
 		super.activateSpellCasting(player, stack)
 		category = RootCategory.create
 		castingItem = stack
-		spell = List[String]()
+		spell = List[RuneOption]()
 	}
 	override def stopSpellCasting(player: EntityPlayer) {
 		super.stopSpellCasting(player)

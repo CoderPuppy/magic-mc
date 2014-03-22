@@ -1,6 +1,8 @@
 package cpup.mc.magic.client.runeSelection
 
-case class Category(val name: String) extends SelectionOption {
+import cpup.mc.magic.api.oldenLanguage.TContext
+
+class Category(val context: TContext, val name: String) extends SelectionOption {
 	protected var _parent: Category = null
 	def parent = _parent
 
@@ -40,4 +42,16 @@ case class Category(val name: String) extends SelectionOption {
 	def apply(index: Int) = if(index + scroll * 6 < options.size) {
 		options(index + scroll * 6)
 	} else { null }
+
+	def createSubCategory(name: String) = {
+		val category = new Category(context, name)
+		addOption(category)
+		category
+	}
+
+	def addRune(rune: String) = {
+		val runeOpt = new RuneOption(context, rune)
+		addOption(runeOpt)
+		runeOpt
+	}
 }

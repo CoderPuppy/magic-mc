@@ -40,8 +40,8 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 			category(index) match {
 				case cat: Category => category = cat
 				case runeOpt: RuneOption =>
-					println("adding", runeOpt.text)
-					mod.network.sendToServer(WritingDeskMessage(container.te.pos, runeOpt.text))
+					println("adding", runeOpt.parsedRune)
+					mod.network.sendToServer(new WritingDeskMessage(container.te.pos, runeOpt.parsedRune))
 			}
 		} else if(key == Keyboard.KEY_Q) {
 			category.scrollUp
@@ -71,7 +71,7 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 
 		for(i <- 0 to 5) {
 			fontRendererObj.drawString(i.toString + ": " + (category(i) match {
-				case runeOpt: RuneOption => runeOpt.text
+				case runeOpt: RuneOption => runeOpt.parsedRune.toString
 				case cat: Category => cat.name
 				case any: Any => "unknown: " + any.toString
 				case null => "null"

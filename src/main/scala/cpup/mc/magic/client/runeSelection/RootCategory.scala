@@ -1,21 +1,22 @@
 package cpup.mc.magic.client.runeSelection
 
 import net.minecraft.entity.EntityList
+import cpup.mc.magic.api.oldenLanguage.RootContext
 
 object RootCategory {
 	def create = {
-		val root = new Category("root")
+		val root = new Category(RootContext.create, "root")
 
-		val entities = new Category("entities")
+		val entities = root.createSubCategory("entities")
 
 		for(name <- EntityList.stringToClassMapping.keySet.toArray) {
-			entities.addOption(RuneOption("tn!entity!" + name))
+			entities.addRune("tn!entity!" + name)
 		}
 
 		root.addOption(entities)
 
-		val stuff = new Category("stuff")
-		stuff.addOption(RuneOption("p!of"))
+		val stuff = root.createSubCategory("stuff")
+		stuff.addRune("p!of")
 		root.addOption(stuff)
 
 		root

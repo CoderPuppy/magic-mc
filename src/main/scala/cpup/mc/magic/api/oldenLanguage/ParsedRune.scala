@@ -5,6 +5,12 @@ case class ParsedRune(val transformName: String, val content: String) {
 		this(null, content)
 	}
 
+	def serialize = if(transformName == null) {
+		content
+	} else {
+		transformName + "!" + content
+	}
+
 	def apply(context: TContext) = if(transformName == null) { TextRune(content) }
 	else {
 		val transform = context.transform(transformName)

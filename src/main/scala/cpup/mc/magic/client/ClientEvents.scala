@@ -41,8 +41,8 @@ class ClientEvents(val proxy: ClientProxy) {
 					case cat: Category =>
 						proxy.category = cat
 					case runeOpt: RuneOption =>
-						proxy.spell ++= List(runeOpt.text)
-						println("adding", runeOpt.text)
+						proxy.spell ++= List(runeOpt)
+						println("adding", runeOpt.parsedRune)
 					case _ => {
 						println("unknown")
 					}
@@ -102,7 +102,7 @@ class ClientEvents(val proxy: ClientProxy) {
 			for(i <- 0 to 5) {
 				val option = proxy.category(i)
 				mc.fontRenderer.drawString(option match {
-					case runeOpt: RuneOption => runeOpt.text
+					case runeOpt: RuneOption => runeOpt.parsedRune.toString
 					case cat: Category => cat.name
 					case any: Any => any.toString
 					case null => "null"

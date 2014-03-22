@@ -20,7 +20,7 @@ import cpup.mc.magic.network.Message
 import io.netty.channel.ChannelHandlerContext
 import io.netty.buffer.ByteBuf
 import cpw.mods.fml.common.network.ByteBufUtils
-import cpup.mc.magic.api.oldenLanguage.{TWritableItem, WritingType}
+import cpup.mc.magic.api.oldenLanguage.{ParsedRune, TWritableItem, WritingType}
 
 class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlockContainer[TMagicMod] {
 	setHardness(1)
@@ -224,7 +224,11 @@ class WritingDeskInventory(te: TileEntity) extends IInventory {
 	def closeInventory {}
 }
 
-case class WritingDeskMessage(pos: BlockPos, val rune: String) extends Message with BlockMessage[TMagicMod] {
+case class WritingDeskMessage(val pos: BlockPos, val rune: String) extends Message with BlockMessage[TMagicMod] {
+	def this(pos: BlockPos, parsedRune: ParsedRune) {
+		this(pos, parsedRune.serialize)
+	}
+
 	val x = pos.x
 	val y = pos.y
 	val z = pos.z
