@@ -17,7 +17,11 @@ case class ParsedRune(val transformName: String, val content: String) {
 		if(transform == null) {
 			throw new InvalidTransformException("No such transform: " + transformName)
 		} else {
-			transform.transform(context, TextRune(content))
+			val rune = transform.transform(context, TextRune(content))
+			if(!OldenLanguageRegistry.runeTypes.contains(rune.runeType)) {
+				throw new Exception("Attempt to return an unregistered rune")
+			}
+			rune
 		}
 	}
 }
