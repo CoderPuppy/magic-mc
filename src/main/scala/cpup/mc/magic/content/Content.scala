@@ -18,7 +18,7 @@ object Content extends CPupContent[TMagicMod] {
 		super.preInit(e)
 
 		registerItem(new ItemWand().setName("wand"))
-		
+
 		registerItem(new ItemSpell().setName("spell"))
 
 		registerItem(new ItemDeed().setName("deed").setCreativeTab(CreativeTabs.tabMisc).asInstanceOf[TItemBase])
