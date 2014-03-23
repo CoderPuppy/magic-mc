@@ -7,7 +7,7 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import net.minecraft.init.{Blocks, Items}
 import cpw.mods.fml.common.registry.GameRegistry
-import cpup.mc.magic.content.runes.{EntityTypeRune, EntityTypeTransform, PlayerTransform, PlayerRune}
+import cpup.mc.magic.content.runes._
 import cpup.mc.magic.api.oldenLanguage._
 
 object Content extends CPupContent[TMagicMod] {
@@ -70,6 +70,7 @@ object Content extends CPupContent[TMagicMod] {
 
 			val typeNouns = new Context
 			typeNouns.transforms("entity") = EntityTypeTransform
+			typeNouns.transforms("block") = BlockTypeTransform
 
 			root.subContexts("typeNouns") = typeNouns
 			root.transforms("tn") = new SubContextTransform("typeNouns")
