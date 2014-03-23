@@ -61,6 +61,7 @@ object Content extends CPupContent[TMagicMod] {
 		OldenLanguageRegistry.registerRune(TextRune)
 		OldenLanguageRegistry.registerRune(PlayerRune)
 		OldenLanguageRegistry.registerRune(EntityTypeRune)
+		OldenLanguageRegistry.registerRune(BlockTypeRune)
 		OldenLanguageRegistry.registerRootContextTransformer((root: Context) => {
 			val specificNouns = new Context
 			specificNouns.transforms("pl") = PlayerTransform
