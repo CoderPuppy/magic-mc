@@ -1,5 +1,8 @@
-package cpup.mc.magic.api.oldenLanguage
+package cpup.mc.magic.api.oldenLanguage.parsing
 
+/**
+ * Created by cpup on 3/23/14.
+ */
 object Parser {
 	def parse(str: String) = str.split(" ").map(parseRune(_))
 

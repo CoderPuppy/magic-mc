@@ -1,4 +1,4 @@
-package cpup.mc.magic.api.oldenLanguage
+package cpup.mc.magic.api.oldenLanguage.parsing
 
 import scala.collection.mutable
 

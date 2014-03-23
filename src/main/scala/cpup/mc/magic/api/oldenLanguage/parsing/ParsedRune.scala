@@ -1,4 +1,6 @@
-package cpup.mc.magic.api.oldenLanguage
+package cpup.mc.magic.api.oldenLanguage.parsing
+
+import cpup.mc.magic.api.oldenLanguage.OldenLanguageRegistry
 
 case class ParsedRune(val transformName: String, val content: String) {
 	def this(content: String) {
