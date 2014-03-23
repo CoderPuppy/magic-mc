@@ -6,15 +6,22 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.IIcon
 import cpup.mc.magic.MagicMod
 import cpw.mods.fml.common.registry.GameData
+import cpup.mc.lib.util.GUIUtil
 
 case class BlockTypeRune(name: String) extends TRune {
+	println(GameData.blockRegistry.getObject(name))
 	if(GameData.blockRegistry.getObject(name).getIcon(1, 0) == null) {
 		throw new NullPointerException(name + " doesn't have a texture for the top")
 	}
 
 	@SideOnly(Side.CLIENT)
-	def icons = List(GameData.blockRegistry.getObject(name).getIcon(1, 0))
+	def icons = List()
 //	def icons = List(BlockTypeRune.icon)
+
+	@SideOnly(Side.CLIENT)
+	override def render(x: Int, y: Int, width: Int, height: Int) {
+		GUIUtil.drawBlockIconAt(GameData.blockRegistry.getObject(name).getIcon(1, 0), x, y, 0, 32, 32)
+	}
 
 	def runeType = BlockTypeRune
 
