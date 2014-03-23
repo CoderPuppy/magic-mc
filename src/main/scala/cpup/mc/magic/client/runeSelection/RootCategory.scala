@@ -17,6 +17,9 @@ object RootCategory {
 				entities.addRune("tn!entity!" + name)
 			} catch {
 				case e: NullPointerException if e.getMessage == "No constructor: " + name + "(World)" =>
+					println(e)
+				case e: Throwable =>
+					throw e
 			}
 		}
 

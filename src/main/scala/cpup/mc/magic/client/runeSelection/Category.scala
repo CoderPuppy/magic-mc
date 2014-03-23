@@ -56,7 +56,7 @@ class Category(val context: TContext, val name: String) extends SelectionOption 
 			runeOpt
 		} catch {
 			case e: Exception => {
-				println(e.getMessage)
+				println(e)
 				null
 			}
 		}
