@@ -14,6 +14,7 @@ import net.minecraft.entity.item.EntityItem
 import cpup.mc.lib.util.GUIUtil
 import java.util.Random
 import net.minecraft.item.{Item, ItemStack}
+import scala.collection.mutable.ListBuffer
 
 case class EntityTypeRune(name: String) extends TRune {
 	val drops = (() => {
@@ -47,19 +48,18 @@ case class EntityTypeRune(name: String) extends TRune {
 		}
 
 		var existing = Set[(String, Int)]()
+		val newDrops = new ListBuffer[ItemStack]
 
 		for(drop <- drops) {
 			val key = (drop.getUnlocalizedName, drop.getItemDamage)
 
-			if(existing.contains(key)) {
-				println("removing", key)
-				drops.remove(drops.indexOf(drop))
+			if(!existing.contains(key)) {
+				println("adding", key)
+				newDrops += drop
 			}
 
 			existing += key
 		}
-
-		println(drops.mkString(", "))
 
 		drops.toList
 	})()
