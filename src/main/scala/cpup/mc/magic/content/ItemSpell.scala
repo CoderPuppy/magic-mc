@@ -5,12 +5,12 @@ import net.minecraft.entity.player.EntityPlayer
 import java.util
 import cpup.lib.Util
 import cpup.mc.lib.util.ItemUtil
-import net.minecraft.world.World
 import net.minecraft.client.renderer.texture.IIconRegister
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import cpup.mc.magic.api.oldenLanguage._
 import cpup.mc.magic.api.oldenLanguage.textParsing.{TextParser, RootContext}
 import cpup.mc.magic.api.oldenLanguage.runeParsing.RuneParser
+import net.minecraft.world.World
 
 class ItemSpell extends ItemBase with TWritableItem {
 	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "").split(' ')
@@ -55,8 +55,14 @@ class ItemSpell extends ItemBase with TWritableItem {
 		}
 	}
 
+	override def getMaxItemUseDuration(stack: ItemStack) = 72000
 	override def onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer) = {
-		mod.proxy.activateSpellCasting(player)
+		// TODO: check for magical power / focus
+		player.setItemInUse(stack, getMaxItemUseDuration(stack))
+
 		stack
+	}
+	override def onPlayerStoppedUsing(stack: ItemStack, world: World, player: EntityPlayer, oppDur: Int) {
+		// TODO: cast the spell
 	}
 }

@@ -17,6 +17,8 @@ object Content extends CPupContent[TMagicMod] {
 	override def preInit(e: FMLPreInitializationEvent) {
 		super.preInit(e)
 
+		registerItem(new ItemWand().setName("wand"))
+		
 		registerItem(new ItemSpell().setName("spell"))
 
 		registerItem(new ItemDeed().setName("deed").setCreativeTab(CreativeTabs.tabMisc).asInstanceOf[TItemBase])
