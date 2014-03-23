@@ -12,16 +12,18 @@ object RootCategory {
 
 		val entities = root.createSubCategory("entities")
 
-		for(name <- EntityList.stringToClassMapping.keySet.toArray) {
-			try {
-				entities.addRune("tn!entity!" + name)
-			} catch {
-				case e: NullPointerException if e.getMessage == "No constructor: " + name + "(World)" =>
-					println(e)
-				case e: Throwable =>
-					throw e
-			}
-		}
+		entities.addRune("tn!entity!Cow")
+
+//		for(name <- EntityList.stringToClassMapping.keySet.toArray) {
+////			try {
+//				entities.addRune("tn!entity!" + name)
+////			} catch {
+////				case e: NullPointerException if e.getMessage == "No constructor: " + name + "(World)" =>
+////					println(e)
+////				case e: Throwable =>
+////					throw e
+////			}
+//		}
 
 		val stuff = root.createSubCategory("stuff")
 		stuff.addRune("p!of")
