@@ -6,23 +6,24 @@ import org.lwjgl.opengl.GL11
 import org.lwjgl.input.Keyboard
 import net.minecraft.client.Minecraft
 import cpup.mc.lib.util.GUIUtil
+import cpup.mc.magic.MagicMod
 
 @SideOnly(Side.CLIENT)
 class RuneSelector(val player: EntityPlayer, val x: Int, val y: Int, val addRune: (RuneOption) => Unit) {
+	def mod = MagicMod
+
 	val mc = Minecraft.getMinecraft
 	var category = RootCategory.create
 
 	def handleKey(key: Int) = if(key >= Keyboard.KEY_1 && key <= Keyboard.KEY_6) {
 		val index = key - Keyboard.KEY_1
-		val option = category(index)
-		option match {
+		category(index) match {
 			case cat: Category =>
 				category = cat
 			case runeOpt: RuneOption =>
 				addRune(runeOpt)
-				println("adding", runeOpt.parsedRune)
-			case _ => {
-				println("unknown")
+			case option => {
+				mod.logger.warn("Unknown SelectionOption: " + option.toString)
 			}
 		}
 		true

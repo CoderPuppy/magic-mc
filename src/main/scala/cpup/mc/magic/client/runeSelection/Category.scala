@@ -1,8 +1,11 @@
 package cpup.mc.magic.client.runeSelection
 
 import cpup.mc.magic.api.oldenLanguage.textParsing.TContext
+import cpup.mc.magic.MagicMod
 
 class Category(val context: TContext, val name: String) extends SelectionOption {
+	def mod = MagicMod
+
 	protected var _parent: Category = null
 	def parent = _parent
 
@@ -56,7 +59,7 @@ class Category(val context: TContext, val name: String) extends SelectionOption 
 			runeOpt
 		} catch {
 			case e: Exception => {
-				println(e)
+				mod.logger.error(e.toString)
 				null
 			}
 		}

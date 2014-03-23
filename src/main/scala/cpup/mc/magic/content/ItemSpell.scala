@@ -37,7 +37,6 @@ class ItemSpell extends ItemBase with TWritableItem {
 		} catch {
 			case e: Exception => {
 				lore.add(e.toString)
-				println(e)
 			}
 		}
 	}

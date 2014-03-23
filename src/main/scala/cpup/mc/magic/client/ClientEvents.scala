@@ -31,10 +31,9 @@ class ClientEvents(val proxy: ClientProxy) {
 	def handleKeyboardInput(e: InputEvent.KeyInputEvent) {
 		if(proxy.selector != null && mc.theWorld != null) {
 			val key = Keyboard.getEventKey
-			println(Keyboard.getKeyName(key))
 
 			if(key == Keyboard.KEY_F) {
-				println("casting: " + proxy.spell.mkString(" "))
+				mod.logger.info("casting: " + proxy.spell.mkString(" "))
 				proxy.stopSpellCasting(mc.thePlayer)
 			} else {
 				proxy.selector.handleKey(key)
@@ -60,7 +59,6 @@ class ClientEvents(val proxy: ClientProxy) {
 	def checkCastingItem(e: TickEvent.ClientTickEvent) {
 		if(e.phase == Phase.END && mc.theWorld != null && proxy.selector != null) {
 			if(mc.thePlayer.inventory.currentItem != proxy.castingItem) {
-				//				println(mc.thePlayer.inventory.getCurrentItem, proxy.castingItem)
 				proxy.stopSpellCasting(mc.thePlayer)
 			}
 		}
