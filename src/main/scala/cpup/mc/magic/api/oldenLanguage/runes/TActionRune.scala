@@ -1,10 +1,9 @@
-package cpup.mc.magic.api.oldenLanguage.runeParsing
+package cpup.mc.magic.api.oldenLanguage.runes
 
-import cpup.mc.magic.api.oldenLanguage.TRune
 import net.minecraft.entity.Entity
 import cpup.mc.lib.util.pos.BlockPos
 
-trait ActionRune extends TRune {
+trait TActionRune extends TRune {
 	def actUponEntity(entity: Entity)
 	def actUponBlock(pos: BlockPos)
 }

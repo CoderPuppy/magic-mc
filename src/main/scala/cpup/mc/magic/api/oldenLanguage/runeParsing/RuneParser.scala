@@ -1,20 +1,20 @@
 package cpup.mc.magic.api.oldenLanguage.runeParsing
 
-import cpup.mc.magic.api.oldenLanguage.TRune
 import cpup.mc.magic.MagicMod
+import cpup.mc.magic.api.oldenLanguage.runes.{TActionRune, TRune}
 
 // TODO: limit what runes a player can use
 class RuneParser {
 	def mod = MagicMod
 
 	var mode: RuneParserMode = ActionMode
-	var action: ActionRune = null
+	var action: TActionRune = null
 
 	def handle(rune: TRune) {
 		mode match {
 			case ActionMode =>
 				rune match {
-					case newAct: ActionRune =>
+					case newAct: TActionRune =>
 						action = newAct
 						mode = ActionModifierRune
 					case _ =>

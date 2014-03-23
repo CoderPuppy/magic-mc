@@ -16,6 +16,7 @@ import java.util.Random
 import net.minecraft.item.{Item, ItemStack}
 import scala.collection.mutable.ListBuffer
 import cpup.mc.magic.api.oldenLanguage.textParsing.{TContext, TextRune, TTransform}
+import cpup.mc.magic.api.oldenLanguage.runes.{TRune, TRuneType}
 
 case class EntityTypeRune(name: String) extends TRune {
 	val drops = (() => {

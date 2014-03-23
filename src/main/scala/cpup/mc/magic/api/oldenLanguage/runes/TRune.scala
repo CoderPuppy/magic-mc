@@ -1,4 +1,4 @@
-package cpup.mc.magic.api.oldenLanguage
+package cpup.mc.magic.api.oldenLanguage.runes
 
 import net.minecraft.util.IIcon
 import net.minecraft.nbt.NBTTagCompound

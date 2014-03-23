@@ -8,6 +8,7 @@ import cpup.mc.magic.MagicMod
 import cpw.mods.fml.common.registry.GameData
 import cpup.mc.lib.util.GUIUtil
 import cpup.mc.magic.api.oldenLanguage.textParsing.{TTransform, TextRune, TContext}
+import cpup.mc.magic.api.oldenLanguage.runes.{TRuneType, TRune}
 
 case class BlockTypeRune(name: String) extends TRune {
 	println(GameData.blockRegistry.getObject(name))

@@ -1,6 +1,7 @@
 package cpup.mc.magic.api.oldenLanguage
 
 import cpup.mc.magic.api.oldenLanguage.textParsing.Context
+import cpup.mc.magic.api.oldenLanguage.runes.TRuneType
 
 object OldenLanguageRegistry {
 	protected var _runeTypes = Set[TRuneType]()
