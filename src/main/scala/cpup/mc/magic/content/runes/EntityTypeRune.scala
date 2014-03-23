@@ -74,12 +74,12 @@ case class EntityTypeRune(name: String) extends TRune {
 	@SideOnly(Side.CLIENT)
 	override def render(x: Int, y: Int, width: Int, height: Int) {
 		if(drops.size > 0) {
-			val centerX = x + width / 2
-			val centerY = y + height / 2
+			val centerX = x + width / 2.0
+			val centerY = y + height / 2.0
 			val degreesBetween = 360 / drops.size
-			val dropWidth = width / 2
-			val dropHeight = width / 2
-			val radius = width / 4
+			val dropWidth = width / 3.0
+			val dropHeight = width / 3.0
+			val radius = width / 2.5
 
 			var angle = 0
 			for(drop <- drops) {
@@ -92,7 +92,7 @@ case class EntityTypeRune(name: String) extends TRune {
 			}
 		}
 
-//		super.render(x, y, width, height)
+		super.render(x, y, width, height)
 	}
 
 	def runeType = EntityTypeRune
