@@ -36,7 +36,7 @@ case class EntityTypeRune(name: String) extends TRune {
 		rand.setAccessible(true)
 		rand.set(entity, new StackedRandom(List(0)))
 		// TODO: obfuscated: func_70628_a
-		val dropFew = classOf[EntityLivingBase].getDeclaredMethod("dropFew", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
+		val dropFew = classOf[EntityLivingBase].getDeclaredMethod("dropFewItems", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
 		dropFew.setAccessible(true)
 		dropFew.invoke(entity, true: java.lang.Boolean, 100: java.lang.Integer)
 
