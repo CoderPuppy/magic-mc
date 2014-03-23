@@ -47,7 +47,6 @@ case class EntityTypeRune(name: String) extends TRune {
 			val key = drop.getUnlocalizedName
 
 			if(!existing.contains(key)) {
-				println("adding", key)
 				newDrops += drop
 			}
 
