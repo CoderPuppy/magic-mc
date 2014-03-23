@@ -31,10 +31,6 @@ case class EntityTypeRune(name: String) extends TRune {
 		entity.captureDrops = true
 		entity.capturedDrops = new util.ArrayList[EntityItem]
 
-		// TODO: obfuscated: field_70146_Z
-		val rand = classOf[Entity].getDeclaredField("rand")
-		rand.setAccessible(true)
-		rand.set(entity, new StackedRandom(List(0)))
 		// TODO: obfuscated: func_70628_a
 		val dropFew = classOf[EntityLivingBase].getDeclaredMethod("dropFewItems", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
 		dropFew.setAccessible(true)
@@ -68,8 +64,8 @@ case class EntityTypeRune(name: String) extends TRune {
 
 			var angle = 0
 			for((drop, i) <- drops.zipWithIndex) {
-				val dropX = centerX + Math.cos(angle) * radius + (dropWidth / 2)
-				val dropY = centerY + Math.sin(angle) * radius + (dropHeight / 2)
+				val dropX = centerX + (Math.cos(angle) * radius) - (dropWidth / 2)
+				val dropY = centerY + (Math.sin(angle) * radius) - (dropHeight / 2)
 
 				println(dropX, dropY)
 
@@ -105,28 +101,4 @@ object EntityTypeRune extends TRuneType {
 
 object EntityTypeTransform extends TTransform {
 	def transform(context: TContext, rune: TextRune) = EntityTypeRune(rune.txt)
-}
-
-class StackedRandom(val stack: List[Int]) extends Random {
-	if(stack.size == 0) {
-		throw new ArrayIndexOutOfBoundsException("There must be at least one value stacked")
-	}
-
-	var current = 0
-	override def nextInt() = {
-		val res = stack(current)
-		current += 1
-		if(current >= stack.size) {
-			current = 0
-		}
-		res
-	}
-
-	override def nextInt(n: Int) = {
-		var int = nextInt()
-		if(int > n) {
-			int = n
-		}
-		int
-	}
 }
