@@ -32,26 +32,19 @@ case class EntityTypeRune(name: String) extends TRune {
 		entity.captureDrops = true
 		entity.capturedDrops = new util.ArrayList[EntityItem]
 
-		// TODO: obfuscated: func_70628_a
-		val dropFew = classOf[EntityLivingBase].getDeclaredMethod("dropFewItems", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
-		dropFew.setAccessible(true)
-		dropFew.invoke(entity, true: java.lang.Boolean, 100: java.lang.Integer)
-
+		EntityTypeRune.dropFew.invoke(entity, true: java.lang.Boolean, 100: java.lang.Integer)
 		var drops = entity.capturedDrops.toArray.toList.asInstanceOf[List[EntityItem]].map(_.getEntityItem)
-
-		val getDropItem = classOf[EntityLiving].getDeclaredMethod("getDropItem")
-		getDropItem.setAccessible(true)
-		val droppedItem = getDropItem.invoke(entity).asInstanceOf[Item]
+		val droppedItem = EntityTypeRune.getDropItem.invoke(entity).asInstanceOf[Item]
 
 		if(droppedItem != null) {
 			drops ++= List(new ItemStack(droppedItem))
 		}
 
-		var existing = Set[(String, Int)]()
+		var existing = Set[String]()
 		val newDrops = new ListBuffer[ItemStack]
 
 		for(drop <- drops) {
-			val key = (drop.getUnlocalizedName, drop.getItemDamage)
+			val key = drop.getUnlocalizedName
 
 			if(!existing.contains(key)) {
 				println("adding", key)
@@ -60,10 +53,6 @@ case class EntityTypeRune(name: String) extends TRune {
 
 			existing += key
 		}
-
-//		drops.toList
-
-		println(newDrops.mkString(", "))
 
 		newDrops.toList
 	})()
@@ -103,6 +92,14 @@ case class EntityTypeRune(name: String) extends TRune {
 
 object EntityTypeRune extends TRuneType {
 	def mod = MagicMod
+
+	// TODO: obfuscated: func_70628_a
+	val dropFew = classOf[EntityLivingBase].getDeclaredMethod("dropFewItems", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
+	dropFew.setAccessible(true)
+
+	// TODO: obfuscated: func_146068_u
+	val getDropItem = classOf[EntityLiving].getDeclaredMethod("getDropItem")
+	getDropItem.setAccessible(true)
 
 	def runeClass = classOf[EntityTypeRune]
 	def readFromNBT(nbt: NBTTagCompound) = EntityTypeRune(nbt.getString("name"))
