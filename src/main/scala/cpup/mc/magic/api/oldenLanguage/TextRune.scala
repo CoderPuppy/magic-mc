@@ -5,13 +5,13 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.magic.MagicMod
 
-case class TextRune(txt: String) extends TRune {
+case class TextRune(text: String) extends TRune {
 	@SideOnly(Side.CLIENT)
 	def icons = List(TextRune.icon)
 
 	def runeType = TextRune
 	def writeToNBT(nbt: NBTTagCompound) {
-		nbt.setString("txt", txt)
+		nbt.setString("txt", text)
 	}
 }
 

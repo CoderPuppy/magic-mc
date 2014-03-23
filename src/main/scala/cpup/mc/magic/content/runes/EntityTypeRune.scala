@@ -114,5 +114,5 @@ object EntityTypeRune extends TRuneType {
 }
 
 object EntityTypeTransform extends TTransform {
-	def transform(context: TContext, rune: TextRune) = EntityTypeRune(rune.txt)
+	def transform(context: TContext, rune: TextRune) = EntityTypeRune(rune.text)
 }
