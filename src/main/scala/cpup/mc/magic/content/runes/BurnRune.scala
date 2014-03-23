@@ -6,8 +6,13 @@ import net.minecraft.util.IIcon
 import cpup.mc.magic.MagicMod
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.magic.api.oldenLanguage.textParsing.{TContext, TTransform, TextRune}
+import cpup.mc.magic.api.oldenLanguage.runeParsing.ActionRune
+import cpup.mc.lib.util.pos.BlockPos
+import net.minecraft.entity.Entity
+import cpup.mc.lib.util.Direction
+import net.minecraft.init.Blocks
 
-object BurnRune extends TRune with TRuneType {
+object BurnRune extends ActionRune with TRune with TRuneType {
 	def mod = MagicMod
 
 	@SideOnly(Side.CLIENT)
@@ -26,6 +31,13 @@ object BurnRune extends TRune with TRuneType {
 
 	def writeToNBT(nbt: NBTTagCompound){}
 	def readFromNBT(nbt: NBTTagCompound) = this
+
+	def actUponBlock(pos: BlockPos) {
+		pos.offset(Direction.Up).tryReplaceWith(Blocks.fire)
+	}
+	def actUponEntity(entity: Entity) {
+		entity.setFire(10) // TODO: more depending on something
+	}
 }
 
 object BurnTransform extends TTransform {
