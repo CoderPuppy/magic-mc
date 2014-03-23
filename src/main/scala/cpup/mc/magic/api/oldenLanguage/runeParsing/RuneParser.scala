@@ -20,6 +20,22 @@ class RuneParser {
 					case _ =>
 						unhandledRune(rune)
 				}
+			case ActionModifierMode =>
+				rune match {
+//					case mod: ActionModifierRune
+					case _ =>
+						unhandledRune(rune)
+				}
+			case NounModifierMode =>
+				rune match {
+					case _ =>
+						unhandledRune(rune)
+				}
+			case PrepositionalMode =>
+				rune match {
+					case _ =>
+						unhandledRune(rune)
+				}
 			case _ =>
 				throw new RuntimeException("Unknown mode: " + mode.toString)
 		}
@@ -39,3 +55,4 @@ trait RuneParserMode {}
 case object ActionMode extends RuneParserMode
 case object ActionModifierMode extends RuneParserMode
 case object NounModifierMode extends RuneParserMode
+case object PrepositionalMode extends RuneParserMode
