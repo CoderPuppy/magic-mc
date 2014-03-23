@@ -12,7 +12,7 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import cpup.mc.lib.client.BetterSlot
 import scala.util.control.Breaks
-import cpup.mc.magic.client.runeSelection.{RootCategory, RuneOption, Category}
+import cpup.mc.magic.client.runeSelection.{RuneSelector, RootCategory, RuneOption, Category}
 import org.lwjgl.input.Keyboard
 import cpup.mc.magic.MagicMod
 
@@ -32,26 +32,12 @@ object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 	def mod = MagicMod
 
-	var category = RootCategory.create
+	val selector = new RuneSelector(container.player, -200, 0, (runeOpt: RuneOption) => {
+		mod.network.sendToServer(new WritingDeskMessage(container.te.pos, runeOpt.parsedRune))
+	})
 
 	override def keyTyped(char: Char, key: Int): Unit = {
-		if(key >= Keyboard.KEY_1 && key <= Keyboard.KEY_6) {
-			val index = key - Keyboard.KEY_1
-			category(index) match {
-				case cat: Category => category = cat
-				case runeOpt: RuneOption =>
-					println("adding", runeOpt.parsedRune)
-					mod.network.sendToServer(new WritingDeskMessage(container.te.pos, runeOpt.parsedRune))
-			}
-		} else if(key == Keyboard.KEY_Q) {
-			category.scrollUp
-		} else if(key == Keyboard.KEY_E) {
-			category.scrollDown
-		} else if(key == Keyboard.KEY_R) {
-			if(category.parent != null) {
-				category = category.parent
-			}
-		} else {
+		if(!selector.handleKey(key)) {
 			super.keyTyped(char, key)
 		}
 	}
@@ -69,14 +55,7 @@ class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 		fontRendererObj.drawString(I18n.format(container.te.inv.getInventoryName), 8, 6, 4210752)
 		fontRendererObj.drawString(I18n.format(container.player.inventory.getInventoryName), 8, WritingDeskGUI.playerOffset, 4210752)
 
-		for(i <- 0 to 5) {
-			fontRendererObj.drawString(i.toString + ": " + (category(i) match {
-				case runeOpt: RuneOption => runeOpt.parsedRune.toString
-				case cat: Category => cat.name
-				case any: Any => "unknown: " + any.toString
-				case null => "null"
-			}), -200, i * 10, 4210752)
-		}
+		selector.render
 	}
 }
 

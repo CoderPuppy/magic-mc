@@ -12,30 +12,32 @@ class RuneSelector(val player: EntityPlayer, val x: Int, val y: Int, val addRune
 	val mc = Minecraft.getMinecraft
 	var category = RootCategory.create
 
-	def handleKey(key: Int) {
-		if(key >= Keyboard.KEY_1 && key <= Keyboard.KEY_6) {
-			val index = key - Keyboard.KEY_1
-			val option = category(index)
-			option match {
-				case cat: Category =>
-					category = cat
-				case runeOpt: RuneOption =>
-					addRune(runeOpt)
-					println("adding", runeOpt.parsedRune)
-				case _ => {
-					println("unknown")
-				}
-			}
-		} else if(key == Keyboard.KEY_Q) {
-			category.scrollUp
-		} else if(key == Keyboard.KEY_E) {
-			category.scrollDown
-		} else if(key == Keyboard.KEY_R) {
-			if(category.parent != null) {
-				category = category.parent
+	def handleKey(key: Int) = if(key >= Keyboard.KEY_1 && key <= Keyboard.KEY_6) {
+		val index = key - Keyboard.KEY_1
+		val option = category(index)
+		option match {
+			case cat: Category =>
+				category = cat
+			case runeOpt: RuneOption =>
+				addRune(runeOpt)
+				println("adding", runeOpt.parsedRune)
+			case _ => {
+				println("unknown")
 			}
 		}
-	}
+		true
+	} else if(key == Keyboard.KEY_Q) {
+		category.scrollUp
+		true
+	} else if(key == Keyboard.KEY_E) {
+		category.scrollDown
+		true
+	} else if(key == Keyboard.KEY_R) {
+		if(category.parent != null) {
+			category = category.parent
+		}
+		true
+	} else { false }
 
 	def render {
 		GL11.glColor4f(1, 1, 1, 1)
