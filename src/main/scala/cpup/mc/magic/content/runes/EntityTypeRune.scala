@@ -37,7 +37,7 @@ case class EntityTypeRune(name: String) extends TRune {
 		dropFew.setAccessible(true)
 		dropFew.invoke(entity, true: java.lang.Boolean, 100: java.lang.Integer)
 
-		var drops = entity.capturedDrops.toArray.toList.asInstanceOf[List[EntityItem]].map(_.getEntityItem).toBuffer
+		var drops = entity.capturedDrops.toArray.toList.asInstanceOf[List[EntityItem]].map(_.getEntityItem)
 
 		val getDropItem = classOf[EntityLiving].getDeclaredMethod("getDropItem")
 		getDropItem.setAccessible(true)
@@ -61,7 +61,11 @@ case class EntityTypeRune(name: String) extends TRune {
 			existing += key
 		}
 
-		drops.toList
+//		drops.toList
+
+		println(newDrops.mkString(", "))
+
+		newDrops.toList
 	})()
 
 	@SideOnly(Side.CLIENT)
