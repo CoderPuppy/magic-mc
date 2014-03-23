@@ -5,7 +5,7 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.IIcon
 import cpup.mc.magic.MagicMod
-import net.minecraft.entity.{Entity, EntityList}
+import net.minecraft.entity.{EntityLiving, EntityLivingBase, Entity, EntityList}
 import java.lang.reflect.Constructor
 import net.minecraft.world.World
 import net.minecraft.world.chunk.IChunkProvider
@@ -13,6 +13,7 @@ import java.util
 import net.minecraft.entity.item.EntityItem
 import cpup.mc.lib.util.GUIUtil
 import java.util.Random
+import net.minecraft.item.{Item, ItemStack}
 
 case class EntityTypeRune(name: String) extends TRune {
 	val drops = (() => {
@@ -30,18 +31,22 @@ case class EntityTypeRune(name: String) extends TRune {
 		entity.captureDrops = true
 		entity.capturedDrops = new util.ArrayList[EntityItem]
 
-//		println(cla.getDeclaredFields.map(_.getName).toList.mkString(", "))
-
-//		// TODO: obfuscated: field_70146_Z
-//		val rand = classOf[Entity].getDeclaredField("rand")
-//		rand.setAccessible(true)
-//		rand.set(entity, new StackedRandom(List(0)))
+		// TODO: obfuscated: field_70146_Z
+		val rand = classOf[Entity].getDeclaredField("rand")
+		rand.setAccessible(true)
+		rand.set(entity, new StackedRandom(List(0)))
 		// TODO: obfuscated: func_70628_a
-		val dropFew = cla.getDeclaredMethod("dropFew", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
+		val dropFew = classOf[EntityLivingBase].getDeclaredMethod("dropFew", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
 		dropFew.setAccessible(true)
 		dropFew.invoke(entity, true: java.lang.Boolean, 100: java.lang.Integer)
 
-		entity.capturedDrops.toArray.toList.asInstanceOf[List[EntityItem]].map(_.getEntityItem)
+		var drops = entity.capturedDrops.toArray.toList.asInstanceOf[List[EntityItem]].map(_.getEntityItem)
+
+		val getDropItem = classOf[EntityLiving].getDeclaredMethod("getDropItem", null)
+		getDropItem.setAccessible(true)
+		drops ++= List(new ItemStack(getDropItem.invoke(entity, null).asInstanceOf[Item]))
+
+		drops
 	})()
 
 	@SideOnly(Side.CLIENT)
@@ -49,20 +54,22 @@ case class EntityTypeRune(name: String) extends TRune {
 
 	@SideOnly(Side.CLIENT)
 	override def render(x: Int, y: Int, width: Int, height: Int) {
-		val centerX = x + width / 2
-		val centerY = y + height / 2
-		val degreesBetween = 360 / drops.size
-		val dropWidth = width / 4
-		val dropHeight = width / 4
-		val radius = width / 4
+		if(drops.size > 0) {
+			val centerX = x + width / 2
+			val centerY = y + height / 2
+			val degreesBetween = 360 / drops.size
+			val dropWidth = width / 4
+			val dropHeight = width / 4
+			val radius = width / 4
 
-		var angle = 0
-		for((drop, i) <- drops.zipWithIndex) {
-			val dropX = centerX + Math.cos(angle) * radius + (dropWidth / 2)
-			val dropY = centerY + Math.sin(angle) * radius + (dropHeight / 2)
-			GUIUtil.drawItemIconAt(drop.getIconIndex, dropX, dropY, 0, dropWidth, dropHeight)
+			var angle = 0
+			for((drop, i) <- drops.zipWithIndex) {
+				val dropX = centerX + Math.cos(angle) * radius + (dropWidth / 2)
+				val dropY = centerY + Math.sin(angle) * radius + (dropHeight / 2)
+				GUIUtil.drawItemIconAt(drop.getIconIndex, dropX, dropY, 0, dropWidth, dropHeight)
 
-			angle += degreesBetween
+				angle += degreesBetween
+			}
 		}
 
 		super.render(x, y, width, height)
