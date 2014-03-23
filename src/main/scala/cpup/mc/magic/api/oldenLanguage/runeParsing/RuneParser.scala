@@ -14,6 +14,9 @@ class RuneParser {
 		mode match {
 			case ActionMode =>
 				rune match {
+					case newAct: ActionRune =>
+						action = newAct
+						mode = ActionModifierRune
 					case _ =>
 						unhandledRune(rune)
 				}
@@ -22,7 +25,7 @@ class RuneParser {
 		}
 	}
 
-	override def toString = "{ " + List("action = " + action.toString).mkString(", ") + " }"
+	override def toString = "{ " + List("action = " + action).mkString(", ") + " }"
 
 	def unhandledRune(rune: TRune) {
 		mod.logger.warn("Unhandled rune: " + rune.toString)
@@ -34,3 +37,5 @@ class RuneParser {
 
 trait RuneParserMode {}
 case object ActionMode extends RuneParserMode
+case object ActionModifierMode extends RuneParserMode
+case object NounModifierMode extends RuneParserMode
