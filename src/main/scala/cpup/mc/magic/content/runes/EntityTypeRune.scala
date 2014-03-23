@@ -83,10 +83,10 @@ case class EntityTypeRune(name: String) extends TRune {
 
 			var angle = 0
 			for(drop <- drops) {
-				val dropX = centerX /*+ (Math.cos(angle) * radius)*/ - (dropWidth / 2)
-				val dropY = centerY /*+ (Math.sin(angle) * radius)*/ - (dropHeight / 2)
+				val dropX = centerX + (Math.cos(Math.toRadians(angle)) * radius) - (dropWidth / 2)
+				val dropY = centerY + (Math.sin(Math.toRadians(angle)) * radius) - (dropHeight / 2)
 
-				println(angle, Math.cos(angle) * radius, Math.sin(angle) * radius)
+				println(angle, Math.cos(Math.toRadians(angle)) * radius, Math.sin(Math.toRadians(angle)) * radius)
 
 //				println(dropX, dropY)
 
