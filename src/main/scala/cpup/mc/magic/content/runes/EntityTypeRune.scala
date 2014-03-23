@@ -86,10 +86,6 @@ case class EntityTypeRune(name: String) extends TRune {
 				val dropX = centerX + (Math.cos(Math.toRadians(angle)) * radius) - (dropWidth / 2)
 				val dropY = centerY + (Math.sin(Math.toRadians(angle)) * radius) - (dropHeight / 2)
 
-				println(angle, Math.cos(Math.toRadians(angle)) * radius, Math.sin(Math.toRadians(angle)) * radius)
-
-//				println(dropX, dropY)
-
 				GUIUtil.drawItemIconAt(drop.getIconIndex, dropX, dropY, 0, dropWidth, dropHeight)
 
 				angle += degreesBetween
