@@ -22,6 +22,7 @@ object RootCategory {
 		val blocks = root.createSubCategory("blocks")
 
 		for(block <- JavaConversions.asScalaIterator(GameData.blockRegistry.iterator).asInstanceOf[Iterator[Block]]) {
+			println(block.getUnlocalizedName)
 			blocks.addRune("tn!block!" + block.getUnlocalizedName.replaceFirst("^tile\\.", ""))
 		}
 
