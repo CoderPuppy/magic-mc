@@ -7,12 +7,30 @@ import cpup.mc.magic.MagicMod
 class RuneParser {
 	def mod = MagicMod
 
-	def handle(runes: List[TRune]) { runes.foreach(handle(_)) }
+	var mode: RuneParserMode = ActionMode
+	var action: ActionRune = null
 
 	def handle(rune: TRune) {
-		rune match {
+		mode match {
+			case ActionMode =>
+				rune match {
+					case _ =>
+						unhandledRune(rune)
+				}
 			case _ =>
-				mod.logger.warn("What is this rune? " + rune.toString)
+				throw new RuntimeException("Unknown mode: " + mode.toString)
 		}
 	}
+
+	override def toString = "{ " + List("action = " + action.toString).mkString(", ") + " }"
+
+	def unhandledRune(rune: TRune) {
+		mod.logger.warn("Unhandled rune: " + rune.toString)
+		// TODO: instability
+	}
+
+	def handle(runes: List[TRune]) { runes.foreach(handle(_)) }
 }
+
+trait RuneParserMode {}
+case object ActionMode extends RuneParserMode
