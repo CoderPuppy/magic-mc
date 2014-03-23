@@ -31,11 +31,11 @@ case class EntityTypeRune(name: String) extends TRune {
 		entity.capturedDrops = new util.ArrayList[EntityItem]
 
 		// TODO: obfuscated: field_70146_Z
-		val rand = cla.getField("rand")
+		val rand = cla.getDeclaredField("rand")
 		rand.setAccessible(true)
 		rand.set(entity, new StackedRandom(List(0)))
 		// TODO: obfuscated: func_70628_a
-		val dropFew = cla.getMethod("dropFew", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
+		val dropFew = cla.getDeclaredMethod("dropFew", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
 		dropFew.setAccessible(true)
 		dropFew.invoke(entity, true: java.lang.Boolean, 100: java.lang.Integer)
 
