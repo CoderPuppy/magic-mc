@@ -59,6 +59,8 @@ case class EntityTypeRune(name: String) extends TRune {
 			existing += key
 		}
 
+		println(drops.mkString(", "))
+
 		drops.toList
 	})()
 
@@ -76,7 +78,7 @@ case class EntityTypeRune(name: String) extends TRune {
 			val radius = width / 4
 
 			var angle = 0
-			for((drop, i) <- drops.zipWithIndex) {
+			for(drop <- drops) {
 				val dropX = centerX + (Math.cos(angle) * radius) - (dropWidth / 2)
 				val dropY = centerY + (Math.sin(angle) * radius) - (dropHeight / 2)
 
