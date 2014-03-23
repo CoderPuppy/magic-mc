@@ -10,6 +10,9 @@ object RootCategory {
 	def create = {
 		val root = new Category(RootContext.create, "root")
 
+		val actions = root.createSubCategory("actions")
+		actions.addRune("a!burn!")
+
 		val entities = root.createSubCategory("entities")
 
 		for(name <- EntityList.stringToClassMapping.keySet.toArray) {
