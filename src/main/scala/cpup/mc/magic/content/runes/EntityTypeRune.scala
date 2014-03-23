@@ -42,9 +42,9 @@ case class EntityTypeRune(name: String) extends TRune {
 
 		var drops = entity.capturedDrops.toArray.toList.asInstanceOf[List[EntityItem]].map(_.getEntityItem)
 
-		val getDropItem = classOf[EntityLiving].getDeclaredMethod("getDropItem", null)
+		val getDropItem = classOf[EntityLiving].getDeclaredMethod("getDropItem")
 		getDropItem.setAccessible(true)
-		drops ++= List(new ItemStack(getDropItem.invoke(entity, null).asInstanceOf[Item]))
+		drops ++= List(new ItemStack(getDropItem.invoke(entity).asInstanceOf[Item]))
 
 		drops
 	})()
