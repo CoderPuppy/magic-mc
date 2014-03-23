@@ -36,7 +36,7 @@ case class EntityTypeRune(name: String) extends TRune {
 		dropFew.setAccessible(true)
 		dropFew.invoke(entity, true: java.lang.Boolean, 100: java.lang.Integer)
 
-		var drops = entity.capturedDrops.toArray.toList.asInstanceOf[List[EntityItem]].map(_.getEntityItem)
+		var drops = entity.capturedDrops.toArray.toList.asInstanceOf[List[EntityItem]].map(_.getEntityItem).toBuffer
 
 		val getDropItem = classOf[EntityLiving].getDeclaredMethod("getDropItem")
 		getDropItem.setAccessible(true)
@@ -46,7 +46,19 @@ case class EntityTypeRune(name: String) extends TRune {
 			drops ++= List(new ItemStack(droppedItem))
 		}
 
-		drops
+		var existing = Set[(String, Int)]()
+
+		for((drop, i) <- drops.view.zipWithIndex) {
+			val key = (drop.getUnlocalizedName, drop.getItemDamage)
+
+			if(existing.contains(key)) {
+				drops.remove(i)
+			}
+
+			existing += key
+		}
+
+		drops.toList
 	})()
 
 	@SideOnly(Side.CLIENT)
@@ -75,7 +87,7 @@ case class EntityTypeRune(name: String) extends TRune {
 			}
 		}
 
-		super.render(x, y, width, height)
+//		super.render(x, y, width, height)
 	}
 
 	def runeType = EntityTypeRune
