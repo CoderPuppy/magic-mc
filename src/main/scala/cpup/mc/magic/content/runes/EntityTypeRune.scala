@@ -48,11 +48,12 @@ case class EntityTypeRune(name: String) extends TRune {
 
 		var existing = Set[(String, Int)]()
 
-		for((drop, i) <- drops.view.zipWithIndex) {
+		for(drop <- drops) {
 			val key = (drop.getUnlocalizedName, drop.getItemDamage)
 
 			if(existing.contains(key)) {
-				drops.remove(i)
+				println("removing", key)
+				drops.remove(drops.indexOf(drop))
 			}
 
 			existing += key
@@ -79,7 +80,7 @@ case class EntityTypeRune(name: String) extends TRune {
 				val dropX = centerX + (Math.cos(angle) * radius) - (dropWidth / 2)
 				val dropY = centerY + (Math.sin(angle) * radius) - (dropHeight / 2)
 
-				println(dropX, dropY)
+//				println(dropX, dropY)
 
 				GUIUtil.drawItemIconAt(drop.getIconIndex, dropX, dropY, 0, dropWidth, dropHeight)
 
