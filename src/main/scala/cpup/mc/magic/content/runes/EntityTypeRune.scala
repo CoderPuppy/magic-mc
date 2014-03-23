@@ -44,7 +44,11 @@ case class EntityTypeRune(name: String) extends TRune {
 
 		val getDropItem = classOf[EntityLiving].getDeclaredMethod("getDropItem")
 		getDropItem.setAccessible(true)
-		drops ++= List(new ItemStack(getDropItem.invoke(entity).asInstanceOf[Item]))
+		val droppedItem = getDropItem.invoke(entity).asInstanceOf[Item]
+
+		if(droppedItem != null) {
+			drops ++= List(new ItemStack(droppedItem))
+		}
 
 		drops
 	})()
@@ -58,14 +62,17 @@ case class EntityTypeRune(name: String) extends TRune {
 			val centerX = x + width / 2
 			val centerY = y + height / 2
 			val degreesBetween = 360 / drops.size
-			val dropWidth = width / 4
-			val dropHeight = width / 4
+			val dropWidth = width / 2
+			val dropHeight = width / 2
 			val radius = width / 4
 
 			var angle = 0
 			for((drop, i) <- drops.zipWithIndex) {
 				val dropX = centerX + Math.cos(angle) * radius + (dropWidth / 2)
 				val dropY = centerY + Math.sin(angle) * radius + (dropHeight / 2)
+
+				println(dropX, dropY)
+
 				GUIUtil.drawItemIconAt(drop.getIconIndex, dropX, dropY, 0, dropWidth, dropHeight)
 
 				angle += degreesBetween
