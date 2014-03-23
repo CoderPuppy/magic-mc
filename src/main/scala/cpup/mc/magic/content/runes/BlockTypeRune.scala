@@ -5,10 +5,12 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.IIcon
 import cpup.mc.magic.MagicMod
+import cpw.mods.fml.common.registry.GameData
 
 case class BlockTypeRune(name: String) extends TRune {
 	@SideOnly(Side.CLIENT)
-	def icons = List(BlockTypeRune.icon)
+	def icons = List(GameData.blockRegistry.getObject(name).getIcon(1, 0))
+//	def icons = List(BlockTypeRune.icon)
 
 	def runeType = BlockTypeRune
 
