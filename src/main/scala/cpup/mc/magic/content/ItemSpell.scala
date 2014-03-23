@@ -9,7 +9,7 @@ import net.minecraft.world.World
 import net.minecraft.client.renderer.texture.IIconRegister
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import cpup.mc.magic.api.oldenLanguage._
-import cpup.mc.magic.content.runes.RootContext
+import cpup.mc.magic.api.oldenLanguage.parsing.{Parser, RootContext}
 
 class ItemSpell extends ItemBase with TWritableItem {
 	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "").split(' ')

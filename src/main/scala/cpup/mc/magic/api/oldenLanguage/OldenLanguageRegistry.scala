@@ -1,5 +1,7 @@
 package cpup.mc.magic.api.oldenLanguage
 
+import cpup.mc.magic.api.oldenLanguage.parsing.Context
+
 object OldenLanguageRegistry {
 	protected var _runeTypes = Set[TRuneType]()
 	def runeTypes = _runeTypes
