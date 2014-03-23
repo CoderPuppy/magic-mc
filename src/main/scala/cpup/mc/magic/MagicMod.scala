@@ -3,7 +3,6 @@ package cpup.mc.magic
 import cpup.mc.lib.CPupMod
 import cpw.mods.fml.common.{SidedProxy, Mod}
 import cpup.mc.magic.content.Content
-import cpup.mc.lib.network.CPupMessage
 import cpup.mc.lib.client.CPupGUIManager
 import cpup.mc.magic.client.gui.GUIBase
 import net.minecraft.client.gui.GuiScreen

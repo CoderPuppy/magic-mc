@@ -4,7 +4,6 @@ import net.minecraft.util.IIcon
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.magic.MagicMod
-import cpup.mc.magic.api.oldenLanguage.TRune
 import cpup.mc.magic.api.oldenLanguage.runes.{TRune, TRuneType}
 
 case class TextRune(text: String) extends TRune {

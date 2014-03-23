@@ -12,8 +12,7 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import cpup.mc.lib.client.BetterSlot
 import scala.util.control.Breaks
-import cpup.mc.magic.client.runeSelection.{RuneSelector, RootCategory, RuneOption, Category}
-import org.lwjgl.input.Keyboard
+import cpup.mc.magic.client.runeSelection.{RuneSelector, RuneOption}
 import cpup.mc.magic.MagicMod
 
 object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {

@@ -2,7 +2,7 @@ package cpup.mc.magic.content
 
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
-import net.minecraft.world.{IBlockAccess, World}
+import net.minecraft.world.World
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.init.Blocks
 import net.minecraft.entity.EntityLivingBase

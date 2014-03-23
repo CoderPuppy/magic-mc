@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import org.lwjgl.opengl.GL11
 import org.lwjgl.input.Keyboard
 import net.minecraft.client.Minecraft
-import cpup.mc.lib.util.GUIUtil
 import cpup.mc.magic.MagicMod
 
 @SideOnly(Side.CLIENT)

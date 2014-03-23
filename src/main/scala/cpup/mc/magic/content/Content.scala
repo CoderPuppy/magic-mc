@@ -9,7 +9,7 @@ import net.minecraft.init.{Blocks, Items}
 import cpw.mods.fml.common.registry.GameRegistry
 import cpup.mc.magic.content.runes._
 import cpup.mc.magic.api.oldenLanguage._
-import cpup.mc.magic.api.oldenLanguage.textParsing.{TextRune, Context}
+import cpup.mc.magic.api.oldenLanguage.textParsing.{SubContextTransform, TextRune, Context}
 
 object Content extends CPupContent[TMagicMod] {
 	def mod = MagicMod
@@ -68,7 +68,7 @@ object Content extends CPupContent[TMagicMod] {
 		OldenLanguageRegistry.registerRune(BurnRune)
 		OldenLanguageRegistry.registerRootContextTransformer((root: Context) => {
 			val actions = new Context
-			actions.transforms("burn") = BurnTransform
+			actions.transforms("burn") = BurnRune
 
 			root.subContexts("actions") = actions
 			root.transforms("a") = new SubContextTransform("actions")

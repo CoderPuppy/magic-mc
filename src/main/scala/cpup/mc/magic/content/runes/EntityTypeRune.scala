@@ -1,6 +1,5 @@
 package cpup.mc.magic.content.runes
 
-import cpup.mc.magic.api.oldenLanguage._
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.IIcon
@@ -8,11 +7,9 @@ import cpup.mc.magic.MagicMod
 import net.minecraft.entity.{EntityLiving, EntityLivingBase, Entity, EntityList}
 import java.lang.reflect.Constructor
 import net.minecraft.world.World
-import net.minecraft.world.chunk.IChunkProvider
 import java.util
 import net.minecraft.entity.item.EntityItem
 import cpup.mc.lib.util.GUIUtil
-import java.util.Random
 import net.minecraft.item.{Item, ItemStack}
 import scala.collection.mutable.ListBuffer
 import cpup.mc.magic.api.oldenLanguage.textParsing.{TContext, TextRune, TTransform}

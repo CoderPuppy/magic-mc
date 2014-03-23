@@ -16,7 +16,7 @@ class RuneParser {
 				rune match {
 					case newAct: TActionRune =>
 						action = newAct
-						mode = ActionModifierRune
+						mode = ActionModifierMode
 					case _ =>
 						unhandledRune(rune)
 				}

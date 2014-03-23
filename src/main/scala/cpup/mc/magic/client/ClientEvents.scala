@@ -8,7 +8,6 @@ import cpup.mc.magic.MagicMod
 import cpw.mods.fml.common.gameevent.TickEvent.Phase
 import net.minecraft.client.Minecraft
 import net.minecraftforge.client.event.RenderGameOverlayEvent
-import cpup.mc.magic.client.runeSelection.RuneOption
 import scala.collection.mutable
 
 class ClientEvents(val proxy: ClientProxy) {
