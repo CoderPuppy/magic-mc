@@ -21,7 +21,7 @@ import io.netty.channel.ChannelHandlerContext
 import io.netty.buffer.ByteBuf
 import cpw.mods.fml.common.network.ByteBufUtils
 import cpup.mc.magic.api.oldenLanguage.{TWritableItem, WritingType}
-import cpup.mc.magic.api.oldenLanguage.parsing.ParsedRune
+import cpup.mc.magic.api.oldenLanguage.textParsing.ParsedRune
 
 class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlockContainer[TMagicMod] {
 	setHardness(1)

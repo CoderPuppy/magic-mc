@@ -1,4 +1,4 @@
-package cpup.mc.magic.api.oldenLanguage.parsing
+package cpup.mc.magic.api.oldenLanguage.textParsing
 
 import cpup.mc.magic.api.oldenLanguage.OldenLanguageRegistry
 

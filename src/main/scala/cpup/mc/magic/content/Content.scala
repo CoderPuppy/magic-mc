@@ -9,7 +9,7 @@ import net.minecraft.init.{Blocks, Items}
 import cpw.mods.fml.common.registry.GameRegistry
 import cpup.mc.magic.content.runes._
 import cpup.mc.magic.api.oldenLanguage._
-import cpup.mc.magic.api.oldenLanguage.parsing.{TextRune, Context}
+import cpup.mc.magic.api.oldenLanguage.textParsing.{TextRune, Context}
 
 object Content extends CPupContent[TMagicMod] {
 	def mod = MagicMod

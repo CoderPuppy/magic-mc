@@ -1,4 +1,4 @@
-package cpup.mc.magic.api.oldenLanguage.parsing
+package cpup.mc.magic.api.oldenLanguage.textParsing
 
 import net.minecraft.util.IIcon
 import cpw.mods.fml.relauncher.{Side, SideOnly}

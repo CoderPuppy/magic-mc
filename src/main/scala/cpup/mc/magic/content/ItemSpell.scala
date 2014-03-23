@@ -9,7 +9,7 @@ import net.minecraft.world.World
 import net.minecraft.client.renderer.texture.IIconRegister
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import cpup.mc.magic.api.oldenLanguage._
-import cpup.mc.magic.api.oldenLanguage.parsing.{Parser, RootContext}
+import cpup.mc.magic.api.oldenLanguage.textParsing.{TextParser, RootContext}
 
 class ItemSpell extends ItemBase with TWritableItem {
 	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "").split(' ')
@@ -28,7 +28,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 		try {
 			val context = RootContext.create
 			for {
-				parsedRune <- Parser.parse(spell)
+				parsedRune <- TextParser.parse(spell)
 				rune = parsedRune(context)
 			} {
 				lore.add(parsedRune.toString)

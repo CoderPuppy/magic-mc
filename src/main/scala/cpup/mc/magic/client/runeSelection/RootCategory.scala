@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityList
 import cpw.mods.fml.common.registry.GameData
 import net.minecraft.block.Block
 import scala.collection.JavaConversions
-import cpup.mc.magic.api.oldenLanguage.parsing.RootContext
+import cpup.mc.magic.api.oldenLanguage.textParsing.RootContext
 
 object RootCategory {
 	def create = {

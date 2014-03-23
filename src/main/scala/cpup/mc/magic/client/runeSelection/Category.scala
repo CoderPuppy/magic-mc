@@ -1,6 +1,6 @@
 package cpup.mc.magic.client.runeSelection
 
-import cpup.mc.magic.api.oldenLanguage.parsing.TContext
+import cpup.mc.magic.api.oldenLanguage.textParsing.TContext
 
 class Category(val context: TContext, val name: String) extends SelectionOption {
 	protected var _parent: Category = null

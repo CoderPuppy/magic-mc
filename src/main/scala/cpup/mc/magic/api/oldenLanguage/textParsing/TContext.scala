@@ -1,4 +1,4 @@
-package cpup.mc.magic.api.oldenLanguage.parsing
+package cpup.mc.magic.api.oldenLanguage.textParsing
 
 /**
  * Created by cpup on 3/23/14.
