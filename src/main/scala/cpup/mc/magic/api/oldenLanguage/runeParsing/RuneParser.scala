@@ -48,11 +48,11 @@ class RuneParser {
 		mod.logger.warn("Unhandled rune: " + rune.toString + " in mode: " + mode + ", stack: " + modeStack)
 	}
 
-	override def toString = "RuneParser{ " + List(
+	override def toString = "RuneParser {\n" + List(
 		"action = " + action,
 		"target = " + target,
 		"modeStack = " + modeStack
-	).mkString(", ") + " }"
+	).mkString(",\n  ") + "\n}"
 
 	def handle(runes: List[TRune]) { runes.foreach(handle(_)) }
 }
