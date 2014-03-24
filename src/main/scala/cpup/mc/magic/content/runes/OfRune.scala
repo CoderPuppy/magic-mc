@@ -30,7 +30,7 @@ case class OfModifierRune(noun: TNounRune) extends InternalRune with TNounModifi
 	def runeType = OfModifierRune
 
 	def modify(rune: TNounRune) {
-		println("of modifiy", rune)
+		println("of modify", rune)
 	}
 
 	def writeToNBT(nbt: NBTTagCompound) {
