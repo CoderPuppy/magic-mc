@@ -13,9 +13,9 @@ import cpup.mc.lib.util.GUIUtil
 import net.minecraft.item.{Item, ItemStack}
 import scala.collection.mutable.ListBuffer
 import cpup.mc.magic.api.oldenLanguage.textParsing.{TContext, TextRune, TTransform}
-import cpup.mc.magic.api.oldenLanguage.runes.{TNounRune, TRune, TRuneType}
+import cpup.mc.magic.api.oldenLanguage.runes.{TNoun, TRune, TRuneType}
 
-case class EntityTypeRune(name: String) extends TNounRune {
+case class EntityTypeRune(name: String) extends TRune with TNoun {
 	val drops = (() => {
 		val cla = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[_ <: Entity]]
 		val constructor = cla.getConstructors.find((constr: Constructor[_]) => {
@@ -83,9 +83,9 @@ case class EntityTypeRune(name: String) extends TNounRune {
 	}
 
 	def runeType = EntityTypeRune
-	def writeToNBT(nbt: NBTTagCompound) {
-		nbt.setString("name", name)
-	}
+//	def writeToNBT(nbt: NBTTagCompound) {
+//		nbt.setString("name", name)
+//	}
 }
 
 object EntityTypeRune extends TRuneType {
@@ -102,7 +102,7 @@ object EntityTypeRune extends TRuneType {
 	getDropItem.setAccessible(true)
 
 	def runeClass = classOf[EntityTypeRune]
-	def readFromNBT(nbt: NBTTagCompound) = EntityTypeRune(nbt.getString("name"))
+//	def readFromNBT(nbt: NBTTagCompound) = EntityTypeRune(nbt.getString("name"))
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null

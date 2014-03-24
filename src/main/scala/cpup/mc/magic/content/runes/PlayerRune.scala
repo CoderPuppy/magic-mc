@@ -13,9 +13,9 @@ case class PlayerRune(name: String) extends TRune {
 
 	def runeType = PlayerRune
 
-	def writeToNBT(nbt: NBTTagCompound) {
-		nbt.setString("name", name)
-	}
+//	def writeToNBT(nbt: NBTTagCompound) {
+//		nbt.setString("name", name)
+//	}
 }
 
 object PlayerRune extends TRuneType {
@@ -25,7 +25,7 @@ object PlayerRune extends TRuneType {
 
 	def runeClass = classOf[PlayerRune]
 
-	def readFromNBT(nbt: NBTTagCompound) = PlayerRune(nbt.getString("name"))
+//	def readFromNBT(nbt: NBTTagCompound) = PlayerRune(nbt.getString("name"))
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null

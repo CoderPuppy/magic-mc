@@ -10,5 +10,5 @@ trait TRuneType {
 
 	@SideOnly(Side.CLIENT)
 	def registerIcons(registerIcon: (String) => IIcon)
-	def readFromNBT(nbt: NBTTagCompound): TRune
+//	def readFromNBT(nbt: NBTTagCompound): TRune
 }

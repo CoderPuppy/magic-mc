@@ -11,9 +11,9 @@ case class TextRune(text: String) extends TRune {
 	def icons = List(TextRune.icon)
 
 	def runeType = TextRune
-	def writeToNBT(nbt: NBTTagCompound) {
-		nbt.setString("txt", text)
-	}
+//	def writeToNBT(nbt: NBTTagCompound) {
+//		nbt.setString("txt", text)
+//	}
 }
 
 object TextRune extends TRuneType {
@@ -29,6 +29,6 @@ object TextRune extends TRuneType {
 		icon = registerIcon(mod.ref.modID + ":runes/text")
 	}
 
-	def readFromNBT(nbt: NBTTagCompound) = TextRune(nbt.getString("txt"))
+//	def readFromNBT(nbt: NBTTagCompound) = TextRune(nbt.getString("txt"))
 	def runeClass = classOf[TextRune]
 }

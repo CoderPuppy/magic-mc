@@ -7,12 +7,12 @@ import cpup.mc.magic.MagicMod
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.magic.api.oldenLanguage.OldenLanguageRegistry
 
-object OfRune extends SingletonRune with TNounPrepositionRune {
+object OfRune extends SingletonRune with TNounPreposition {
 	def mod = MagicMod
 
 	def name = "of-postpos"
 
-	def createNounModifier(noun: TNounRune) = OfModifierRune(noun)
+	def createNounModifier(noun: TNoun) = OfModifierRune(noun)
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null
@@ -26,18 +26,18 @@ object OfRune extends SingletonRune with TNounPrepositionRune {
 	}
 }
 
-case class OfModifierRune(noun: TNounRune) extends InternalRune with TNounModifierRune {
+case class OfModifierRune(noun: TNoun) extends InternalRune with TNounModifier {
 	def runeType = OfModifierRune
 
-	def modify(rune: TNounRune) {
+	def modifyNoun(rune: TNoun) {
 		println("of modify", rune)
 	}
 
-	def writeToNBT(nbt: NBTTagCompound) {
-		val nounCompound = new NBTTagCompound
-		OldenLanguageRegistry.writeRuneToNBT(noun, nounCompound)
-		nbt.setTag("noun", nounCompound)
-	}
+//	def writeToNBT(nbt: NBTTagCompound) {
+//		val nounCompound = new NBTTagCompound
+//		OldenLanguageRegistry.writeRuneToNBT(noun, nounCompound)
+//		nbt.setTag("noun", nounCompound)
+//	}
 }
 
 object OfModifierRune extends InternalRuneType {
@@ -45,7 +45,7 @@ object OfModifierRune extends InternalRuneType {
 
 	def runeClass = classOf[OfModifierRune]
 
-	def readFromNBT(nbt: NBTTagCompound) = {
-		OfModifierRune(OldenLanguageRegistry.readRuneFromNBT(nbt.getCompoundTag("noun")).asInstanceOf[TNounRune])
-	}
+//	def readFromNBT(nbt: NBTTagCompound) = {
+//		OfModifierRune(OldenLanguageRegistry.readRuneFromNBT(nbt.getCompoundTag("noun")).asInstanceOf[TNoun])
+//	}
 }

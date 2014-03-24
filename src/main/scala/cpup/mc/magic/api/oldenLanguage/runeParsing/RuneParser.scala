@@ -10,7 +10,7 @@ class RuneParser {
 	def mod = MagicMod
 
 	var action: TActionRune = null
-	val targetPath = new ListBuffer[TNounRune]
+	val targetPath = new ListBuffer[TNoun]
 
 	override def toString = "RuneParser {\n  " + List(
 		"action = " + action,
@@ -71,14 +71,14 @@ trait RuneParserMode {
 }
 
 class ActionMode extends RuneParserMode {
-	val modifiers = new ListBuffer[TActionModifierRune]()
+	val modifiers = new ListBuffer[TActionModifier]()
 
 	def handle(parser: RuneParser, rune: TRune) {
 		rune match {
-			case mod: TActionModifierRune =>
+			case mod: TActionModifier =>
 				modifiers += mod
 			case action: TActionRune =>
-				modifiers.foreach(_.modify(action))
+				modifiers.foreach(_.modifyAction(action))
 				parser.action = action
 				parser.mode = PostActionMode
 			case _ =>
@@ -92,7 +92,7 @@ class ActionMode extends RuneParserMode {
 case object PostActionMode extends RuneParserMode {
 	def handle(parser: RuneParser, rune: TRune) {
 		rune match {
-			case preposition: TActionPrepositionRune =>
+			case preposition: TActionPreposition =>
 				parser.enter(new ActionPrepositionalMode(preposition))
 			case _ =>
 				parser.mode = TargetMode
@@ -105,7 +105,7 @@ case object PostActionMode extends RuneParserMode {
 
 		child match {
 			case mode: ActionPrepositionalMode =>
-				mode.preposition.createActionModifier(mode.noun).modify(parser.action)
+				mode.preposition.createActionModifier(mode.noun).modifyAction(parser.action)
 		}
 	}
 }
@@ -113,10 +113,10 @@ case object PostActionMode extends RuneParserMode {
 object TargetMode extends RuneParserMode {
 	def handle(parser: RuneParser, rune: TRune) {
 		rune match {
-			case _: TNounRune | _: TNounModifierRune =>
+			case _: TNoun | _: TNounModifier =>
 				parser.enter(new NounMode)
 				parser.handle(rune)
-			case preposition: TNounPrepositionRune if !parser.targetPath.isEmpty =>
+			case preposition: TNounPreposition if !parser.targetPath.isEmpty =>
 				parser.enter(new NounPrepositionMode(preposition))
 			case _ =>
 				parser.unhandledRune(rune)
@@ -129,7 +129,7 @@ object TargetMode extends RuneParserMode {
 		child match {
 			case mode: NounPrepositionMode =>
 				if(!parser.targetPath.isEmpty) {
-					mode.preposition.createNounModifier(mode.noun).modify(parser.targetPath.last)
+					mode.preposition.createNounModifier(mode.noun).modifyNoun(parser.targetPath.last)
 				}
 			case mode: NounMode =>
 				parser.targetPath += mode.noun
@@ -137,22 +137,22 @@ object TargetMode extends RuneParserMode {
 	}
 }
 
-class ActionPrepositionalMode(val preposition: TActionPrepositionRune) extends NounMode {
+class ActionPrepositionalMode(val preposition: TActionPreposition) extends NounMode {
 	override def toString = super.toString + ", preposition = " + preposition
 }
-class NounPrepositionMode    (val preposition: TNounPrepositionRune  ) extends NounMode {
+class NounPrepositionMode    (val preposition: TNounPreposition  ) extends NounMode {
 	override def toString = super.toString + ", preposition = " + preposition
 }
 
 class NounMode extends RuneParserMode {
-	val modifiers = new ListBuffer[TNounModifierRune]()
-	var noun: TNounRune = null
+	val modifiers = new ListBuffer[TNounModifier]()
+	var noun: TNoun = null
 
 	def handle(parser: RuneParser, rune: TRune) {
 		rune match {
-			case mod: TNounModifierRune =>
+			case mod: TNounModifier =>
 				modifiers += mod
-			case _noun: TNounRune =>
+			case _noun: TNoun =>
 				noun = _noun
 				parser.leave
 			case _ =>

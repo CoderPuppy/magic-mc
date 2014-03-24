@@ -7,8 +7,8 @@ trait SingletonRune extends TRune with TRuneType with TTransform {
 	def runeType = this
 	def runeClass = getClass
 
-	def writeToNBT(nbt: NBTTagCompound){}
-	def readFromNBT(nbt: NBTTagCompound) = this
+//	def writeToNBT(nbt: NBTTagCompound){}
+//	def readFromNBT(nbt: NBTTagCompound) = this
 
 	def transform(context: TContext, rune: TextRune) = this
 }

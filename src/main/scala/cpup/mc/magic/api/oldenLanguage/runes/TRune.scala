@@ -7,7 +7,7 @@ import cpup.mc.lib.util.GUIUtil
 trait TRune {
 	def runeType: TRuneType
 	def icons: List[IIcon]
-	def writeToNBT(nbt: NBTTagCompound)
+//	def writeToNBT(nbt: NBTTagCompound)
 
 	def render(x: Int, y: Int, width: Int, height: Int) {
 		for((icon, iconIndex) <- icons.zipWithIndex) {

@@ -26,9 +26,9 @@ case class BlockTypeRune(name: String) extends TRune {
 
 	def runeType = BlockTypeRune
 
-	def writeToNBT(nbt: NBTTagCompound) {
-		nbt.setString("name", name)
-	}
+//	def writeToNBT(nbt: NBTTagCompound) {
+//		nbt.setString("name", name)
+//	}
 }
 
 object BlockTypeRune extends TRuneType {
@@ -45,7 +45,7 @@ object BlockTypeRune extends TRuneType {
 		icon = registerIcon(mod.ref.modID + ":runes/block")
 	}
 
-	def readFromNBT(nbt: NBTTagCompound) = BlockTypeRune(nbt.getString("name"))
+//	def readFromNBT(nbt: NBTTagCompound) = BlockTypeRune(nbt.getString("name"))
 }
 
 object BlockTypeTransform extends TTransform {

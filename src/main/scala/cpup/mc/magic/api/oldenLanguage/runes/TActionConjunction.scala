@@ -1,5 +1,5 @@
 package cpup.mc.magic.api.oldenLanguage.runes
 
-trait TActionConjunctionRune extends TRune {
+trait TActionConjunction {
 	def combineActions(a: TActionRune, b: TActionRune): TActionRune
 }

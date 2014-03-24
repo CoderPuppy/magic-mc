@@ -25,20 +25,20 @@ object OldenLanguageRegistry {
 		})
 	}
 
-	def writeRuneToNBT(rune: TRune, nbt: NBTTagCompound) {
-		if(!_runeTypes.contains(rune.runeType)) {
-			throw new NoSuchElementException("Attempt to write an unregistered rune to nbt: " + rune)
-		}
+//	def writeRuneToNBT(rune: TRune, nbt: NBTTagCompound) {
+//		if(!_runeTypes.contains(rune.runeType)) {
+//			throw new NoSuchElementException("Attempt to write an unregistered rune to nbt: " + rune)
+//		}
+//
+//		nbt.setInteger("olden:runeID", _runeTypes.indexOf(rune.runeType))
+//		rune.writeToNBT(nbt)
+//	}
 
-		nbt.setInteger("olden:runeID", _runeTypes.indexOf(rune.runeType))
-		rune.writeToNBT(nbt)
-	}
-
-	def readRuneFromNBT(nbt: NBTTagCompound) = {
-		val id = nbt.getInteger("olden:runeID")
-
-		if(_runeTypes.size < id) {
-			_runeTypes(id).readFromNBT(nbt)
-		} else { null }
-	}
+//	def readRuneFromNBT(nbt: NBTTagCompound) = {
+//		val id = nbt.getInteger("olden:runeID")
+//
+//		if(_runeTypes.size < id) {
+//			_runeTypes(id).readFromNBT(nbt)
+//		} else { null }
+//	}
 }
