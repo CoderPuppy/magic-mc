@@ -40,9 +40,12 @@ class ItemSpell extends ItemBase with TWritableItem {
 		} catch {
 			case e: Exception => {
 				lore.add(e.toString)
-				for(el <- e.getStackTrace) {
-					lore.add(el.toString)
+				if(e.getStackTrace.isDefinedAt(6)) {
+					lore.add(e.getStackTrace()(6).toString)
 				}
+//				for(el <- e.getStackTrace) {
+//					lore.add(el.toString)
+//				}
 			}
 		}
 

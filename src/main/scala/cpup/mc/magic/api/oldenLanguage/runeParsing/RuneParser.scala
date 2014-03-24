@@ -9,7 +9,7 @@ import scala.collection.mutable.ListBuffer
 class RuneParser {
 	def mod = MagicMod
 
-	def mode = modeStack.last
+	def mode = if(modeStack.isEmpty) null else modeStack.last
 	def mode_=(newMode: RuneParserMode) = {
 		leave
 		enter(newMode)
