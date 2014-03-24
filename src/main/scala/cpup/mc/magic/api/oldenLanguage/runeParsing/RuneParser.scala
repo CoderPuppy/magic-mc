@@ -10,11 +10,21 @@ class RuneParser {
 	def mod = MagicMod
 
 	def mode = if(modeStack.isEmpty) null else modeStack.last
-	def mode_=(newMode: RuneParserMode) = {
+
+	def switchMode(newMode: RuneParserMode) = {
 		println(s"switching from $mode to $newMode, stack: $modeStack")
+		println(newMode.getClass.getCanonicalName)
 		leave
 		enter(newMode)
 		this
+	}
+
+	def mode_=(newMode: RuneParserMode) = {
+		println(s"switching from $mode to $newMode, stack: $modeStack")
+		println(newMode.isInstanceOf[RuneParserMode])
+		leave
+		enter(newMode)
+		newMode
 	}
 
 	val modeStack = new mutable.Stack[RuneParserMode]
