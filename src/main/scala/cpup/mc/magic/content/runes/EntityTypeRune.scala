@@ -13,9 +13,9 @@ import cpup.mc.lib.util.GUIUtil
 import net.minecraft.item.{Item, ItemStack}
 import scala.collection.mutable.ListBuffer
 import cpup.mc.magic.api.oldenLanguage.textParsing.{TContext, TextRune, TTransform}
-import cpup.mc.magic.api.oldenLanguage.runes.{TRune, TRuneType}
+import cpup.mc.magic.api.oldenLanguage.runes.{TTypeNounRune, TRune, TRuneType}
 
-case class EntityTypeRune(name: String) extends TRune {
+case class EntityTypeRune(name: String) extends TTypeNounRune {
 	val drops = (() => {
 		val cla = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[_ <: Entity]]
 		val constructor = cla.getConstructors.find((constr: Constructor[_]) => {

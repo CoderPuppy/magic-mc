@@ -9,19 +9,15 @@ import scala.collection.mutable.ListBuffer
 class RuneParser {
 	def mod = MagicMod
 
-	def mode = if(modeStack.isEmpty) null else modeStack.last
+	def mode = if(modeStack.isEmpty) null else modeStack.head
 
 	def switchMode(newMode: RuneParserMode) = {
-		println(s"switching from $mode to $newMode, stack: $modeStack")
-		println(newMode.getClass.getCanonicalName)
 		leave
 		enter(newMode)
 		this
 	}
 
 	def mode_=(newMode: RuneParserMode) = {
-		println(s"switching from $mode to $newMode, stack: $modeStack")
-		println(newMode.isInstanceOf[RuneParserMode])
 		leave
 		enter(newMode)
 		newMode
@@ -47,8 +43,6 @@ class RuneParser {
 	var target: TNounRune = null
 
 	def handle(rune: TRune) {
-		println(s"handling rune: $rune in mode: $mode, stack: $modeStack")
-
 		if(mode == null) {
 			unhandledRune(rune)
 		} else {
@@ -88,7 +82,7 @@ class ActionMode extends RuneParserMode {
 			case action: TActionRune =>
 				modifiers.foreach(_.modify(action))
 				parser.action = action
-				parser.mode = PostActionMode
+				parser.switchMode(PostActionMode)
 			case _ =>
 				parser.unhandledRune(rune)
 		}
@@ -103,7 +97,7 @@ case object PostActionMode extends RuneParserMode {
 			case preposition: TActionPrepositionRune =>
 				parser.enter(new ActionPrepositionalMode(preposition))
 			case _ =>
-				parser.mode = new TargetMode
+				parser.switchMode(new TargetMode)
 				parser.handle(rune)
 		}
 	}
@@ -144,7 +138,7 @@ class TargetMode extends RuneParserMode {
 		}
 	}
 
-	override def toString = nouns.toString
+	override def toString = "nouns = [ " + nouns.mkString(", ") + " ]"
 }
 
 class ActionPrepositionalMode(val preposition: TActionPrepositionRune) extends NounMode {
