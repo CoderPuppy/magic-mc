@@ -21,6 +21,8 @@ case class PlayerRune(name: String) extends TRune {
 object PlayerRune extends TRuneType {
 	def mod = MagicMod
 
+	def name = "sn-player"
+
 	def runeClass = classOf[PlayerRune]
 
 	def readFromNBT(nbt: NBTTagCompound) = PlayerRune(nbt.getString("name"))

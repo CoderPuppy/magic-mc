@@ -91,6 +91,8 @@ case class EntityTypeRune(name: String) extends TRune {
 object EntityTypeRune extends TRuneType {
 	def mod = MagicMod
 
+	def name = "tn-entity"
+
 	// TODO: obfuscated: func_70628_a
 	val dropFew = classOf[EntityLivingBase].getDeclaredMethod("dropFewItems", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
 	dropFew.setAccessible(true)

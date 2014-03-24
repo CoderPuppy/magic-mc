@@ -70,8 +70,8 @@ class RuneParser {
 						noun = newNoun
 						mode = PostNounMode
 
-					case preposition: TActionPrepositionRune =>
-						mode = ActionPrepositionalMode(preposition)
+					case preposition: TActionPostPositionRune =>
+						mode = ActionPostPositionalMode(preposition)
 
 					case _ =>
 						unhandledRune(rune)
@@ -93,29 +93,29 @@ class RuneParser {
 						mode = NounModifierMode
 						handle(rune)
 
-					case preposition: TNounPrepositionRune =>
-						mode = NounPrepositionalMode(preposition)
+					case postPosition: TNounPostPositionRune =>
+						mode = NounPostPositionalMode(postPosition)
 
 					case _ =>
 						unhandledRune(rune)
 				}
-			case ActionPrepositionalMode(preposition) =>
+			case ActionPostPositionalMode(postPosition) =>
 				rune match {
 					case mod: TNounModifierRune =>
 						nounModifiers ++= List(mod)
 
 					case obj: TNounRune =>
-						action = preposition.createPhrase(obj).modify(action)
+						action = postPosition.createActionModifier(obj).modify(action)
 					case _ =>
 						unhandledRune(rune)
 				}
-			case NounPrepositionalMode(preposition) =>
+			case NounPostPositionalMode(postPosition) =>
 				rune match {
 					case mod: TNounModifierRune =>
 						nounModifiers ++= List(mod)
 
 					case obj: TNounRune =>
-						noun = preposition.createPhase(obj).modify(noun)
+						noun = postPosition.createNounModifier(obj).modify(noun)
 					case _ =>
 						unhandledRune(rune)
 				}
@@ -140,5 +140,5 @@ case object ActionModifierMode extends RuneParserMode
 case object PostActionMode           extends RuneParserMode
 case object NounModifierMode   extends RuneParserMode
 case object PostNounMode       extends RuneParserMode
-case class ActionPrepositionalMode(preposition: TActionPrepositionRune) extends RuneParserMode
-case class NounPrepositionalMode(preposition: TNounPrepositionRune)   extends RuneParserMode
+case class ActionPostPositionalMode(preposition: TActionPostPositionRune) extends RuneParserMode
+case class NounPostPositionalMode(preposition: TNounPostPositionRune)   extends RuneParserMode

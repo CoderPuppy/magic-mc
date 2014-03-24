@@ -11,6 +11,7 @@ import cpw.mods.fml.common.event.{FMLPreInitializationEvent, FMLInitializationEv
 import cpw.mods.fml.common.Mod.EventHandler
 import cpup.mc.magic.client.gui.writingDesk.WritingDeskGUI
 import cpup.mc.magic.network.Network
+import cpup.mc.magic.api.oldenLanguage.OldenLanguageRegistry
 
 trait TMagicMod extends CPupMod[TRef] {
 	def ref = Ref
@@ -40,6 +41,7 @@ trait TMagicMod extends CPupMod[TRef] {
 		super.postInit(e)
 		guis.finish
 		network.finish
+		OldenLanguageRegistry.finish
 	}
 }
 

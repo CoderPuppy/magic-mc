@@ -32,6 +32,8 @@ case class BlockTypeRune(name: String) extends TRune {
 }
 
 object BlockTypeRune extends TRuneType {
+	def name = "tn-block"
+
 	def mod = MagicMod
 	def runeClass = classOf[BlockTypeRune]
 

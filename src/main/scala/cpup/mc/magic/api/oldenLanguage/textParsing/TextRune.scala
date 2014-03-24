@@ -17,6 +17,8 @@ case class TextRune(text: String) extends TRune {
 }
 
 object TextRune extends TRuneType {
+	def name = "text"
+
 	def mod = MagicMod
 
 	@SideOnly(Side.CLIENT)

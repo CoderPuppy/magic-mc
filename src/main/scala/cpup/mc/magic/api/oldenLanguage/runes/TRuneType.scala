@@ -5,6 +5,7 @@ import net.minecraft.util.IIcon
 import net.minecraft.nbt.NBTTagCompound
 
 trait TRuneType {
+	def name: String
 	def runeClass: Class[_ <: TRune]
 
 	@SideOnly(Side.CLIENT)
