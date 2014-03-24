@@ -7,7 +7,7 @@ import cpup.mc.magic.MagicMod
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.magic.api.oldenLanguage.OldenLanguageRegistry
 
-object OfRune extends SingletonRune with TNounPostPositionRune {
+object OfRune extends SingletonRune with TNounPrepositionRune {
 	def mod = MagicMod
 
 	def name = "of-postpos"
@@ -29,8 +29,8 @@ object OfRune extends SingletonRune with TNounPostPositionRune {
 case class OfModifierRune(noun: TNounRune) extends InternalRune with TNounModifierRune {
 	def runeType = OfModifierRune
 
-	def modify(rune: TNounRune) = rune match {
-		case _ => null
+	def modify(rune: TNounRune) {
+		println("of modifiy", rune)
 	}
 
 	def writeToNBT(nbt: NBTTagCompound) {
@@ -45,5 +45,7 @@ object OfModifierRune extends InternalRuneType {
 
 	def runeClass = classOf[OfModifierRune]
 
-	def readFromNBT(nbt: NBTTagCompound) = OfModifierRune(OldenLanguageRegistry.readRuneFromNBT(nbt.getCompoundTag("noun")).asInstanceOf[TNounRune])
+	def readFromNBT(nbt: NBTTagCompound) = {
+		OfModifierRune(OldenLanguageRegistry.readRuneFromNBT(nbt.getCompoundTag("noun")).asInstanceOf[TNounRune])
+	}
 }

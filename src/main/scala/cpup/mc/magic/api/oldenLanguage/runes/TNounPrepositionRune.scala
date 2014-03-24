@@ -1,5 +1,5 @@
 package cpup.mc.magic.api.oldenLanguage.runes
 
-trait TNounPostPositionRune {
+trait TNounPrepositionRune {
 	def createNounModifier(noun: TNounRune): TNounModifierRune
 }

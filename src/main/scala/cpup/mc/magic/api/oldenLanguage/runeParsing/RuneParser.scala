@@ -3,6 +3,7 @@ package cpup.mc.magic.api.oldenLanguage.runeParsing
 import cpup.mc.magic.MagicMod
 import cpup.mc.magic.api.oldenLanguage.runes._
 import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
 
 // TODO: limit what runes a player can use
 class RuneParser {
@@ -10,142 +11,151 @@ class RuneParser {
 
 	def mode = modeStack.last
 	def mode_=(newMode: RuneParserMode) = {
-		modeStack.pop
-		modeStack.push(newMode)
+		leave
+		enter(newMode)
 		this
 	}
 
 	val modeStack = new mutable.Stack[RuneParserMode]
-	modeStack.push(ActionModifierMode)
+
+	def enter(newMode: RuneParserMode) {
+		Option(mode).foreach(_.onChild(this, newMode))
+		modeStack.push(newMode)
+		newMode.onEnter(this)
+	}
+
+	def leave {
+		val old = modeStack.pop
+		Option(old).foreach(_.onLeave(this))
+		Option(mode).foreach(_.onReturn(this, old))
+	}
+
+	modeStack.push(new ActionMode)
 
 	var action: TActionRune = null
-	var actionModifiers = List[TActionModifierRune]()
+	var target: TNounRune = null
 
-	var noun: TNounRune = null
-	var nounModifiers = List[TNounModifierRune]()
-
-	def handle(_rune: TRune) {
-		var rune = _rune
-
-		if(rune.isInstanceOf[TActionRune]) {
-			var actionRune = rune.asInstanceOf[TActionRune]
-			for(mod <- actionModifiers) {
-				actionRune = mod.modify(actionRune)
-			}
-			actionModifiers = List[TActionModifierRune]()
-			rune = actionRune
-		}
-
-		if(rune.isInstanceOf[TNounRune]) {
-			var nounRune = rune.asInstanceOf[TNounRune]
-			for(mod <- nounModifiers) {
-				nounRune = mod.modify(nounRune)
-			}
-			nounModifiers = List[TNounModifierRune]()
-			rune = nounRune
-		}
-
-		mode match {
-			case ActionMode =>
-				rune match {
-					case newAct: TActionRune =>
-						action = newAct
-						mode = PostActionMode
-					case _ =>
-						unhandledRune(rune)
-				}
-			case ActionModifierMode =>
-				rune match {
-					case act: TActionRune =>
-						mode = ActionMode
-						handle(act)
-					case mod: TActionModifierRune =>
-						actionModifiers ++= List(mod)
-					case _ =>
-						unhandledRune(rune)
-				}
-			case PostActionMode =>
-				rune match {
-					case newNoun: TNounRune =>
-						noun = newNoun
-						mode = PostNounMode
-
-					case preposition: TActionPostPositionRune =>
-						mode = ActionPostPositionalMode(preposition)
-
-					case _ =>
-						unhandledRune(rune)
-				}
-			case NounModifierMode =>
-				rune match {
-					case mod: TNounModifierRune =>
-						nounModifiers ++= List(mod)
-
-					case _ =>
-						unhandledRune(rune)
-				}
-			case PostNounMode =>
-				rune match {
-					case noun: TNounRune =>
-						mode = PostActionMode
-						handle(rune)
-					case mod: TNounModifierRune =>
-						mode = NounModifierMode
-						handle(rune)
-
-					case postPosition: TNounPostPositionRune =>
-						mode = NounPostPositionalMode(postPosition)
-
-					case _ =>
-						unhandledRune(rune)
-				}
-			case ActionPostPositionalMode(postPosition) =>
-				rune match {
-					case mod: TNounModifierRune =>
-						nounModifiers ++= List(mod)
-
-					case obj: TNounRune =>
-						action = postPosition.createActionModifier(obj).modify(action)
-
-					case _ =>
-						unhandledRune(rune)
-				}
-			case NounPostPositionalMode(postPosition) =>
-				rune match {
-					case mod: TNounModifierRune =>
-						nounModifiers ++= List(mod)
-
-					case obj: TNounRune =>
-						noun = postPosition.createNounModifier(obj).modify(noun)
-
-					case _ =>
-						unhandledRune(rune)
-				}
-			case _ =>
-				throw new RuntimeException("Unknown mode: " + mode.toString)
+	def handle(rune: TRune) {
+		if(mode == null) {
+			unhandledRune(rune)
+		} else {
+			mode.handle(this, rune)
 		}
 	}
-
-	override def toString = "{ " + List(
-		"action = " + action,
-		"actionModifiers = [ " + actionModifiers.mkString(", ") + " ]",
-		"noun = " + noun,
-		"nounModifiers = [ " + nounModifiers.mkString(", ") + " ]"
-	).mkString(", ") + " }"
 
 	def unhandledRune(rune: TRune) {
-		mod.logger.warn("Unhandled rune: " + rune.toString)
 		// TODO: instability
+		mod.logger.warn("Unhandled rune: " + rune.toString + " in mode: " + mode + ", stack: " + modeStack)
 	}
+
+	override def toString = "RuneParser{ " + List(
+		"action = " + action,
+		"target = " + target,
+		"modeStack = " + modeStack
+	).mkString(", ") + " }"
 
 	def handle(runes: List[TRune]) { runes.foreach(handle(_)) }
 }
 
-trait RuneParserMode {}
-case object ActionMode         extends RuneParserMode
-case object ActionModifierMode extends RuneParserMode
-case object PostActionMode           extends RuneParserMode
-case object NounModifierMode   extends RuneParserMode
-case object PostNounMode       extends RuneParserMode
-case class ActionPostPositionalMode(preposition: TActionPostPositionRune) extends RuneParserMode
-case class NounPostPositionalMode(preposition: TNounPostPositionRune)   extends RuneParserMode
+trait RuneParserMode {
+	def onEnter(parser: RuneParser) {}
+	def handle(parser: RuneParser, rune: TRune)
+	def onChild(parser: RuneParser, child: RuneParserMode) {}
+	def onReturn(parser: RuneParser, child: RuneParserMode) {}
+	def onLeave(parser: RuneParser) {}
+}
+
+class ActionMode extends RuneParserMode {
+	val modifiers = new ListBuffer[TActionModifierRune]()
+
+	def handle(parser: RuneParser, rune: TRune) {
+		rune match {
+			case mod: TActionModifierRune =>
+				modifiers += mod
+			case action: TActionRune =>
+				modifiers.foreach(_.modify(action))
+				parser.action = action
+				parser.mode = PostActionMode
+			case _ =>
+				parser.unhandledRune(rune)
+		}
+	}
+
+	override def toString = modifiers.toString
+}
+
+case object PostActionMode extends RuneParserMode {
+	def handle(parser: RuneParser, rune: TRune) {
+		rune match {
+			case preposition: TActionPrepositionRune =>
+				parser.enter(new ActionPrepositionalMode(preposition))
+			case _ =>
+				parser.mode = new TargetMode
+				parser.handle(rune)
+		}
+	}
+
+	override def onReturn(parser: RuneParser, child: RuneParserMode) {
+		super.onReturn(parser, child)
+
+		child match {
+			case mode: ActionPrepositionalMode =>
+				mode.preposition.createActionModifier(mode.noun).modify(parser.action)
+		}
+	}
+}
+
+class TargetMode extends RuneParserMode {
+	val nouns = new ListBuffer[TNounRune]()
+
+	def handle(parser: RuneParser, rune: TRune) {
+		rune match {
+			case _: TNounRune | _: TNounModifierRune =>
+				parser.enter(new NounMode)
+				parser.handle(rune)
+			case preposition: TNounPrepositionRune if !nouns.isEmpty =>
+				parser.enter(new NounPrepositionMode(preposition))
+			case _ =>
+				parser.unhandledRune(rune)
+		}
+	}
+
+	override def onReturn(parser: RuneParser, child: RuneParserMode) {
+		super.onReturn(parser, child)
+
+		child match {
+			case mode: NounPrepositionMode if !nouns.isEmpty =>
+				mode.preposition.createNounModifier(mode.noun).modify(nouns.last)
+			case mode: NounMode =>
+				nouns += mode.noun
+		}
+	}
+
+	override def toString = nouns.toString
+}
+
+class ActionPrepositionalMode(val preposition: TActionPrepositionRune) extends NounMode {
+	override def toString = super.toString + ", preposition = " + preposition
+}
+class NounPrepositionMode    (val preposition: TNounPrepositionRune  ) extends NounMode {
+	override def toString = super.toString + ", preposition = " + preposition
+}
+
+class NounMode extends RuneParserMode {
+	val modifiers = new ListBuffer[TNounModifierRune]()
+	var noun: TNounRune = null
+
+	def handle(parser: RuneParser, rune: TRune) {
+		rune match {
+			case mod: TNounModifierRune =>
+				modifiers += mod
+			case _noun: TNounRune =>
+				noun = _noun
+				parser.leave
+			case _ =>
+				parser.unhandledRune(rune)
+		}
+	}
+
+	override def toString = "noun = " + noun + ", modifiers = " + modifiers
+}
