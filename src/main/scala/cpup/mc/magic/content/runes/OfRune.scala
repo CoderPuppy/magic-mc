@@ -12,7 +12,7 @@ object OfRune extends SingletonRune with TNounPreposition {
 
 	def name = "of-postpos"
 
-	def createNounModifier(noun: TNoun) = OfModifierRune(noun)
+	def createNounModifier(noun: TNoun) = OfModifier(noun)
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null
@@ -26,26 +26,8 @@ object OfRune extends SingletonRune with TNounPreposition {
 	}
 }
 
-case class OfModifierRune(noun: TNoun) extends InternalRune with TNounModifier {
-	def runeType = OfModifierRune
-
+case class OfModifier(noun: TNoun) extends TNounModifier {
 	def modifyNoun(rune: TNoun) {
 		println("of modify", rune)
 	}
-
-//	def writeToNBT(nbt: NBTTagCompound) {
-//		val nounCompound = new NBTTagCompound
-//		OldenLanguageRegistry.writeRuneToNBT(noun, nounCompound)
-//		nbt.setTag("noun", nounCompound)
-//	}
-}
-
-object OfModifierRune extends InternalRuneType {
-	def name = "of-modifier"
-
-	def runeClass = classOf[OfModifierRune]
-
-//	def readFromNBT(nbt: NBTTagCompound) = {
-//		OfModifierRune(OldenLanguageRegistry.readRuneFromNBT(nbt.getCompoundTag("noun")).asInstanceOf[TNoun])
-//	}
 }
