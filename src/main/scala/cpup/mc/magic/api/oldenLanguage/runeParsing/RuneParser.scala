@@ -11,6 +11,7 @@ class RuneParser {
 
 	def mode = if(modeStack.isEmpty) null else modeStack.last
 	def mode_=(newMode: RuneParserMode) = {
+		println(s"switching from $mode to $newMode, stack: $modeStack")
 		leave
 		enter(newMode)
 		this
@@ -36,6 +37,8 @@ class RuneParser {
 	var target: TNounRune = null
 
 	def handle(rune: TRune) {
+		println(s"handling rune: $rune in mode: $mode, stack: $modeStack")
+
 		if(mode == null) {
 			unhandledRune(rune)
 		} else {
@@ -45,10 +48,10 @@ class RuneParser {
 
 	def unhandledRune(rune: TRune) {
 		// TODO: instability
-		mod.logger.warn("Unhandled rune: " + rune.toString + " in mode: " + mode + ", stack: " + modeStack)
+		mod.logger.warn(s"Unhandled rune: $rune in mode: $mode, stack: $modeStack")
 	}
 
-	override def toString = "RuneParser {\n" + List(
+	override def toString = "RuneParser {\n  " + List(
 		"action = " + action,
 		"target = " + target,
 		"modeStack = " + modeStack
