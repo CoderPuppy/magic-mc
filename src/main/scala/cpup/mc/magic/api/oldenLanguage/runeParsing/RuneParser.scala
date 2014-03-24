@@ -106,6 +106,7 @@ class RuneParser {
 
 					case obj: TNounRune =>
 						action = postPosition.createActionModifier(obj).modify(action)
+
 					case _ =>
 						unhandledRune(rune)
 				}
@@ -116,6 +117,7 @@ class RuneParser {
 
 					case obj: TNounRune =>
 						noun = postPosition.createNounModifier(obj).modify(noun)
+
 					case _ =>
 						unhandledRune(rune)
 				}
@@ -124,7 +126,12 @@ class RuneParser {
 		}
 	}
 
-	override def toString = "{ " + List("action = " + action).mkString(", ") + " }"
+	override def toString = "{ " + List(
+		"action = " + action,
+		"actionModifiers = [ " + actionModifiers.mkString(", ") + " ]",
+		"noun = " + noun,
+		"nounModifiers = [ " + nounModifiers.mkString(", ") + " ]"
+	).mkString(", ") + " }"
 
 	def unhandledRune(rune: TRune) {
 		mod.logger.warn("Unhandled rune: " + rune.toString)
