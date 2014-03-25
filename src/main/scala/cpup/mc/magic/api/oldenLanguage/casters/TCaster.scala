@@ -27,15 +27,10 @@ trait TCaster {
 //			entityTargets = List(new BlankEntity(world))
 //		}
 
-//		println(blockTargets, entityTargets)
-
 		for(noun <- spell.targetPath) {
-			println(noun)
 			blockTargets = blockTargets.flatMap(noun.getBlocks(this, _))
 			entityTargets = entityTargets.flatMap(noun.getEntities(this, _))
 		}
-
-//		println(blockTargets, entityTargets)
 
 		for(block <- blockTargets) {
 			spell.action.actUponBlock(block)

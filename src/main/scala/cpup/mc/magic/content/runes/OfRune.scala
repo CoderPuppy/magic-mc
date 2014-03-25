@@ -28,6 +28,7 @@ object OfRune extends SingletonRune with TNounPreposition {
 
 case class OfModifier(noun: TNoun) extends TNounModifier {
 	def modifyNoun(rune: TNoun) {
+		// TODO: do stuff
 		println("of modify", rune)
 	}
 }

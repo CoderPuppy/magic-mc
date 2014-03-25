@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.util.IIcon
 import cpup.mc.magic.MagicMod
 import cpup.mc.lib.util.pos.BlockPos
-import net.minecraft.entity.Entity
+import net.minecraft.entity.{EntityLivingBase, Entity}
 import cpup.mc.lib.util.Direction
 import net.minecraft.init.Blocks
 import cpup.mc.magic.api.oldenLanguage.runes.{SingletonRune, TAction}
@@ -30,5 +30,10 @@ object BurnRune extends SingletonRune with TAction {
 	}
 	def actUponEntity(entity: Entity) {
 		entity.setFire(10) // TODO: more depending on something
+
+		entity match {
+			case entity: EntityLivingBase =>
+				entity.set
+		}
 	}
 }
