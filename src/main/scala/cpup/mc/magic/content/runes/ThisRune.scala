@@ -14,12 +14,18 @@ object ThisRune extends SingletonRune with TNoun {
 
 	def name = "this-pronoun"
 
-	def getBlocks(caster: TCaster, origin: BlockPos) = if(caster.mop.typeOfHit == MovingObjectType.BLOCK) {
-		List(BlockPos(caster.world, caster.mop.blockX, caster.mop.blockY, caster.mop.blockZ))
-	} else { List() }
-	def getEntities(caster: TCaster, origin: Entity) = if(caster.mop.typeOfHit == MovingObjectType.ENTITY) {
-		List(caster.mop.entityHit)
-	} else { List() }
+	def getBlocks(caster: TCaster, origin: BlockPos) = {
+		println(caster.mop)
+		if(caster.mop.typeOfHit == MovingObjectType.BLOCK) {
+			List(BlockPos(caster.world, caster.mop.blockX, caster.mop.blockY, caster.mop.blockZ))
+		} else { List() }
+	}
+	def getEntities(caster: TCaster, origin: Entity) = {
+		println(caster.mop)
+		if(caster.mop.typeOfHit == MovingObjectType.ENTITY) {
+			List(caster.mop.entityHit)
+		} else { List() }
+	}
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null
