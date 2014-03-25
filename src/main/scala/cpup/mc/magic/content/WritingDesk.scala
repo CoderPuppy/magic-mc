@@ -104,11 +104,41 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 			case WritingDeskMessage(pos: BlockPos, rune: String) => {
 				pos.tileEntity match {
 					case te: TEWritingDesk =>
-						te.inv.getStackInSlot(2) match {
-							case stack: ItemStack =>
-								val item = stack.getItem.asInstanceOf[TWritableItem]
-								item.writeRunes(stack, item.readRunes(stack) ++ Array(rune))
-							case _ =>
+						val quill = te.inv.getStackInSlot(0)
+						val ink = te.inv.getStackInSlot(1)
+
+						if(quill != null && quill.getItem == mod.content.items("quill")) {
+							if(ink != null && ink.getItem == mod.content.items("inkWell")) {
+								te.inv.getStackInSlot(2) match {
+									case stack: ItemStack =>
+										stack.getItem match {
+											case item: TWritableItem =>
+												quill.setItemDamage(quill.getItemDamage + 1)
+												if(quill.getItemDamage > quill.getMaxDamage) {
+													quill.stackSize -= 1
+
+													if(quill.stackSize == 0) {
+														te.inv.setInventorySlotContents(0, null)
+													}
+												}
+
+												ink.setItemDamage(ink.getItemDamage + 1)
+												if(ink.getItemDamage > quill.getMaxDamage) {
+													ink.stackSize -= 1
+
+													if(ink.stackSize == 0) {
+														te.inv.setInventorySlotContents(1, null)
+													}
+												}
+
+												item.writeRunes(stack, item.readRunes(stack) ++ Array(rune))
+
+												te.markDirty
+											case _ =>
+										}
+									case _ =>
+								}
+							}
 						}
 					case _ =>
 				}
