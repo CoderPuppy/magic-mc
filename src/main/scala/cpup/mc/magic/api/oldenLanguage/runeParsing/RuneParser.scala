@@ -70,7 +70,7 @@ trait RuneParserMode {
 	def onLeave(parser: RuneParser) {}
 }
 
-object StartMode extends RuneParserMode {
+case object StartMode extends RuneParserMode {
 	def handle(parser: RuneParser, rune: TRune) { parser.unhandledRune(rune) }
 
 	override def onEnter(parser: RuneParser) {
@@ -81,7 +81,7 @@ object StartMode extends RuneParserMode {
 		parser.mode = TargetMode
 	}
 }
-object TargetMode extends RuneParserMode {
+case object TargetMode extends RuneParserMode {
 	def handle(parser: RuneParser, rune: TRune) {
 		rune match {
 			case _: TNoun | _: TNounModifier =>
