@@ -30,10 +30,5 @@ object BurnRune extends SingletonRune with TAction {
 	}
 	def actUponEntity(entity: Entity) {
 		entity.setFire(10) // TODO: more depending on something
-
-		entity match {
-			case entity: EntityLivingBase =>
-				entity.set
-		}
 	}
 }
