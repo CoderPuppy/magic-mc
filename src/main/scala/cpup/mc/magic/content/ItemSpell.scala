@@ -86,7 +86,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 			val caster = new PlayerCaster(player)
 			caster.cast(spell)
 		} catch {
-			case e =>
+			case e: Exception =>
 				println(e)
 				println(e.getStackTraceString)
 		}
