@@ -14,10 +14,16 @@ import net.minecraft.item.{Item, ItemStack}
 import scala.collection.mutable.ListBuffer
 import cpup.mc.magic.api.oldenLanguage.textParsing.{TContext, TextRune, TTransform}
 import cpup.mc.magic.api.oldenLanguage.runes.{TNoun, TRune, TRuneType}
+import cpup.mc.magic.api.oldenLanguage.casters.TCaster
+import cpup.mc.lib.util.pos.BlockPos
 
 case class EntityTypeRune(name: String) extends TRune with TNoun {
+	val cla = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[_ <: Entity]]
+
+	def getBlocks(caster: TCaster, origin: BlockPos) = List()
+	def getEntities(caster: TCaster, origin: Entity) = List(origin).filter(cla.isInstance(_))
+
 	val drops = (() => {
-		val cla = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[_ <: Entity]]
 		val constructor = cla.getConstructors.find((constr: Constructor[_]) => {
 			val types = constr.getParameterTypes
 			types.length == 1 && types(0) == classOf[World]
