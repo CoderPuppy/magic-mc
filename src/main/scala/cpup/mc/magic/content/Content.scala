@@ -17,7 +17,6 @@ object Content extends CPupContent[TMagicMod] {
 	override def preInit(e: FMLPreInitializationEvent) {
 		super.preInit(e)
 
-
 		registerItem(new ItemBase().setName("leatherWrappedStick").setMaxStackSize(1).asInstanceOf[TItemBase])
 		addRecipe(
 			new ItemStack(items("leatherWrappedStick")),
@@ -85,6 +84,16 @@ object Content extends CPupContent[TMagicMod] {
 
 		registerBlock(new BlockWritingDesk().setName("writingDesk").setCreativeTab(CreativeTabs.tabBlock).asInstanceOf[TBlockBase])
 		GameRegistry.registerTileEntity(classOf[TEWritingDesk], "writingDesk")
+		addRecipe(
+			new ItemStack(blocks("writingDesk")),
+			Array(
+				"SSS",
+				"P B"
+			),
+			'S', "slabWood",
+			'P', "plankWood",
+			'B', Blocks.bookshelf
+		)
 
 		registerItem(new ItemBase().setName("knife").setMaxDamage(500).setMaxStackSize(1).asInstanceOf[TItemBase])
 		addRecipe(
