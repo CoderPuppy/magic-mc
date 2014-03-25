@@ -45,18 +45,19 @@ class RuneSelector(val player: EntityPlayer, val x: Int, val y: Int, val addRune
 		var currentY = 0
 		for(i <- 0 to 5) {
 			val option = category(i)
-			option match {
-				case runeOpt: RuneOption =>
-					runeOpt.rune.render(x, y + currentY, 32, 32)
-					currentY += 36
-				case _ =>
+//			option match {
+//				case runeOpt: RuneOption =>
+//					runeOpt.rune.render(x, y + currentY, 32, 32)
+//					currentY += 36
+//				case _ =>
 					mc.fontRenderer.drawString(option match {
+						case runeOpt: RuneOption => runeOpt.parsedRune.serialize
 						case cat: Category => cat.name
 						case any: Any => "unknown: " + any.toString
 						case null => "null"
 					}, x, y + currentY, 0x909090)
 					currentY += 10
-			}
+//			}
 		}
 	}
 }
