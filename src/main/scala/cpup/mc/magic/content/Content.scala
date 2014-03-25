@@ -29,7 +29,7 @@ object Content extends CPupContent[TMagicMod] {
 
 		registerItem(new ItemBase().setName("goldBandedStick").setMaxStackSize(1).asInstanceOf[TItemBase])
 		addRecipe(
-			new ItemStack(items("goldBandedStack")),
+			new ItemStack(items("goldBandedStick")),
 			Array(
 				"NNN",
 				"NSN",
