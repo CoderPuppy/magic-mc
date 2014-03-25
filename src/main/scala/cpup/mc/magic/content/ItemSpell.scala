@@ -75,6 +75,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 	override def onPlayerStoppedUsing(stack: ItemStack, world: World, player: EntityPlayer, oppDur: Int) {
 		try {
 			val spellStr = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "")
+			println(spellStr)
 			val context = RootContext.create
 			val parsedRunes = TextParser.parse(spellStr)
 			val runes = parsedRunes.map(_(context))
