@@ -1,7 +1,7 @@
 package cpup.mc.magic.api.oldenLanguage.textParsing
 
 object TextParser {
-	def parse(str: String) = str.split(" ").filter(_.length > 0).map(parseRune(_))
+	def parse(str: String) = str.split(" ").filter(_.length > 0).map(parseRune(_)).toList
 
 	def parseRune(str: String) = {
 		if(str.contains("!")) {

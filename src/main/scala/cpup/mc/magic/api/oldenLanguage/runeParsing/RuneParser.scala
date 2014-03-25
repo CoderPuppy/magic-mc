@@ -11,6 +11,7 @@ class RuneParser {
 
 	var action: TAction = null
 	val targetPath = new ListBuffer[TNoun]
+	def spell = Spell(action, targetPath.toList)
 
 	override def toString = "RuneParser {\n  " + List(
 		"action = " + action,
