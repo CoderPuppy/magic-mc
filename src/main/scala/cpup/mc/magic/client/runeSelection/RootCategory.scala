@@ -13,6 +13,9 @@ object RootCategory {
 		val actions = root.createSubCategory("actions")
 		actions.addRune("a!burn!")
 
+		val pronouns = root.createSubCategory("pronouns")
+		pronouns.addRune("pn!this!")
+
 		val entities = root.createSubCategory("entities")
 
 		for(name <- EntityList.stringToClassMapping.keySet.toArray) {
@@ -26,8 +29,8 @@ object RootCategory {
 			blocks.addRune("tn!block!" + block.getUnlocalizedName.replaceFirst("^tile\\.", ""))
 		}
 
-		val stuff = root.createSubCategory("stuff")
-		stuff.addRune("p!of")
+		val prepositions = root.createSubCategory("prepositions")
+		prepositions.addRune("pp!of!")
 
 		root
 	}

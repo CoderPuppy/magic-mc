@@ -66,12 +66,25 @@ object Content extends CPupContent[TMagicMod] {
 		OldenLanguageRegistry.registerRune(EntityTypeRune)
 		OldenLanguageRegistry.registerRune(BlockTypeRune)
 		OldenLanguageRegistry.registerRune(BurnRune)
+		OldenLanguageRegistry.registerRune(ThisRune)
 		OldenLanguageRegistry.registerRootContextTransformer((root: Context) => {
 			val actions = new Context
 			actions.transforms("burn") = BurnRune
 
 			root.subContexts("actions") = actions
 			root.transforms("a") = new SubContextTransform("actions")
+
+			val pronouns = new Context
+			pronouns.transforms("this") = ThisRune
+
+			root.subContexts("pronouns") = pronouns
+			root.transforms("pn") = new SubContextTransform("pronouns")
+
+			val prepositions = new Context
+			prepositions.transforms("of") = OfRune
+
+			root.subContexts("prepositions") = prepositions
+			root.transforms("pp") = new SubContextTransform("prepositions")
 
 			val specificNouns = new Context
 			specificNouns.transforms("pl") = PlayerTransform
