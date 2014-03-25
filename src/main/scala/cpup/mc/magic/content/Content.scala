@@ -47,7 +47,7 @@ object Content extends CPupContent[TMagicMod] {
 				"S "
 			),
 			'N', Items.gold_nugget,
-			'S', items("goldBandedStack")
+			'S', items("goldBandedStick")
 		)
 
 		registerItem(new ItemSpell().setName("spell").setMaxStackSize(1).asInstanceOf[TItemBase])
