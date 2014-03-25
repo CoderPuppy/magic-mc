@@ -47,6 +47,12 @@ class RuneParser {
 
 	enter(StartMode)
 
+	def finish {
+		while(!modeStack.isEmpty) {
+			leave
+		}
+	}
+
 	def handle(rune: TRune) {
 		if(mode == null) {
 			unhandledRune(rune)

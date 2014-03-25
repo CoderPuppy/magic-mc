@@ -38,6 +38,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 				lore.add(rune.toString)
 				parser.handle(rune)
 			}
+			parser.finish
 		} catch {
 			case e: Exception => {
 				lore.add(e.toString)
@@ -79,6 +80,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 			val runes = parsedRunes.map(_(context))
 			val parser = new RuneParser
 			parser.handle(runes)
+			parser.finish
 			val spell = parser.spell
 
 			val caster = new PlayerCaster(player)
