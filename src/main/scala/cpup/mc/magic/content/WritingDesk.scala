@@ -108,7 +108,7 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 						val ink = te.inv.getStackInSlot(1)
 
 						if(quill != null && quill.getItem == mod.content.items("quill")) {
-							if(ink != null && ink.getItem == mod.content.items("inkWell")) {
+							if(ink != null && ink.getItem == mod.content.items("inkWell") && ink.getItemDamage < ink.getMaxDamage) {
 								te.inv.getStackInSlot(2) match {
 									case stack: ItemStack =>
 										stack.getItem match {
@@ -123,12 +123,8 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 												}
 
 												ink.setItemDamage(ink.getItemDamage + 1)
-												if(ink.getItemDamage > quill.getMaxDamage) {
-													ink.stackSize -= 1
-
-													if(ink.stackSize == 0) {
-														te.inv.setInventorySlotContents(1, null)
-													}
+												if(ink.getItemDamage > ink.getMaxDamage) {
+													ink.setItemDamage(ink.getMaxDamage)
 												}
 
 												item.writeRunes(stack, item.readRunes(stack) ++ Array(rune))
