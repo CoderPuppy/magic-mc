@@ -27,7 +27,7 @@ trait TCaster {
 //			entityTargets = List(new BlankEntity(world))
 //		}
 
-		println(blockTargets, entityTargets)
+//		println(blockTargets, entityTargets)
 
 		for(noun <- spell.targetPath) {
 			println(noun)
@@ -35,7 +35,7 @@ trait TCaster {
 			entityTargets = entityTargets.flatMap(noun.getEntities(this, _))
 		}
 
-		println(blockTargets, entityTargets)
+//		println(blockTargets, entityTargets)
 
 		for(block <- blockTargets) {
 			spell.action.actUponBlock(block)
