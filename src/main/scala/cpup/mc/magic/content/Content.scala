@@ -97,7 +97,7 @@ object Content extends CPupContent[TMagicMod] {
 			'B', Blocks.bookshelf
 		)
 
-		registerItem(new ItemBase().setName("knife").setMaxDamage(500).setMaxStackSize(1).asInstanceOf[TItemBase])
+		registerItem(new ItemKnife().setName("knife").setMaxDamage(500).setMaxStackSize(1).asInstanceOf[TItemBase])
 		addRecipe(
 			new ItemStack(items("knife")),
 			Array(
@@ -120,7 +120,7 @@ object Content extends CPupContent[TMagicMod] {
 			new ItemStack(items("inkWell")),
 			Items.dye,
 			Items.potionitem,
-			Blocks.flower_pot
+			Items.flower_pot
 		)
 
 		OldenLanguageRegistry.registerRune(TextRune)
