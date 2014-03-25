@@ -6,7 +6,6 @@ import net.minecraft.util.IIcon
 import cpup.mc.magic.MagicMod
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.{EntityAgeable, Entity}
-import cpw.mods.fml.common.FMLCommonHandler
 
 object GrowRune extends SingletonRune with TAction {
 	def mod = MagicMod
