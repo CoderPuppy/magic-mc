@@ -17,12 +17,47 @@ object Content extends CPupContent[TMagicMod] {
 	override def preInit(e: FMLPreInitializationEvent) {
 		super.preInit(e)
 
-		registerItem(new ItemWand().setName("wand"))
 
-		registerItem(new ItemSpell().setName("spell"))
+		registerItem(new ItemBase().setName("leatherWrappedStick").setMaxStackSize(1).asInstanceOf[TItemBase])
+		addRecipe(
+			new ItemStack(items("leatherWrappedStick")),
+			Array(
+				"   ",
+				"LS ",
+				"LL "
+			)
+		)
+
+		registerItem(new ItemBase().setName("goldBandedStick").setMaxStackSize(1).asInstanceOf[TItemBase])
+		addRecipe(
+			new ItemStack(items("goldBandedStack")),
+			Array(
+				"NNN",
+				"NSN",
+				"NNN"
+			),
+			'N', Items.gold_nugget,
+			'S', items("leatherWrappedStick")
+		)
+
+		registerItem(new ItemWand().setName("wand").setMaxStackSize(1).asInstanceOf[TItemBase])
+		addRecipe(
+			new ItemStack(items("wand")),
+			Array(
+				" N",
+				"S "
+			),
+			'N', Items.gold_nugget,
+			'S', items("goldBandedStack")
+		)
+
+		registerItem(new ItemSpell().setName("spell").setMaxStackSize(1).asInstanceOf[TItemBase])
+		addShapelessRecipe(
+			new ItemStack(items("spell")),
+			Items.paper
+		)
 
 		registerItem(new ItemDeed().setName("deed").setCreativeTab(CreativeTabs.tabMisc).asInstanceOf[TItemBase])
-
 		addRecipe(
 			new ItemStack(items("deed")),
 			Array(
@@ -36,7 +71,6 @@ object Content extends CPupContent[TMagicMod] {
 		)
 
 		registerBlock(new BlockDeedOffice().setName("deedOffice").setCreativeTab(CreativeTabs.tabBlock).asInstanceOf[TBlockBase])
-
 		addRecipe(
 			new ItemStack(blocks("deedOffice"), 6),
 			Array(
@@ -52,12 +86,29 @@ object Content extends CPupContent[TMagicMod] {
 		registerBlock(new BlockWritingDesk().setName("writingDesk").setCreativeTab(CreativeTabs.tabBlock).asInstanceOf[TBlockBase])
 		GameRegistry.registerTileEntity(classOf[TEWritingDesk], "writingDesk")
 
-		registerItem(new ItemBase().setName("quill").setMaxDamage(500).setMaxStackSize(1).asInstanceOf[TItemBase])
-		registerItem(new ItemBase().setName("inkWell").setMaxDamage(200).setMaxStackSize(1).asInstanceOf[TItemBase])
+		registerItem(new ItemBase().setName("knife").setMaxDamage(500).setMaxStackSize(1).asInstanceOf[TItemBase])
+		addRecipe(
+			new ItemStack(items("knife")),
+			Array(
+				" F",
+				"S "
+			),
+			'F', Items.flint,
+			'S', Items.stick
+		)
 
+		registerItem(new ItemBase().setName("quill").setMaxDamage(500).setMaxStackSize(1).asInstanceOf[TItemBase])
+		addShapelessRecipe(
+			new ItemStack(items("quill")),
+			items("knife"),
+			Items.feather
+		)
+
+		registerItem(new ItemBase().setName("inkWell").setMaxDamage(200).setMaxStackSize(1).asInstanceOf[TItemBase])
 		addShapelessRecipe(
 			new ItemStack(items("inkWell")),
 			Items.dye,
+			Items.potionitem,
 			Blocks.flower_pot
 		)
 
