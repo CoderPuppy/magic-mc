@@ -15,7 +15,7 @@ class RuneParser {
 	override def toString = "RuneParser {\n  " + List(
 		"action = " + action,
 		"target = [ " + targetPath.mkString(", ") + " ]",
-		"modeStack = " + modeStack
+		"modeStack = " + modeStack.map("{\n    " + _ + "  \n}").mkString(",\n  ")
 	).mkString(",\n  ") + "\n}"
 
 	val modeStack = new mutable.Stack[RuneParserMode]
@@ -44,7 +44,7 @@ class RuneParser {
 		Option(mode).foreach(_.onReturn(this, old))
 	}
 
-	modeStack.push(StartMode)
+	enter(StartMode)
 
 	def handle(rune: TRune) {
 		if(mode == null) {
