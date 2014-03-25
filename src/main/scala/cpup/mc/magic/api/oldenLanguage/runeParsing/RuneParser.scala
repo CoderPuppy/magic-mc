@@ -79,6 +79,11 @@ case object StartMode extends RuneParserMode {
 	}
 
 	override def onReturn(parser: RuneParser, child: RuneParserMode) {
+		child match {
+			case mode: ActionMode =>
+				parser.action = mode.action
+		}
+
 		parser.mode = TargetMode
 	}
 }
