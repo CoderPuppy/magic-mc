@@ -21,10 +21,12 @@ object Content extends CPupContent[TMagicMod] {
 		addRecipe(
 			new ItemStack(items("leatherWrappedStick")),
 			Array(
-				"   ",
-				"LS ",
-				"LL "
-			)
+				"LLL",
+				"LSL",
+				"LLL"
+			),
+			'L', Items.leather,
+			'S', "stickWood"
 		)
 
 		registerItem(new ItemBase().setName("goldBandedStick").setMaxStackSize(1).asInstanceOf[TItemBase])
