@@ -19,9 +19,9 @@ trait TCaster {
 		var entityTargets = entities
 
 		// TODO: I need a better way to do this
-//		if(blockTargets.isEmpty) {
-//			blockTargets = List(BlockPos(world, 0, 0, 0))
-//		}
+		if(blockTargets.isEmpty) {
+			blockTargets = List(BlockPos(world, 0, 0, 0))
+		}
 //
 //		if(entityTargets.isEmpty) {
 //			entityTargets = List(new BlankEntity(world))
