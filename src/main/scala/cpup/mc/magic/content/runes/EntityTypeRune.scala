@@ -1,7 +1,6 @@
 package cpup.mc.magic.content.runes
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.IIcon
 import cpup.mc.magic.MagicMod
 import net.minecraft.entity.{EntityLiving, EntityLivingBase, Entity, EntityList}
@@ -89,15 +88,10 @@ case class EntityTypeRune(name: String) extends TRune with TNoun {
 	}
 
 	def runeType = EntityTypeRune
-//	def writeToNBT(nbt: NBTTagCompound) {
-//		nbt.setString("name", name)
-//	}
 }
 
 object EntityTypeRune extends TRuneType {
 	def mod = MagicMod
-
-	def name = "tn-entity"
 
 	// TODO: obfuscated: func_70628_a
 	val dropFew = classOf[EntityLivingBase].getDeclaredMethod("dropFewItems", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
@@ -108,7 +102,6 @@ object EntityTypeRune extends TRuneType {
 	getDropItem.setAccessible(true)
 
 	def runeClass = classOf[EntityTypeRune]
-//	def readFromNBT(nbt: NBTTagCompound) = EntityTypeRune(nbt.getString("name"))
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null

@@ -1,8 +1,7 @@
 package cpup.mc.magic.api.oldenLanguage
 
 import cpup.mc.magic.api.oldenLanguage.textParsing.Context
-import cpup.mc.magic.api.oldenLanguage.runes.{TRune, TRuneType}
-import net.minecraft.nbt.NBTTagCompound
+import cpup.mc.magic.api.oldenLanguage.runes.TRuneType
 
 object OldenLanguageRegistry {
 	protected var _runeTypes = List[TRuneType]()
@@ -24,21 +23,4 @@ object OldenLanguageRegistry {
 			runeType.runeClass.getCanonicalName + ":" + runeType.getClass.getCanonicalName + ":" + runeType.name
 		})
 	}
-
-//	def writeRuneToNBT(rune: TRune, nbt: NBTTagCompound) {
-//		if(!_runeTypes.contains(rune.runeType)) {
-//			throw new NoSuchElementException("Attempt to write an unregistered rune to nbt: " + rune)
-//		}
-//
-//		nbt.setInteger("olden:runeID", _runeTypes.indexOf(rune.runeType))
-//		rune.writeToNBT(nbt)
-//	}
-
-//	def readRuneFromNBT(nbt: NBTTagCompound) = {
-//		val id = nbt.getInteger("olden:runeID")
-//
-//		if(_runeTypes.size < id) {
-//			_runeTypes(id).readFromNBT(nbt)
-//		} else { null }
-//	}
 }

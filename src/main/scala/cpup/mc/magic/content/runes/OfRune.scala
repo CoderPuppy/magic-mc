@@ -4,13 +4,9 @@ import cpup.mc.magic.api.oldenLanguage.runes._
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.util.IIcon
 import cpup.mc.magic.MagicMod
-import net.minecraft.nbt.NBTTagCompound
-import cpup.mc.magic.api.oldenLanguage.OldenLanguageRegistry
 
 object OfRune extends SingletonRune with TNounPreposition {
 	def mod = MagicMod
-
-	def name = "of-postpos"
 
 	def createNounModifier(noun: TNoun) = OfModifier(noun)
 

@@ -1,7 +1,6 @@
 package cpup.mc.magic.content.runes
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.IIcon
 import cpup.mc.magic.MagicMod
 import cpw.mods.fml.common.registry.GameData
@@ -25,15 +24,9 @@ case class BlockTypeRune(name: String) extends TRune {
 	}
 
 	def runeType = BlockTypeRune
-
-//	def writeToNBT(nbt: NBTTagCompound) {
-//		nbt.setString("name", name)
-//	}
 }
 
 object BlockTypeRune extends TRuneType {
-	def name = "tn-block"
-
 	def mod = MagicMod
 	def runeClass = classOf[BlockTypeRune]
 
@@ -44,8 +37,6 @@ object BlockTypeRune extends TRuneType {
 	def registerIcons(registerIcon: (String) => IIcon) {
 		icon = registerIcon(mod.ref.modID + ":runes/block")
 	}
-
-//	def readFromNBT(nbt: NBTTagCompound) = BlockTypeRune(nbt.getString("name"))
 }
 
 object BlockTypeTransform extends TTransform {

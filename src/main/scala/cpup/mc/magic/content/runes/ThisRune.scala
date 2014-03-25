@@ -12,8 +12,6 @@ import net.minecraft.entity.Entity
 object ThisRune extends SingletonRune with TNoun {
 	def mod = MagicMod
 
-	def name = "this-pronoun"
-
 	def getBlocks(caster: TCaster, origin: BlockPos) =if(caster.mop.typeOfHit == MovingObjectType.BLOCK) {
 		List(BlockPos(caster.world, caster.mop.blockX, caster.mop.blockY, caster.mop.blockZ))
 	} else { List() }

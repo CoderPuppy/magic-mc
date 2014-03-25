@@ -12,8 +12,6 @@ import cpup.mc.magic.api.oldenLanguage.runes.{SingletonRune, TAction}
 object BurnRune extends SingletonRune with TAction {
 	def mod = MagicMod
 
-	def name = "a-burn"
-
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null
 
