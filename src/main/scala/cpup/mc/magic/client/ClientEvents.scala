@@ -109,7 +109,7 @@ class ClientEvents(val proxy: ClientProxy) {
 
 			renderBlocks.setRenderBounds(0.05, 0.05, 0.05, 0.95, 0.95, 0.95)
 			tess.startDrawingQuads
-			tess.setColorRGBA(255, 255, 255, 100)
+			tess.setColorRGBA(255, 255, 255, 50)
 			tess.setBrightness(200)
 			textureManager.bindTexture(bendTexture)
 			val block = Blocks.stone
