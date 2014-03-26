@@ -7,11 +7,16 @@ import cpup.mc.lib.util.{VectorUtil, EntityUtil}
 
 class ItemBend extends TItemBase {
 	override def getItemUseAction(stack: ItemStack) = EnumAction.bow
-	override def getMaxItemUseDuration(stack: ItemStack) = 72000
+	override def getMaxItemUseDuration(stack: ItemStack) = 5
 
 	override def onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer) = {
 		// TODO: check for magical energy / focus
 		player.setItemInUse(stack, getMaxItemUseDuration(stack))
+		stack
+	}
+
+	override def onEaten(stack: ItemStack, world: World, player: EntityPlayer) = {
+		onPlayerStoppedUsing(stack, world, player, 0)
 		stack
 	}
 
@@ -23,5 +28,6 @@ class ItemBend extends TItemBase {
 			player.mountEntity(null)
 		}
 		player.setPositionAndUpdate(farLook.xCoord, farLook.yCoord, farLook.zCoord)
+		player.inventory.setInventorySlotContents(player.inventory.currentItem, null)
 	}
 }
