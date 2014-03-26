@@ -1,6 +1,6 @@
 package cpup.mc.magic.client
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent
+import cpw.mods.fml.common.eventhandler.{EventPriority, SubscribeEvent}
 import cpw.mods.fml.common.gameevent.{TickEvent, InputEvent}
 import org.lwjgl.input.Keyboard
 import net.minecraft.client.settings.KeyBinding
@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL11
 import cpup.mc.magic.content.ItemBend
 import net.minecraft.util.ResourceLocation
 import net.minecraft.init.Blocks
+import net.minecraft.client.renderer.texture.TextureMap
 
 class ClientEvents(val proxy: ClientProxy) {
 	val mc = Minecraft.getMinecraft
@@ -89,7 +90,7 @@ class ClientEvents(val proxy: ClientProxy) {
 	val bendTexture = new ResourceLocation(mod.ref.modID, "textures/misc/bend.png")
 
 	@SubscribeEvent
-	def renderBend(e: RenderGameOverlayEvent) {
+	def renderBend(e: RenderWorldLastEvent) {
 		val tess = Tessellator.instance
 		val renderEntity = mc.renderViewEntity
 		val player = mc.thePlayer
@@ -109,10 +110,10 @@ class ClientEvents(val proxy: ClientProxy) {
 			renderBlocks.setRenderBounds(0.05, 0.05, 0.05, 0.95, 0.95, 0.95)
 			tess.startDrawingQuads
 			tess.setColorRGBA(255, 255, 255, 50)
-			tess.setBrightness(200)
-			textureManager.bindTexture(bendTexture)
-			val block = Blocks.stone
-			val icon = block.getBlockTextureFromSide(0)
+			tess.setBrightness(100)
+			textureManager.bindTexture(TextureMap.locationBlocksTexture)
+			val block = Blocks.wool
+			val icon = block.getIcon(0, 15)
 			renderBlocks.renderFaceXNeg(block, -0.5, 0, -0.5, icon)
 			renderBlocks.renderFaceXPos(block, -0.5, 0, -0.5, icon)
 			renderBlocks.renderFaceYNeg(block, -0.5, 0, -0.5, icon)
