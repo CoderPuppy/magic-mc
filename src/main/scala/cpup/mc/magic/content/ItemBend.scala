@@ -26,7 +26,7 @@ class ItemBend extends TItemBase {
 
 		val pos = EntityUtil.getPos(player).addVector(-0.5, -0.5, -0.5)
 		val look = EntityUtil.getLook(player)
-		var farLook = VectorUtil.getFarLook(pos, look, dur/2 )//* 1.5 + 1)
+		var farLook = VectorUtil.getFarLook(pos, look, dur * 1.5 + 1)
 
 		{
 			val blockPos = VectorUtil.toBlockPos(player.worldObj, farLook)
@@ -34,11 +34,14 @@ class ItemBend extends TItemBase {
 			if(!blockPos.isAir) {
 				val mop = player.worldObj.rayTraceBlocks(farLook, pos)
 				var vec = pos
-				if(mop != null) {
+				if(mop != null && VectorUtil.toBlockPos(player.worldObj, mop.hitVec).isAir) {
+//					println("vec from mop")
 					vec = mop.hitVec
 				}
+//				println("vec", vec)
 				val farestMOP = player.worldObj.rayTraceBlocks(vec, farLook)
 				if(farestMOP != null) {
+//					println("farest", farestMOP.hitVec)
 					farLook = farestMOP.hitVec
 				}
 			}
