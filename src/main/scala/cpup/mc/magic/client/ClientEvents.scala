@@ -105,7 +105,7 @@ class ClientEvents(val proxy: ClientProxy) {
 				-(renderEntity.lastTickPosZ + (renderEntity.posZ - renderEntity.lastTickPosZ) * e.partialTicks)
 			)
 			GL11.glTranslated(pos.xCoord + 0.5, pos.yCoord, pos.zCoord + 0.5)
-			GL11.glDisable(GL11.GL_LIGHTING)
+//			GL11.glDisable(GL11.GL_LIGHTING)
 
 			renderBlocks.setRenderBounds(0.05, 0.05, 0.05, 0.95, 0.95, 0.95)
 			tess.startDrawingQuads
@@ -122,7 +122,7 @@ class ClientEvents(val proxy: ClientProxy) {
 			renderBlocks.renderFaceZPos(block, -0.5, 0, -0.5, icon)
 			tess.draw
 
-			GL11.glEnable(GL11.GL_LIGHTING)
+//			GL11.glEnable(GL11.GL_LIGHTING)
 			GL11.glPopMatrix
 		}
 	}
