@@ -114,9 +114,8 @@ class ClientEvents(val proxy: ClientProxy) {
 				GL11.glEnable(GL11.GL_LIGHTING)
 
 				renderBlocks.setRenderBounds(0.05, 0.05, 0.05, 0.95, 0.95, 0.95)
+				GL11.glColor4d(1, 1, 1, 0.5)
 				tess.startDrawingQuads
-//				tess.setColorRGBA(255, 255, 255, 50)
-//				tess.setBrightness(100)
 				textureManager.bindTexture(TextureMap.locationBlocksTexture)
 				val block = Blocks.wool
 				val icon = block.getIcon(0, 0)
@@ -126,41 +125,9 @@ class ClientEvents(val proxy: ClientProxy) {
 				renderBlocks.renderFaceYPos(block, -0.5, 0, -0.5, icon)
 				renderBlocks.renderFaceZNeg(block, -0.5, 0, -0.5, icon)
 				renderBlocks.renderFaceZPos(block, -0.5, 0, -0.5, icon)
-				GL11.glColor4d(1, 1, 1, 0.5)
 				tess.draw
 
 				GL11.glDisable(GL11.GL_LIGHTING)
-				GL11.glPopMatrix
-			}
-
-			{
-				var blockPos = VectorUtil.toBlockPos(world, pos)
-
-				if(blockPos.isAir) {
-					var air = true
-					while(air && blockPos.x > 0) {
-						val newBlock = blockPos.offset(Direction.Down)
-
-						if(newBlock.isAir) {
-							blockPos = newBlock
-						} else {
-							air = false
-						}
-					}
-				}
-
-				GL11.glPushMatrix
-
-				GL11.glTranslated(blockPos.x + 0.5, blockPos.y, blockPos.z + 0.5)
-
-				tess.startDrawingQuads
-				textureManager.bindTexture(bendTexture)
-				val block = Blocks.stone
-				val icon = block.getBlockTextureFromSide(0)
-				renderBlocks.renderFaceYPos(block, -0.5, 0, -0.5, icon)
-				GL11.glColor4d(1, 1, 1, 0.5)
-				tess.draw
-
 				GL11.glPopMatrix
 			}
 
