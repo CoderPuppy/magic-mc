@@ -7,7 +7,7 @@ import cpup.mc.lib.util.{VectorUtil, EntityUtil}
 
 class ItemBend extends TItemBase {
 	override def getItemUseAction(stack: ItemStack) = EnumAction.bow
-	override def getMaxItemUseDuration(stack: ItemStack) = 10
+	override def getMaxItemUseDuration(stack: ItemStack) = 72000
 
 	override def onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer) = {
 		// TODO: check for magical energy / focus
@@ -23,11 +23,11 @@ class ItemBend extends TItemBase {
 	override def onPlayerStoppedUsing(stack: ItemStack, world: World, player: EntityPlayer, oppDur: Int) {
 		val dur = getMaxItemUseDuration(stack) - oppDur
 		println(dur)
-		val farLook = VectorUtil.getFarLook(EntityUtil.getPos(player), EntityUtil.getLook(player), dur)
+		val farLook = VectorUtil.getFarLook(EntityUtil.getPos(player), EntityUtil.getLook(player), dur * 3)
 		if(player.ridingEntity != null) {
 			player.mountEntity(null)
 		}
 		player.setPositionAndUpdate(farLook.xCoord, farLook.yCoord, farLook.zCoord)
-		player.inventory.setInventorySlotContents(player.inventory.currentItem, null)
+//		player.inventory.setInventorySlotContents(player.inventory.currentItem, null)
 	}
 }
