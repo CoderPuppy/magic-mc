@@ -16,7 +16,12 @@ class ItemBend extends TItemBase {
 	}
 
 	override def onPlayerStoppedUsing(stack: ItemStack, world: World, player: EntityPlayer, oppDur: Int) {
-		val farLook = VectorUtil.getFarLook(EntityUtil.getPos(player), EntityUtil.getLook(player), 10)
-		player.setPosition(farLook.xCoord, farLook.yCoord, farLook.zCoord)
+		val dur = getMaxItemUseDuration(stack) - oppDur
+		println(dur)
+		val farLook = VectorUtil.getFarLook(EntityUtil.getPos(player), EntityUtil.getLook(player), 5 * dur)
+		if(player.ridingEntity != null) {
+			player.mountEntity(null)
+		}
+		player.setPositionAndUpdate(farLook.xCoord, farLook.yCoord, farLook.zCoord)
 	}
 }
