@@ -3,7 +3,7 @@ package cpup.mc.magic.content
 import net.minecraft.item.{EnumAction, ItemStack}
 import net.minecraft.world.World
 import net.minecraft.entity.player.EntityPlayer
-import cpup.mc.lib.util.{VectorUtil, EntityUtil}
+import cpup.mc.lib.util.{Direction, VectorUtil, EntityUtil}
 import net.minecraft.util.MathHelper
 
 class ItemBend extends TItemBase {
@@ -23,12 +23,14 @@ class ItemBend extends TItemBase {
 
 	def getFarLook(stack: ItemStack, player: EntityPlayer, oppDur: Int) = {
 		val dur = getMaxItemUseDuration(stack) - oppDur
-		println(dur)
-		val farLook = VectorUtil.getFarLook(EntityUtil.getPos(player), EntityUtil.getLook(player), dur * 3)
 
-		farLook.xCoord = MathHelper.floor_double(farLook.xCoord)
-		farLook.yCoord = MathHelper.floor_double(farLook.yCoord)
-		farLook.zCoord = MathHelper.floor_double(farLook.zCoord)
+		var farLook = VectorUtil.getFarLook(EntityUtil.getPos(player), EntityUtil.getLook(player), dur / 1.25)
+		var block = VectorUtil.toBlockPos(player.worldObj, farLook)
+
+		while(!block.isAir) {
+			farLook = VectorUtil.offset(farLook, Direction.Up)
+			block = block.offset(Direction.Up)
+		}
 
 		farLook
 	}
