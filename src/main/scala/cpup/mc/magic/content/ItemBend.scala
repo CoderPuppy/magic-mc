@@ -24,17 +24,11 @@ class ItemBend extends TItemBase {
 	def getFarLook(stack: ItemStack, player: EntityPlayer, oppDur: Int) = {
 		val dur = getMaxItemUseDuration(stack) - oppDur
 
-		var farLook = VectorUtil.getFarLook(
+		val farLook = VectorUtil.getFarLook(
 			EntityUtil.getPos(player).addVector(-0.5, -0.5, -0.5),
 			EntityUtil.getLook(player),
-			Math.pow(dur, 1.3) + 2
+			Math.pow(2, dur) + 2
 		)
-		var block = VectorUtil.toBlockPos(player.worldObj, farLook)
-
-		while(!block.isAir) {
-			farLook = VectorUtil.offset(farLook, Direction.Up)
-			block = block.offset(Direction.Up)
-		}
 
 		farLook
 	}
