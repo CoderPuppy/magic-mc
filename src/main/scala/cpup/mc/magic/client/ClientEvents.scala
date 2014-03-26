@@ -138,7 +138,7 @@ class ClientEvents(val proxy: ClientProxy) {
 
 				if(blockPos.isAir) {
 					var air = true
-					while(air) {
+					while(air && blockPos.x > 0) {
 						val newBlock = blockPos.offset(Direction.Down)
 
 						if(newBlock.isAir) {
