@@ -17,40 +17,17 @@ object Content extends CPupContent[TMagicMod] {
 	override def preInit(e: FMLPreInitializationEvent) {
 		super.preInit(e)
 
-		registerItem(new ItemBase().setName("leatherWrappedStick").setMaxStackSize(1).asInstanceOf[TItemBase])
+		registerItem(new ItemBase().setName("leatherHandle").setMaxStackSize(1).asInstanceOf[TItemBase])
 		addRecipe(
-			new ItemStack(items("leatherWrappedStick")),
+			new ItemStack(items("leatherHandle")),
 			Array(
-				"LLL",
-				"LSL",
+				"L L",
 				"LLL"
 			),
-			'L', Items.leather,
-			'S', "stickWood"
-		)
-
-		registerItem(new ItemBase().setName("goldBandedStick").setMaxStackSize(1).asInstanceOf[TItemBase])
-		addRecipe(
-			new ItemStack(items("goldBandedStick")),
-			Array(
-				"NNN",
-				"NSN",
-				"NNN"
-			),
-			'N', Items.gold_nugget,
-			'S', items("leatherWrappedStick")
+			'L', Items.leather
 		)
 
 		registerItem(new ItemWand().setName("wand").setMaxStackSize(1).asInstanceOf[TItemBase])
-		addRecipe(
-			new ItemStack(items("wand")),
-			Array(
-				" N",
-				"S "
-			),
-			'N', Items.gold_nugget,
-			'S', items("goldBandedStick")
-		)
 
 		registerItem(new ItemSpell().setName("spell").setMaxStackSize(1).asInstanceOf[TItemBase])
 		addShapelessRecipe(
