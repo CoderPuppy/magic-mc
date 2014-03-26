@@ -11,7 +11,7 @@ object GrowRune extends SingletonRune with TAction {
 	def mod = MagicMod
 
 	def actUponBlock(pos: BlockPos) {
-		for(_ <- 0 to 20) {
+		for(_ <- 0 to 80) {
 			pos.scheduleUpdateTick(0)
 		}
 	}
