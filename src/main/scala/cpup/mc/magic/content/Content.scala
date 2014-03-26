@@ -100,6 +100,8 @@ object Content extends CPupContent[TMagicMod] {
 			Items.flower_pot
 		)
 
+		registerItem(new ItemBend().setName("bend").setMaxStackSize(1).asInstanceOf[TItemBase])
+
 		OldenLanguageRegistry.registerRune(TextRune)
 
 		// Actions
