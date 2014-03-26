@@ -33,8 +33,10 @@ class ItemBend extends TItemBase {
 
 			if(!blockPos.isAir) {
 				val vec = player.worldObj.rayTraceBlocks(farLook, pos).hitVec
-				val farestVec = player.worldObj.rayTraceBlocks(vec, farLook).hitVec
-				farLook = farestVec
+				val farestMOP = player.worldObj.rayTraceBlocks(vec, farLook)
+				if(farestMOP != null) {
+					farLook = farestMOP.hitVec
+				}
 			}
 		}
 
