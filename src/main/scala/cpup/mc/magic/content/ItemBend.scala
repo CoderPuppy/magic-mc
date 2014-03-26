@@ -26,20 +26,20 @@ class ItemBend extends TItemBase {
 
 		val pos = EntityUtil.getPos(player).addVector(-0.5, -0.5, -0.5)
 		val look = EntityUtil.getLook(player)
-		var farLook = VectorUtil.getFarLook(pos, look, dur * 1.5 + 1)
+		var farLook = VectorUtil.getFarLook(pos, look, dur/2 )//* 1.5 + 1)
 
 		{
 			val blockPos = VectorUtil.toBlockPos(player.worldObj, farLook)
 
 			if(!blockPos.isAir) {
 				val mop = player.worldObj.rayTraceBlocks(farLook, pos)
+				var vec = pos
 				if(mop != null) {
-					println("mop", mop.hitVec)
-					val farestMOP = player.worldObj.rayTraceBlocks(mop.hitVec, farLook)
-					if(farestMOP != null) {
-						println("farest", farestMOP.hitVec)
-						farLook = farestMOP.hitVec
-					}
+					vec = mop.hitVec
+				}
+				val farestMOP = player.worldObj.rayTraceBlocks(vec, farLook)
+				if(farestMOP != null) {
+					farLook = farestMOP.hitVec
 				}
 			}
 		}
