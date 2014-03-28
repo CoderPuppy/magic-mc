@@ -9,13 +9,10 @@ import scala.collection.mutable.ListBuffer
 class RuneParser {
 	def mod = MagicMod
 
-	var action: TAction = null
-	val targetPath = new ListBuffer[TNoun]
-	def spell = Spell(action, targetPath.toList)
+	var spell: Spell = null
 
 	override def toString = "RuneParser {\n  " + List(
-		"action = " + action,
-		"target = [ " + targetPath.mkString(", ") + " ]",
+		"spell = " + spell,
 		"modeStack = " + modeStack.map("{\n    " + _ + "  \n}").mkString(",\n  ")
 	).mkString(",\n  ") + "\n}"
 
@@ -81,26 +78,58 @@ case object StartMode extends RuneParserMode {
 	def handle(parser: RuneParser, rune: TRune) { parser.unhandledRune(rune) }
 
 	override def onEnter(parser: RuneParser) {
+		parser.enter(new SpellMode)
+	}
+
+	override def onReturn(parser: RuneParser, child: RuneParserMode) {
+		child match {
+			case mode: SpellMode =>
+				parser.spell = mode.spell
+		}
+	}
+}
+
+class SpellMode extends RuneParserMode {
+	var action: TAction = null
+	val targetPath = new ListBuffer[TNoun]()
+	def spell = Spell(action, targetPath.toList)
+
+	def handle(parser: RuneParser, rune: TRune) {
+		rune match {
+			case conjunction: TSpellConjunction =>
+				parser.enter(new SpellConjunctionMode(conjunction))
+			case _ =>
+		}
+	}
+
+	override def onEnter(parser: RuneParser) {
 		parser.enter(new ActionMode)
 	}
 
 	override def onReturn(parser: RuneParser, child: RuneParserMode) {
 		child match {
 			case mode: ActionMode =>
-				parser.action = mode.action
+				action = mode.action
+				parser.enter(new TargetMode(targetPath))
+			case _ =>
 		}
-
-		parser.mode = TargetMode
 	}
+
+	override def toString = "action = " + action + ", targetPath = [ " + targetPath.mkString(", ") + " ]"
 }
-case object TargetMode extends RuneParserMode {
+case class SpellConjunctionMode(conjunction: TSpellConjunction) extends SpellMode {
+	override def toString = super.toString + ", conjunction = " + conjunction
+}
+
+class TargetMode(val targetPath: ListBuffer[TNoun]) extends RuneParserMode {
 	def handle(parser: RuneParser, rune: TRune) {
 		rune match {
 			case _: TNoun | _: TNounModifier =>
 				parser.enter(new NounMode(true))
 				parser.handle(rune)
 			case _ =>
-				parser.unhandledRune(rune)
+				parser.leave
+				parser.handle(rune)
 		}
 	}
 
@@ -109,9 +138,11 @@ case object TargetMode extends RuneParserMode {
 
 		child match {
 			case mode: NounMode =>
-				parser.targetPath += mode.noun
+				targetPath += mode.noun
 		}
 	}
+
+	override def toString = "targetPath = [ " + targetPath.mkString(", ") + " ]"
 }
 
 class NounMode(val canHavePrepositions: Boolean) extends RuneParserMode {
