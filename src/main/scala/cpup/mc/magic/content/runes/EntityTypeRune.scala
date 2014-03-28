@@ -19,8 +19,8 @@ import cpup.mc.lib.util.pos.BlockPos
 case class EntityTypeRune(name: String) extends TRune with TNoun {
 	val cla = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[_ <: Entity]]
 
-	def getBlocks(caster: TCaster, origin: BlockPos) = List()
-	def getEntities(caster: TCaster, origin: Entity) = List(origin).filter(cla.isInstance(_))
+	def getBlocks(caster: TCaster, existing: List[BlockPos]) = List()
+	def getEntities(caster: TCaster, existing: List[Entity]) = exisiting.filter(cla.isInstance(_))
 
 	val drops = (() => {
 		val constructor = cla.getConstructors.find((constr: Constructor[_]) => {
