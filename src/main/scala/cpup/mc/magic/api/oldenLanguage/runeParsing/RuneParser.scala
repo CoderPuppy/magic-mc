@@ -110,7 +110,7 @@ class SpellMode extends RuneParserMode {
 		child match {
 			case mode: ActionMode =>
 				action = mode.action
-				parser.enter(new TargetMode(targetPath))
+				parser.enter(new TargetMode(targetPath, true))
 			case _ =>
 		}
 	}
@@ -121,12 +121,20 @@ case class SpellConjunctionMode(conjunction: TSpellConjunction) extends SpellMod
 	override def toString = super.toString + ", conjunction = " + conjunction
 }
 
-class TargetMode(val targetPath: ListBuffer[TNoun]) extends RuneParserMode {
+class TargetMode(var targetPath: ListBuffer[TNoun], val canHavePrepositions: Boolean) extends RuneParserMode {
+	def this(canHavePrepositions: Boolean) {
+		this(new ListBuffer[TNoun], canHavePrepositions)
+	}
+
 	def handle(parser: RuneParser, rune: TRune) {
 		rune match {
 			case _: TNoun | _: TNounModifier =>
 				parser.enter(new NounMode(true))
 				parser.handle(rune)
+
+			case conjunction: TNounConjunction if !targetPath.isEmpty =>
+				parser.enter(new NounConjunctionMode(conjunction))
+
 			case _ =>
 				parser.leave
 				parser.handle(rune)
@@ -139,6 +147,12 @@ class TargetMode(val targetPath: ListBuffer[TNoun]) extends RuneParserMode {
 		child match {
 			case mode: NounMode =>
 				targetPath += mode.noun
+
+			case mode: NounConjunctionMode =>
+				targetPath.clear
+				for(noun <- mode.conjunction.combineNouns(targetPath.toList, mode.targetPath.toList)) {
+					targetPath += noun
+				}
 		}
 	}
 
@@ -160,9 +174,6 @@ class NounMode(val canHavePrepositions: Boolean) extends RuneParserMode {
 			case preposition: TNounPreposition if noun != null && canHavePrepositions =>
 				parser.enter(new NounPrepositionMode(preposition))
 
-			case conjunction: TNounConjunction if noun != null =>
-				parser.enter(new NounConjunctionMode(conjunction))
-
 			case _ =>
 				parser.leave
 				parser.handle(rune)
@@ -173,19 +184,16 @@ class NounMode(val canHavePrepositions: Boolean) extends RuneParserMode {
 	override def onReturn(parser: RuneParser, child: RuneParserMode) {
 		child match {
 			case mode: NounPrepositionMode =>
-				mode.preposition.createNounModifier(mode.noun).modifyNoun(noun)
-
-			case mode: NounConjunctionMode =>
-				noun = mode.conjunction.combineNouns(noun, mode.noun)
+				mode.preposition.createNounModifier(mode.targetPath.toList).modifyNoun(noun)
 		}
 	}
 
 	override def toString = "noun = " + noun + ", modifiers = " + modifiers
 }
-class NounConjunctionMode(val conjunction: TNounConjunction) extends NounMode(true) {
+class NounConjunctionMode(val conjunction: TNounConjunction) extends TargetMode(true) {
 	override def toString = super.toString + ", conjunction = " + conjunction
 }
-class NounPrepositionMode(val preposition: TNounPreposition  ) extends NounMode(false) {
+class NounPrepositionMode(val preposition: TNounPreposition  ) extends TargetMode(false) {
 	override def toString = super.toString + ", preposition = " + preposition
 }
 
@@ -204,7 +212,7 @@ class ActionMode extends RuneParserMode {
 					mod.modifyAction(action)
 				}
 			case preposition: TActionPreposition if action != null =>
-				parser.enter(new ActionPrepositionalMode(preposition))
+				parser.enter(new ActionPrepositionMode(preposition))
 			case conjunction: TActionConjunction if action != null =>
 				parser.enter(new ActionConjunctionMode(conjunction))
 			case _ =>
@@ -217,13 +225,16 @@ class ActionMode extends RuneParserMode {
 		child match {
 			case mode: ActionConjunctionMode =>
 				action = mode.conjunction.combineActions(action, mode.action)
+
+			case mode: ActionPrepositionMode =>
+				mode.preposition.createActionModifier(mode.targetPath.toList).modifyAction(action)
 		}
 	}
 }
 class ActionConjunctionMode(val conjunction: TActionConjunction) extends ActionMode {
 	override def toString = super.toString + ", conjunction = " + conjunction
 }
-class ActionPrepositionalMode(val preposition: TActionPreposition) extends NounMode(false) {
+class ActionPrepositionMode(val preposition: TActionPreposition) extends TargetMode(false) {
 	// maybe allow preposition
 	override def toString = super.toString + ", preposition = " + preposition
 }

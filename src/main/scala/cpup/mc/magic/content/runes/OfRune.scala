@@ -9,7 +9,7 @@ import cpup.mc.magic.api.oldenLanguage.runeParsing.{TNounPreposition, TNounModif
 object OfRune extends SingletonRune with TNounPreposition {
 	def mod = MagicMod
 
-	def createNounModifier(noun: TNoun) = OfModifier(noun)
+	def createNounModifier(targetPath: List[TNoun]) = OfModifier(targetPath)
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null
@@ -23,9 +23,9 @@ object OfRune extends SingletonRune with TNounPreposition {
 	}
 }
 
-case class OfModifier(noun: TNoun) extends TNounModifier {
+case class OfModifier(targetPath: List[TNoun]) extends TNounModifier {
 	def modifyNoun(rune: TNoun) {
 		// TODO: do stuff
-		println("of modify", rune)
+		println("of modify", rune, targetPath)
 	}
 }
