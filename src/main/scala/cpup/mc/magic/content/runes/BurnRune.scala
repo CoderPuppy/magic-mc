@@ -7,7 +7,8 @@ import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.{EntityLivingBase, Entity}
 import cpup.mc.lib.util.Direction
 import net.minecraft.init.Blocks
-import cpup.mc.magic.api.oldenLanguage.runes.{SingletonRune, TAction}
+import cpup.mc.magic.api.oldenLanguage.runes.SingletonRune
+import cpup.mc.magic.api.oldenLanguage.runeParsing.TAction
 
 object BurnRune extends SingletonRune with TAction {
 	def mod = MagicMod

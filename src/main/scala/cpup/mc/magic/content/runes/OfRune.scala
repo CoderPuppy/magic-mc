@@ -4,6 +4,7 @@ import cpup.mc.magic.api.oldenLanguage.runes._
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.util.IIcon
 import cpup.mc.magic.MagicMod
+import cpup.mc.magic.api.oldenLanguage.runeParsing.{TNounPreposition, TNounModifier, TNoun}
 
 object OfRune extends SingletonRune with TNounPreposition {
 	def mod = MagicMod

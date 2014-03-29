@@ -11,7 +11,7 @@ import cpup.mc.magic.api.oldenLanguage._
 import cpup.mc.magic.api.oldenLanguage.textParsing.{TextParser, RootContext}
 import cpup.mc.magic.api.oldenLanguage.runeParsing.RuneParser
 import net.minecraft.world.World
-import cpup.mc.magic.api.oldenLanguage.casters.PlayerCaster
+import cpup.mc.magic.api.oldenLanguage.casting.PlayerCaster
 
 class ItemSpell extends ItemBase with TWritableItem {
 	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "").split(' ')

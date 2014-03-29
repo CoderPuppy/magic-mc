@@ -12,18 +12,17 @@ import cpup.mc.lib.util.GUIUtil
 import net.minecraft.item.{Item, ItemStack}
 import scala.collection.mutable.ListBuffer
 import cpup.mc.magic.api.oldenLanguage.textParsing.{TContext, TextRune, TTransform}
-import cpup.mc.magic.api.oldenLanguage.runes.{TNoun, TRune, TRuneType}
-import cpup.mc.magic.api.oldenLanguage.casters.TCaster
+import cpup.mc.magic.api.oldenLanguage.runes.{TRune, TRuneType}
+import cpup.mc.magic.api.oldenLanguage.casting.TCaster
 import cpup.mc.lib.util.pos.BlockPos
+import cpup.mc.magic.api.oldenLanguage.runeParsing.{NonBlockTypeNoun, TNoun}
 
-case class EntityTypeRune(name: String) extends TRune with TNoun {
-	val cla = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[_ <: Entity]]
-
-	def getBlocks(caster: TCaster, existing: List[BlockPos]) = List()
-	def getEntities(caster: TCaster, existing: List[Entity]) = existing.filter(cla.isInstance(_))
+case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {
+	val entityClass = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[Entity]]
+	def filterEntity(caster: TCaster, entity: Entity) = true
 
 	val drops = (() => {
-		val constructor = cla.getConstructors.find((constr: Constructor[_]) => {
+		val constructor = entityClass.getConstructors.find((constr: Constructor[_]) => {
 			val types = constr.getParameterTypes
 			types.length == 1 && types(0) == classOf[World]
 		})
