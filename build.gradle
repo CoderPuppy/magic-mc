@@ -1,7 +1,7 @@
 ext {
 	info = [
-		name: 'magic-mc',
-		group: 'cpup.mc.magic',
+		name: 'oldenmagic-mc',
+		group: 'cpup.mc.oldenMagic',
 		version: 'dev',
 		dependencies: [
 			'cpup.lib:cpup-lib:dev',
