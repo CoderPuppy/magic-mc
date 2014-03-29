@@ -4,7 +4,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.MagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.TCaster
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{EntityTarget, BlockTarget, TTarget, TCaster}
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.util.MovingObjectPosition.MovingObjectType
 import net.minecraft.entity.Entity
@@ -17,7 +17,20 @@ object ThisRune extends SingletonRune with TNounModifier {
 	def modifyNoun(rune: TNoun) {
 		rune match {
 			case rune: TTypeNoun[_, _] =>
-				// TODO: specify
+				rune.specify(new TNoun {
+					override def getTargets(caster: TCaster, existing: List[TTarget]) = {
+						val mop = caster.mop
+						mop.typeOfHit match {
+							case MovingObjectType.BLOCK =>
+								List(BlockTarget(BlockPos(caster.world, mop.blockX, mop.blockY, mop.blockZ)))
+
+							case MovingObjectType.ENTITY =>
+								List(EntityTarget(mop.entityHit))
+
+							case _ => List()
+						}
+					}
+				})
 			case _ =>
 		}
 	}
