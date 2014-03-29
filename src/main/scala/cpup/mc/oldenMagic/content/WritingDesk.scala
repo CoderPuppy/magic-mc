@@ -22,6 +22,7 @@ import io.netty.buffer.ByteBuf
 import cpw.mods.fml.common.network.ByteBufUtils
 import cpup.mc.oldenMagic.api.oldenLanguage.{TWritableItem, WritingType}
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.ParsedRune
+import net.minecraftforge.common.util.Constants
 
 class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlockContainer[TMagicMod] {
 	setHardness(1)
@@ -154,7 +155,7 @@ class TEWritingDesk extends TileEntity with CPupTE {
 
 	override def readFromNBT(nbt: NBTTagCompound) {
 		super.readFromNBT(nbt)
-		inv.unserialize(nbt.getTagList("Items", 10))
+		inv.unserialize(nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND))
 	}
 }
 
