@@ -30,6 +30,12 @@ object OldenLanguageRegistry {
 		rune.writeToNBT(nbt)
 	}
 
+	def writeRuneToNBT(rune: TRune): NBTTagCompound = {
+		val nbt = new NBTTagCompound
+		writeRuneToNBT(nbt, rune)
+		nbt
+	}
+
 	def readRuneFromNBT(nbt: NBTTagCompound) = {
 		val id = nbt.getInteger("olden:rune-id")
 		if(_runeTypes.isDefinedAt(id)) {

@@ -5,14 +5,21 @@ import cpup.mc.oldenMagic.api.oldenLanguage.OldenLanguageRegistry
 import net.minecraftforge.common.util.Constants
 import cpup.mc.lib.util.NBTUtil
 
-case class Spell(action: TActionRune, targetPath: List[TNounRune])
+case class Spell(action: TActionRune, targetPath: List[TNounRune]) {
+	def writeToNBT(nbt: NBTTagCompound) {
+		nbt.setTag("action", OldenLanguageRegistry.writeRuneToNBT(action))
+		nbt.setTag("targetPath", NBTUtil.writeList(targetPath.map(OldenLanguageRegistry.writeRuneToNBT)))
+	}
+}
 object Spell {
-	def readFromNBT(nbt: NBTTagCompound) = try {
+	def readFromNBT(nbt: NBTTagCompound) = try
 		Spell(
-			OldenLanguageRegistry.readRuneFromNBT(nbt.getCompoundTag("action")).asInstanceOf[TActionRune],
-			NBTUtil.readList(nbt.getTagList("targetPath", Constants.NBT.TAG_COMPOUND)).map(OldenLanguageRegistry.readRuneFromNBT(_).asInstanceOf[TNounRune])
+			action = OldenLanguageRegistry.readRuneFromNBT(nbt.getCompoundTag("action")).asInstanceOf[TActionRune],
+			targetPath = NBTUtil.readList(nbt.getTagList("targetPath", Constants.NBT.TAG_COMPOUND)).map(
+				OldenLanguageRegistry.readRuneFromNBT(_).asInstanceOf[TNounRune]
+			)
 		)
-	} catch {
+	catch {
 		case _: Exception => null
 	}
 }
