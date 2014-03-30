@@ -14,8 +14,8 @@ object RootCategory {
 		actions.addRune("a!burn!")
 		actions.addRune("a!grow!")
 
-		val pronouns = root.createSubCategory("pronouns")
-		pronouns.addRune("pn!this!")
+		val pronouns = root.createSubCategory("adjectives")
+		pronouns.addRune("adj!this!")
 
 		val entities = root.createSubCategory("entities")
 
@@ -23,12 +23,12 @@ object RootCategory {
 			entities.addRune("tn!entity!" + name)
 		}
 
-		val blocks = root.createSubCategory("blocks")
-
-		for(block <- JavaConversions.asScalaIterator(GameData.blockRegistry.iterator).asInstanceOf[Iterator[Block]]) {
-			println(block.getUnlocalizedName)
-			blocks.addRune("tn!block!" + block.getUnlocalizedName.replaceFirst("^tile\\.", ""))
-		}
+//		val blocks = root.createSubCategory("blocks")
+//
+//		for(block <- JavaConversions.asScalaIterator(GameData.blockRegistry.iterator).asInstanceOf[Iterator[Block]]) {
+//			println(block.getUnlocalizedName)
+//			blocks.addRune("tn!block!" + block.getUnlocalizedName.replaceFirst("^tile\\.", ""))
+//		}
 
 		val prepositions = root.createSubCategory("prepositions")
 		prepositions.addRune("pp!of!")

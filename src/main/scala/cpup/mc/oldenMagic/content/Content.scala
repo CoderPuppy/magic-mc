@@ -124,11 +124,11 @@ object Content extends CPupContent[TMagicMod] {
 			root.subContexts("actions") = actions
 			root.transforms("a") = new SubContextTransform("actions")
 
-			val pronouns = new Context
-			pronouns.transforms("this") = ThisRune
+			val adjectives = new Context
+			adjectives.transforms("this") = ThisRune
 
-			root.subContexts("pronouns") = pronouns
-			root.transforms("pn") = new SubContextTransform("pronouns")
+			root.subContexts("adjectives") = pronouns
+			root.transforms("adj") = new SubContextTransform("adjectives")
 
 			val prepositions = new Context
 			prepositions.transforms("of") = OfRune
