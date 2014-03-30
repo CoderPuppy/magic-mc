@@ -8,7 +8,7 @@ import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.{EntityAgeable, Entity}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TAction
 
-object GrowRune extends SingletonRune with TAction {
+case object GrowRune extends SingletonRune with TAction {
 	def mod = MagicMod
 
 	def actUponBlock(pos: BlockPos) {

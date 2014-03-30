@@ -20,7 +20,7 @@ object RootCategory {
 		val entities = root.createSubCategory("entities")
 
 		for(name <- JavaConversions.asScalaIterator(EntityList.stringToClassMapping.keySet.iterator)) {
-			println("entity", name)
+//			println("entity", name)
 			entities.addRune("tn!entity!" + name)
 		}
 
