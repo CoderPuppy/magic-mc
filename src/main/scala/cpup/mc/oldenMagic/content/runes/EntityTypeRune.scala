@@ -19,6 +19,8 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{NonBlockTypeNoun, TNoun
 import net.minecraft.nbt.NBTTagCompound
 
 case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {
+	def mod = MagicMod
+
 	val entityClass = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[Entity]]
 	def filterEntity(caster: TCaster, entity: Entity) = true
 
@@ -64,7 +66,10 @@ case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {
 
 		newDrops.toList
 	} catch {
-		case _: Exception => List()
+		case e: Exception =>
+			mod.logger.error(e.toString)
+			mod.logger.error(e.getStackTraceString)
+			List()
 	}
 
 	@SideOnly(Side.CLIENT)
