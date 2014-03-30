@@ -18,10 +18,12 @@ import cpup.mc.lib.util.pos.BlockPos
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{NonBlockTypeNoun, TNoun}
 
 case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {
+	println(name)
+
 	val entityClass = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[Entity]]
 	def filterEntity(caster: TCaster, entity: Entity) = true
 
-	val drops = (() => {
+	val drops = try {
 		val constructor = entityClass.getConstructors.find((constr: Constructor[_]) => {
 			val types = constr.getParameterTypes
 			types.length == 1 && types(0) == classOf[World]
@@ -57,7 +59,9 @@ case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {
 		}
 
 		newDrops.toList
-	})()
+	} catch {
+		case _: Exception => List()
+	}
 
 	@SideOnly(Side.CLIENT)
 	def icons = List(EntityTypeRune.icon)

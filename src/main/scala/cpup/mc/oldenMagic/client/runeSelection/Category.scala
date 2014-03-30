@@ -60,6 +60,7 @@ class Category(val context: TContext, val name: String) extends SelectionOption 
 		} catch {
 			case e: Exception => {
 				mod.logger.error(e.toString)
+				mod.logger.error(e.getStackTraceString)
 				null
 			}
 		}
