@@ -171,6 +171,7 @@ class NounMode(val canHavePrepositions: Boolean) extends RuneParserMode {
 
 			case _noun: TNoun if noun == null =>
 				noun = _noun
+				modifiers.foreach(_.modifyNoun(noun))
 
 			case preposition: TNounPreposition if noun != null && canHavePrepositions =>
 				parser.enter(new NounPrepositionMode(preposition))
