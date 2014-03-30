@@ -51,7 +51,7 @@ class RuneParser {
 	}
 
 	def handle(rune: TRune) {
-		println(s"handling rune: $rune in mode: $mode, stack: ${modeStack.mkString(", ")}")
+//		println(s"handling rune: $rune in mode: $mode, stack: ${modeStack.mkString(", ")}")
 		if(mode == null) {
 			unhandledRune(rune)
 		} else {

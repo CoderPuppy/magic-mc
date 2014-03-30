@@ -15,7 +15,6 @@ object ThisRune extends SingletonRune with TNounModifier {
 	def mod = MagicMod
 
 	def modifyNoun(rune: TNoun) {
-		println("this modifying", rune)
 		rune match {
 			case rune: TTypeNoun[_, _] =>
 				rune.specify(new TNoun {

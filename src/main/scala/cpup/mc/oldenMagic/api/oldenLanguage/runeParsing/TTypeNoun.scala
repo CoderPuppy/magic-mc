@@ -24,12 +24,9 @@ trait TTypeNoun[ENT <: Entity, BLK <: Block] extends TNoun {
 		_specification = specification
 	}
 
-	override def getTargets(caster: TCaster, existing: List[TTarget]) = {
-		println("hmm", _specification)
-		if(_specification == null) {
-			existing.flatMap(_.ownedTargets(this))
-		} else {
-			_specification.getTargets(caster, existing).filter(filter(caster, _))
-		}
+	override def getTargets(caster: TCaster, existing: List[TTarget]) = if(_specification == null) {
+		existing.flatMap(_.ownedTargets(this))
+	} else {
+		_specification.getTargets(caster, existing).filter(filter(caster, _))
 	}
 }
