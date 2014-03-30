@@ -51,6 +51,7 @@ class RuneParser {
 	}
 
 	def handle(rune: TRune) {
+		println(s"handling rune: $rune in mode: $mode, stack: ${modeStack.mkString(", ")}")
 		if(mode == null) {
 			unhandledRune(rune)
 		} else {
@@ -115,7 +116,7 @@ class SpellMode extends RuneParserMode {
 		}
 	}
 
-	override def toString = "action = " + action + ", targetPath = [ " + targetPath.mkString(", ") + " ]"
+	override def toString = "SpellMode { action = " + action + ", targetPath = [ " + targetPath.mkString(", ") + " ] }"
 }
 case class SpellConjunctionMode(conjunction: TSpellConjunction) extends SpellMode {
 	override def toString = super.toString + ", conjunction = " + conjunction
@@ -156,7 +157,7 @@ class TargetMode(var targetPath: ListBuffer[TNoun], val canHavePrepositions: Boo
 		}
 	}
 
-	override def toString = "targetPath = [ " + targetPath.mkString(", ") + " ]"
+	override def toString = "TargetMode { targetPath = [ " + targetPath.mkString(", ") + " ] }"
 }
 
 class NounMode(val canHavePrepositions: Boolean) extends RuneParserMode {
@@ -188,7 +189,7 @@ class NounMode(val canHavePrepositions: Boolean) extends RuneParserMode {
 		}
 	}
 
-	override def toString = "noun = " + noun + ", modifiers = " + modifiers
+	override def toString = s"NounMode { noun = $noun, modifiers = $modifiers }"
 }
 class NounConjunctionMode(val conjunction: TNounConjunction) extends TargetMode(true) {
 	override def toString = super.toString + ", conjunction = " + conjunction
