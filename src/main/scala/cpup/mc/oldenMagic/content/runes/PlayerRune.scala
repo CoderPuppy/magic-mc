@@ -5,18 +5,24 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import cpup.mc.oldenMagic.MagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TTransform, TContext}
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
+import net.minecraft.nbt.NBTTagCompound
 
 case class PlayerRune(name: String) extends TRune {
+	def runeType = PlayerRune
+	def writeToNBT(nbt: NBTTagCompound) {
+		nbt.setString("name", name)
+	}
+
 	@SideOnly(Side.CLIENT)
 	def icons = List(PlayerRune.icon)
-
-	def runeType = PlayerRune
 }
 
 object PlayerRune extends TRuneType {
 	def mod = MagicMod
 
+	def name = "player"
 	def runeClass = classOf[PlayerRune]
+	def readFromNBT(nbt: NBTTagCompound) = PlayerRune(nbt.getString("name"))
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null

@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer
 import cpup.mc.lib.util.EntityUtil
 import cpup.mc.lib.util.pos.BlockPos
 import cpw.mods.fml.common.FMLCommonHandler
-import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TTypeNoun
+import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TTypeNounRune
 import net.minecraft.entity.Entity
 import net.minecraft.block.Block
 
@@ -12,5 +12,5 @@ class PlayerCaster(val player: EntityPlayer) extends EntityTarget(player) with T
 	val mop = EntityUtil.getMOPBoth(player, if(player.capabilities.isCreativeMode) 6 else 3)
 
 	// TODO: Implement
-	override def ownedTargets(typeNoun: TTypeNoun[_ <: Entity, _ <: Block]) = List()
+	override def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
 }

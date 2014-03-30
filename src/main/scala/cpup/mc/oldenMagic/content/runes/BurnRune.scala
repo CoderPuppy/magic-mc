@@ -8,10 +8,18 @@ import net.minecraft.entity.{EntityLivingBase, Entity}
 import cpup.mc.lib.util.Direction
 import net.minecraft.init.Blocks
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
-import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TAction
+import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TActionRune
 
-object BurnRune extends SingletonRune with TAction {
+object BurnRune extends SingletonRune with TActionRune {
 	def mod = MagicMod
+
+	def name = "burn"
+	def actUponBlock(pos: BlockPos) {
+		pos.offset(Direction.Up).tryReplaceWith(Blocks.fire)
+	}
+	def actUponEntity(entity: Entity) {
+		entity.setFire(10) // TODO: more depending on something
+	}
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null
@@ -22,12 +30,5 @@ object BurnRune extends SingletonRune with TAction {
 	@SideOnly(Side.CLIENT)
 	def registerIcons(registerIcon: (String) => IIcon) {
 		icon = registerIcon(mod.ref.modID + ":runes/burn")
-	}
-
-	def actUponBlock(pos: BlockPos) {
-		pos.offset(Direction.Up).tryReplaceWith(Blocks.fire)
-	}
-	def actUponEntity(entity: Entity) {
-		entity.setFire(10) // TODO: more depending on something
 	}
 }

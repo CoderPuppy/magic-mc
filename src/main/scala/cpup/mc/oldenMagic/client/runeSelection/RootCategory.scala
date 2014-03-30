@@ -24,12 +24,12 @@ object RootCategory {
 			entities.addRune("tn!entity!" + name)
 		}
 
-//		val blocks = root.createSubCategory("blocks")
-//
-//		for(block <- JavaConversions.asScalaIterator(GameData.blockRegistry.iterator).asInstanceOf[Iterator[Block]]) {
-//			println(block.getUnlocalizedName)
-//			blocks.addRune("tn!block!" + block.getUnlocalizedName.replaceFirst("^tile\\.", ""))
-//		}
+		val blocks = root.createSubCategory("blocks")
+
+		for(block <- JavaConversions.asScalaIterator(GameData.blockRegistry.iterator).asInstanceOf[Iterator[Block]]) {
+			println(GameData.blockRegistry.getNameForObject(block))
+			blocks.addRune("tn!block!" + GameData.blockRegistry.getNameForObject(block))
+		}
 
 		val prepositions = root.createSubCategory("prepositions")
 		prepositions.addRune("pp!of!")

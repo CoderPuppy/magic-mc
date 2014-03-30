@@ -15,11 +15,17 @@ import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TContext, TextRune, TTr
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRune, TRuneType}
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.TCaster
 import cpup.mc.lib.util.pos.BlockPos
-import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{NonBlockTypeNoun, TNoun}
+import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{NonBlockTypeNoun, TNounRune}
+import net.minecraft.nbt.NBTTagCompound
 
 case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {
-	  val entityClass = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[Entity]]
+	val entityClass = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[Entity]]
 	def filterEntity(caster: TCaster, entity: Entity) = true
+
+	def runeType = EntityTypeRune
+	def writeToNBT(nbt: NBTTagCompound) {
+		nbt.setString("name", name)
+	}
 
 	val drops = try {
 		val constructor = entityClass.getConstructors.find((constr: Constructor[_]) => {
@@ -87,8 +93,6 @@ case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {
 
 		super.render(x, y, width, height)
 	}
-
-	def runeType = EntityTypeRune
 }
 
 object EntityTypeRune extends TRuneType {
@@ -102,7 +106,9 @@ object EntityTypeRune extends TRuneType {
 	val getDropItem = classOf[EntityLiving].getDeclaredMethod("getDropItem")
 	getDropItem.setAccessible(true)
 
+	def name = "entity"
 	def runeClass = classOf[EntityTypeRune]
+	def readFromNBT(nbt: NBTTagCompound) = EntityTypeRune(nbt.getString("name"))
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null

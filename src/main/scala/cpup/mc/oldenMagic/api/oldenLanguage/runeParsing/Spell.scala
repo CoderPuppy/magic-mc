@@ -1,3 +1,3 @@
 package cpup.mc.oldenMagic.api.oldenLanguage.runeParsing
 
-case class Spell(action: TAction, targetPath: List[TNoun])
+case class Spell(action: TActionRune, targetPath: List[TNounRune])

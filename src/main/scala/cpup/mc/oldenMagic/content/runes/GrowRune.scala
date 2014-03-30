@@ -1,15 +1,17 @@
 package cpup.mc.oldenMagic.content.runes
 
-import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.MagicMod
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.{EntityAgeable, Entity}
-import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TAction
+import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TActionRune
+import cpup.mc.oldenMagic.api.oldenLanguage.runes.{SingletonRune, TRune}
 
-case object GrowRune extends SingletonRune with TAction {
+case object GrowRune extends SingletonRune with TActionRune {
 	def mod = MagicMod
+
+	def name = "grow"
 
 	def actUponBlock(pos: BlockPos) {
 		for(_ <- 0 to 80) {

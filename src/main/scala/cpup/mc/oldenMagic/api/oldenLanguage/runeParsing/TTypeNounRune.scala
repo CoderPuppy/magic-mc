@@ -5,7 +5,7 @@ import net.minecraft.block.Block
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.{BlockTarget, EntityTarget, TTarget, TCaster}
 import cpup.mc.lib.util.pos.BlockPos
 
-trait TTypeNoun[ENT <: Entity, BLK <: Block] extends TNoun {
+trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
 	def entityClass: Class[ENT]
 	def filterEntity(caster: TCaster, entity: ENT): Boolean
 
@@ -18,9 +18,9 @@ trait TTypeNoun[ENT <: Entity, BLK <: Block] extends TNoun {
 		case _ => false
 	}
 
-	protected var _specification: TNoun = null
+	protected var _specification: TNounRune = null
 
-	def specify(specification: TNoun) {
+	def specify(specification: TNounRune) {
 		_specification = specification
 	}
 

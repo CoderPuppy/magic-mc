@@ -2,6 +2,7 @@ package cpup.mc.oldenMagic.api.oldenLanguage.runes
 
 import net.minecraft.util.IIcon
 import cpup.mc.lib.util.GUIUtil
+import net.minecraft.nbt.NBTTagCompound
 
 trait TRune {
 	def runeType: TRuneType
@@ -12,4 +13,6 @@ trait TRune {
 			GUIUtil.drawItemIconAt(icon, x, y, iconIndex, 32, 32)
 		}
 	}
+
+	def writeToNBT(nbt: NBTTagCompound)
 }
