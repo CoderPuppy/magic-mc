@@ -1,34 +1,35 @@
 package cpup.mc.oldenMagic.api.oldenLanguage.casting
 
-import cpup.mc.lib.util.pos.BlockPos
-import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TTypeNounRune
 import net.minecraft.entity.Entity
+import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TTypeNounRune
 import net.minecraft.block.Block
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.world.World
+import net.minecraft.server.MinecraftServer
 import cpw.mods.fml.common.FMLCommonHandler
 import cpw.mods.fml.relauncher.Side
 import net.minecraft.client.Minecraft
-import net.minecraft.server.MinecraftServer
+import cpup.mc.lib.util.EntityUtil
 
-case class BlockTarget(pos: BlockPos) extends TTarget {
-	def world = pos.world
+case class EntityCaster(var world: World, entityID: Int) extends TCaster {
+	def targetType = EntityCaster
 	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
-	def obj = Right(pos)
-	def targetType = BlockTarget
+
+	def mop = EntityUtil.getMOPBoth(obj.a, 4)
+	def obj = Left(world.getEntityByID(entityID))
+
 	def writeToNBT(nbt: NBTTagCompound) {
-		nbt.setInteger("dim", pos.world.provider.dimensionId)
-		nbt.setInteger("x", pos.x)
-		nbt.setInteger("y", pos.y)
-		nbt.setInteger("z", pos.z)
+		nbt.setInteger("dim", world.provider.dimensionId)
+		nbt.setInteger("id", entityID)
 	}
 }
 
-object BlockTarget extends TTargetType {
-	def name = "block"
-	def targetClass = classOf[BlockTarget]
+object EntityCaster extends TTargetType {
+	def name = "entity"
+	def targetClass = classOf[EntityCaster]
 	def readFromNBT(nbt: NBTTagCompound) = {
 		val dim = nbt.getInteger("dim")
-		BlockTarget(BlockPos(
+		EntityCaster(
 			FMLCommonHandler.instance.getEffectiveSide match {
 				case Side.CLIENT =>
 					val world = Minecraft.getMinecraft.theWorld
@@ -39,9 +40,7 @@ object BlockTarget extends TTargetType {
 				case Side.SERVER =>
 					MinecraftServer.getServer.worldServerForDimension(dim)
 			},
-			nbt.getInteger("x"),
-			nbt.getInteger("y"),
-			nbt.getInteger("z")
-		))
+			nbt.getInteger("id")
+		)
 	}
 }

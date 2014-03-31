@@ -12,6 +12,7 @@ import scala.collection.immutable.HashSet
 import scala.collection.JavaConversions
 import net.minecraft.entity.Entity
 import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{PlayerCaster, TCaster}
 
 object PassiveSpells {
 	def apply(world: World) = {
@@ -25,13 +26,12 @@ object PassiveSpells {
 class PassiveSpellsData(name: String) extends WorldSavedData(name) {
 	def mod = MagicMod
 
-	protected val entityToSpell = HashMultimap.create[Int, Spell]
-	protected val actionToSpell = HashMultimap.create[TRuneType, (Int, Spell)]
-	protected var _spells = new HashSet[(Int, Spell)]
+	protected val casterToSpell = HashMultimap.create[TCaster, (TCaster, TCaster, Spell)]
+	protected val actionToSpell = HashMultimap.create[TRuneType, (TCaster, TCaster, Spell)]
+	protected var _spells = new HashSet[(TCaster, TCaster, Spell)]
 
 	def spells = _spells
-	def entitySpells(ent: Int): Array[Spell] = entityToSpell.get(ent).toArray.asInstanceOf[Array[Spell]]
-	def entitySpells(ent: Entity): Array[Spell] = entitySpells(ent.getEntityId)
+	def casterSpells(caster: TCaster) = casterToSpell.get(caster).toArray.asInstanceOf[Array[Spell]]
 	def actionSpells(action: TRuneType) = actionToSpell.get(action).toArray
 
 	def readFromNBT(nbt: NBTTagCompound) {
@@ -40,10 +40,14 @@ class PassiveSpellsData(name: String) extends WorldSavedData(name) {
 		for(i <- 0 until spellsNBT.tagCount) {
 			try {
 				val spellNBT = spellsNBT.getCompoundTagAt(i)
-				val spell = (spellNBT.getInteger("entity"), Spell.readFromNBT(spellNBT.getCompoundTag("spell")))
+				val spell = (
+					PlayerCaster(spellNBT.getString("player")),
+					OldenLanguageRegistry.readTargetFromNBT(spellNBT.getCompoundTag("entity")).asInstanceOf[TCaster],
+					Spell.readFromNBT(spellNBT.getCompoundTag("spell"))
+				)
 				_spells += spell
-				entityToSpell.put(spell._1, spell._2)
-				actionToSpell.put(spell._2.action.runeType, spell)
+				casterToSpell.put(spell._1, spell)
+				actionToSpell.put(spell._3.action.runeType, spell)
 			} catch {
 				case e: Exception =>
 					mod.logger.error(e.toString)

@@ -2,7 +2,7 @@ package cpup.mc.oldenMagic.api.oldenLanguage.runeParsing
 
 import net.minecraft.entity.Entity
 import net.minecraft.block.Block
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{BlockTarget, EntityTarget, TTarget, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{BlockTarget, EntityCaster, TTarget, TCaster}
 import cpup.mc.lib.util.pos.BlockPos
 
 trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
@@ -12,9 +12,9 @@ trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
 	def blockClass: Class[BLK]
 	def filterBlock(caster: TCaster, pos: BlockPos): Boolean
 
-	def filter(caster: TCaster, target: TTarget) = target match {
-		case EntityTarget(entity) => entityClass.isInstance(entity) && filterEntity(caster, entity.asInstanceOf[ENT])
-		case BlockTarget(pos) => entityClass.isInstance(pos.block) && filterBlock(caster, pos)
+	def filter(caster: TCaster, target: TTarget) = target.obj match {
+		case Left(entity) => entityClass.isInstance(entity) && filterEntity(caster, entity.asInstanceOf[ENT])
+		case Right(pos) => blockClass.isInstance(pos.block) && filterBlock(caster, pos)
 		case _ => false
 	}
 

@@ -3,7 +3,7 @@ package cpup.mc.oldenMagic.content.runes
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.MagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{EntityTarget, BlockTarget, TTarget, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{EntityCaster, BlockTarget, TTarget, TCaster}
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.util.MovingObjectPosition.MovingObjectType
 import net.minecraft.entity.Entity
@@ -45,7 +45,7 @@ object ThisNounRune extends SingletonRune with InternalRune with InternalRuneTyp
 				List(BlockTarget(BlockPos(caster.world, mop.blockX, mop.blockY, mop.blockZ)))
 
 			case MovingObjectType.ENTITY =>
-				List(EntityTarget(mop.entityHit))
+				List(new EntityCaster(mop.entityHit.worldObj, mop.entityHit.getEntityId))
 
 			case _ => List()
 		}

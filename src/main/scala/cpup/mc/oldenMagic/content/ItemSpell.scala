@@ -83,7 +83,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 			parser.finish
 			val spell = parser.spell
 
-			val caster = new PlayerCaster(player)
+			val caster = new PlayerCaster(player.getCommandSenderName)
 			caster.cast(spell)
 		} catch {
 			case e: Exception =>
