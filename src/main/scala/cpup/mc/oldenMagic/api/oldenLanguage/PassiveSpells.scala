@@ -48,6 +48,7 @@ class PassiveSpellsData(name: String) extends WorldSavedData(name) {
 		_spells += spell
 		casterToSpell.put(minion, spell)
 		actionToSpell.put(trigger.action.runeType, spell)
+		markDirty
 	}
 
 	def readFromNBT(nbt: NBTTagCompound) {
