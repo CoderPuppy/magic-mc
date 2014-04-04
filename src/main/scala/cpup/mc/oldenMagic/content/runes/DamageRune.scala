@@ -3,7 +3,7 @@ package cpup.mc.oldenMagic.content.runes
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingContext, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TAction, CastingContext, TCaster}
 import net.minecraft.entity.Entity
 import net.minecraft.util.{IIcon, DamageSource}
 import cpup.mc.lib.util.pos.BlockPos
@@ -11,6 +11,7 @@ import cpup.mc.oldenMagic.content.runes.DamageRune.RuneDamageSource
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import cpw.mods.fml.relauncher.Side
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraftforge.event.entity.living.LivingHurtEvent
 
 class DamageRune extends TRune with TVerbRune {
 	def mod = OldenMagicMod
@@ -45,5 +46,18 @@ object DamageRune extends TRuneType {
 	@SideOnly(Side.CLIENT)
 	def registerIcons(registerIcon: (String) => IIcon) {
 		icon = registerIcon(s"${mod.ref.modID}:runes/damage")
+	}
+}
+
+class DamageAction(val e: LivingHurtEvent) extends TAction {
+	def affectedBlocks = List()
+	def affectedEntities = List(e.entity)
+
+	def src = e.source
+
+	def amt = e.ammount
+	def amt_=(newAmt: Int) = {
+		e.ammount = newAmt
+		newAmt
 	}
 }
