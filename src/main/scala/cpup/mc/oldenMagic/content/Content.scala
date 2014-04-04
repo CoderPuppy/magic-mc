@@ -107,6 +107,7 @@ object Content extends CPupContent[TOldenMagicMod] {
 		// Actions
 		OldenLanguageRegistry.registerRune(GrowRune)
 		OldenLanguageRegistry.registerRune(BurnRune)
+		OldenLanguageRegistry.registerRune(ProtectRune)
 
 		// Nouns
 		OldenLanguageRegistry.registerRune(PlayerRune)
@@ -115,6 +116,12 @@ object Content extends CPupContent[TOldenMagicMod] {
 
 		// Pronouns
 		OldenLanguageRegistry.registerRune(ThisRune)
+		OldenLanguageRegistry.registerRune(MeRune)
+		OldenLanguageRegistry.registerRune(ItRune)
+
+		// Noun Modifiers & Prepositions
+		OldenLanguageRegistry.registerRune(OfRune)
+		OldenLanguageRegistry.registerRune(OfModifierRune)
 
 		OldenLanguageRegistry.registerRootContextTransformer((root: Context) => {
 			val actions = new Context
