@@ -40,6 +40,6 @@ class CommonEvents {
 
 		passiveSpellDatas = passiveSpellDatas.filter(_ != null)
 
-		println(passiveSpellDatas)
+		println(passiveSpellDatas, passiveSpellDatas.flatMap(_.spells))
 	}
 }
