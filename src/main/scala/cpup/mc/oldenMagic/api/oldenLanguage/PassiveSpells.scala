@@ -5,14 +5,11 @@ import net.minecraft.nbt.{NBTTagList, NBTTagCompound}
 import cpup.mc.lib.util.WorldSavedDataUtil
 import com.google.common.collect.HashMultimap
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.Spell
-import scala.collection.mutable.ListBuffer
 import net.minecraftforge.common.util.Constants
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.TRuneType
 import scala.collection.immutable.HashSet
-import scala.collection.JavaConversions
-import net.minecraft.entity.Entity
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{PlayerCaster, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TAction, CastingContext, TCaster}
 
 object PassiveSpells {
 	def get(world: World) = {
@@ -28,6 +25,11 @@ object PassiveSpells {
 	def getOrCreate(world: World, cx: Int, cz: Int) = {
 		WorldSavedDataUtil.getOrCreate(world, classOf[PassiveSpellsData], s"$cx,$cz")
 	}
+}
+
+class PassiveSpellsContext(player: String, caster: TCaster, val trigger: Spell, val action: TAction) extends CastingContext(player, caster)
+object PassiveSpellsContext {
+	def unapply(ctx: PassiveSpellsContext) = Some((ctx.player, ctx.caster, ctx.trigger, ctx.action))
 }
 
 class PassiveSpellsData(name: String) extends WorldSavedData(name) {
