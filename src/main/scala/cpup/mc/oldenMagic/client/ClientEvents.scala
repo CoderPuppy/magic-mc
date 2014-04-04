@@ -112,6 +112,7 @@ class ClientEvents(val proxy: ClientProxy) {
 				GL11.glPushMatrix
 				GL11.glTranslated(pos.xCoord + 0.5, pos.yCoord, pos.zCoord + 0.5)
 				GL11.glEnable(GL11.GL_LIGHTING)
+				GL11.glDepthFunc(GL11.GL_ALWAYS)
 
 				renderBlocks.setRenderBounds(0.05, 0.05, 0.05, 0.95, 0.95, 0.95)
 				GL11.glColor4d(1, 1, 1, 0.5)
@@ -127,6 +128,7 @@ class ClientEvents(val proxy: ClientProxy) {
 				renderBlocks.renderFaceZPos(block, -0.5, 0, -0.5, icon)
 				tess.draw
 
+				GL11.glDepthFunc(GL11.GL_LEQUAL)
 				GL11.glDisable(GL11.GL_LIGHTING)
 				GL11.glPopMatrix
 			}
