@@ -42,8 +42,8 @@ class PassiveSpellsData(name: String) extends WorldSavedData(name) {
 	protected var _spells = new HashSet[(String, TCaster, Spell, Spell)]
 
 	def spells = _spells
-	def casterSpells(caster: TCaster) = casterToSpell.get(caster).toArray.asInstanceOf[Array[(String, TCaster, Spell, Spell)]]
-	def actionSpells(action: TRuneType) = actionToSpell.get(action).toArray.asInstanceOf[Array[(String, TCaster, Spell, Spell)]]
+	def casterSpells(caster: TCaster) = casterToSpell.get(caster).toArray.toList.asInstanceOf[List[(String, TCaster, Spell, Spell)]]
+	def actionSpells(action: TRuneType) = actionToSpell.get(action).toArray.toList.asInstanceOf[List[(String, TCaster, Spell, Spell)]]
 
 	def registerSpell(master: String, minion: TCaster, trigger: Spell, response: Spell) {
 		val spell = (master, minion, trigger, response)
