@@ -27,7 +27,9 @@ object PassiveSpells {
 	}
 }
 
-class PassiveSpellsContext(player: String, caster: TCaster, val trigger: Spell, val action: TAction) extends CastingContext(player, caster)
+class PassiveSpellsContext(player: String, caster: TCaster, val trigger: Spell, val action: TAction) extends CastingContext(player, caster) {
+	it = caster
+}
 object PassiveSpellsContext {
 	def unapply(ctx: PassiveSpellsContext) = Some((ctx.player, ctx.caster, ctx.trigger, ctx.action))
 }
