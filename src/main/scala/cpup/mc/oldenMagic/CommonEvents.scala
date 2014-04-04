@@ -19,7 +19,7 @@ class CommonEvents {
 
 	@SubscribeEvent
 	def passiveDamage(e: LivingHurtEvent) {
-		var passiveSpellDatas = WorldSavedDataUtil.get(e.entity.worldObj, classOf[PassiveSpellsData], "passive(ender)")
+		var passiveSpellDatas = List(WorldSavedDataUtil.get(e.entity.worldObj, classOf[PassiveSpellsData], "passive(ender)"))
 
 		val baseX = e.entity.chunkCoordX
 		val baseZ = e.entity.chunkCoordZ
