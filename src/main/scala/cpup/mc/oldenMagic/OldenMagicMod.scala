@@ -7,11 +7,12 @@ import cpup.mc.lib.client.CPupGUIManager
 import cpup.mc.oldenMagic.client.gui.GUIBase
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.inventory.Container
-import cpw.mods.fml.common.event.{FMLPreInitializationEvent, FMLInitializationEvent, FMLPostInitializationEvent}
+import cpw.mods.fml.common.event.{FMLServerStartingEvent, FMLPreInitializationEvent, FMLInitializationEvent, FMLPostInitializationEvent}
 import cpw.mods.fml.common.Mod.EventHandler
 import cpup.mc.oldenMagic.client.gui.writingDesk.WritingDeskGUI
 import cpup.mc.oldenMagic.network.Network
 import cpup.mc.oldenMagic.api.oldenLanguage.OldenLanguageRegistry
+import cpup.mc.oldenMagic.content.testing.CommandAntiDamage
 
 trait TOldenMagicMod extends CPupMod[TRef] {
 	def ref = Ref
@@ -42,6 +43,12 @@ trait TOldenMagicMod extends CPupMod[TRef] {
 		guis.finish
 		network.finish
 		OldenLanguageRegistry.finish
+	}
+
+	@EventHandler
+	override def serverStarting(e: FMLServerStartingEvent) {
+		super.serverStarting(e)
+		e.registerServerCommand(CommandAntiDamage)
 	}
 }
 

@@ -13,11 +13,6 @@ import cpup.mc.oldenMagic.content.runes.{ItRune, MeRune, ProtectRune, DamageRune
 object CommandAntiDamage extends CommandBase with ModLifecycleHandler {
 	def mod = OldenMagicMod
 
-	mod.registerLifecycleHandler(this)
-	override def serverStarting(e: FMLServerStartingEvent) {
-		e.registerServerCommand(this)
-	}
-
 	def getCommandName = "antidamage"
 	def getCommandUsage(sender: ICommandSender) = s"commands.${mod.ref.modID}:antidamage.usage"
 	def processCommand(sender: ICommandSender, args: Array[String]) {
