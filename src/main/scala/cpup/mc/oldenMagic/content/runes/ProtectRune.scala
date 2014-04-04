@@ -1,7 +1,7 @@
 package cpup.mc.oldenMagic.content.runes
 
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
-import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TActionRune
+import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 import net.minecraft.entity.Entity
 import cpup.mc.lib.util.pos.BlockPos
@@ -10,7 +10,7 @@ import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
 import net.minecraft.nbt.NBTTagCompound
 
-class ProtectRune extends TRune with TActionRune {
+class ProtectRune extends TRune with TVerbRune {
 	def runeType = ProtectRune
 	def writeToNBT(nbt: NBTTagCompound) {}
 

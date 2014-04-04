@@ -5,7 +5,7 @@ import cpup.mc.lib.util.pos.BlockPos
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.TRune
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, CastingContext, TCaster}
 
-trait TActionRune extends TRune {
+trait TVerbRune extends TRune {
 	def act(context: CastingContext, targets: List[TTarget]) {
 		targets.foreach(act(context, _))
 	}

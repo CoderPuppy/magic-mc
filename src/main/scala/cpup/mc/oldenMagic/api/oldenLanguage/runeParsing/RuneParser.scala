@@ -91,7 +91,7 @@ case object StartMode extends RuneParserMode {
 }
 
 class SpellMode extends RuneParserMode {
-	var action: TActionRune = null
+	var action: TVerbRune = null
 	val targetPath = new ListBuffer[TNounRune]()
 	def spell = Spell(action, targetPath.toList)
 
@@ -104,13 +104,13 @@ class SpellMode extends RuneParserMode {
 	}
 
 	override def onEnter(parser: RuneParser) {
-		parser.enter(new ActionMode)
+		parser.enter(new VerbMode)
 	}
 
 	override def onReturn(parser: RuneParser, child: RuneParserMode) {
 		child match {
-			case mode: ActionMode =>
-				action = mode.action
+			case mode: VerbMode =>
+				action = mode.verb
 				parser.enter(new TargetMode(targetPath, true))
 			case _ =>
 		}
@@ -199,24 +199,24 @@ class NounPrepositionMode(val preposition: TNounPreposition  ) extends TargetMod
 	override def toString = s"${super.toString}, preposition = $preposition"
 }
 
-class ActionMode extends RuneParserMode {
-	var action: TActionRune = null
-	val modifiers = new ListBuffer[TActionModifierRune]
+class VerbMode extends RuneParserMode {
+	var verb: TVerbRune = null
+	val modifiers = new ListBuffer[TVerbModifierRune]
 
 	def handle(parser: RuneParser, rune: TRune) {
 		rune match {
-			case mod: TActionModifierRune if action == null =>
+			case mod: TVerbModifierRune if verb == null =>
 				modifiers += mod
-			case act: TActionRune if action == null =>
-				action = act
+			case act: TVerbRune if verb == null =>
+				verb = act
 
 				for(mod <- modifiers) {
-					mod.modifyAction(action)
+					mod.modifyVerb(verb)
 				}
-			case preposition: TActionPrepositionRune if action != null =>
-				parser.enter(new ActionPrepositionMode(preposition))
-			case conjunction: TActionConjunctionRune if action != null =>
-				parser.enter(new ActionConjunctionMode(conjunction))
+			case preposition: TVerbPrepositionRune if verb != null =>
+				parser.enter(new VerbPrepositionMode(preposition))
+			case conjunction: TVerbConjunctionRune if verb != null =>
+				parser.enter(new VerbConjunctionMode(conjunction))
 			case _ =>
 				parser.leave
 				parser.handle(rune)
@@ -225,18 +225,18 @@ class ActionMode extends RuneParserMode {
 
 	override def onReturn(parser: RuneParser, child: RuneParserMode) {
 		child match {
-			case mode: ActionConjunctionMode =>
-				action = mode.conjunction.combineActions(action, mode.action)
+			case mode: VerbConjunctionMode =>
+				verb = mode.conjunction.combineVerbs(verb, mode.verb)
 
-			case mode: ActionPrepositionMode =>
-				mode.preposition.createActionModifier(mode.targetPath.toList).modifyAction(action)
+			case mode: VerbPrepositionMode =>
+				mode.preposition.createVerbModifier(mode.targetPath.toList).modifyVerb(verb)
 		}
 	}
 }
-class ActionConjunctionMode(val conjunction: TActionConjunctionRune) extends ActionMode {
+class VerbConjunctionMode(val conjunction: TVerbConjunctionRune) extends VerbMode {
 	override def toString = s"${super.toString}, conjunction = $conjunction"
 }
-class ActionPrepositionMode(val preposition: TActionPrepositionRune) extends TargetMode(false) {
+class VerbPrepositionMode(val preposition: TVerbPrepositionRune) extends TargetMode(false) {
 	// maybe allow preposition
 	override def toString = s"${super.toString}, preposition = $preposition"
 }

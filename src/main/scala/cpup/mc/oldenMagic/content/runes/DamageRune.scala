@@ -1,7 +1,7 @@
 package cpup.mc.oldenMagic.content.runes
 
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
-import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TActionRune
+import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
 import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingContext, TCaster}
 import net.minecraft.entity.Entity
@@ -12,7 +12,7 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import cpw.mods.fml.relauncher.Side
 import net.minecraft.nbt.NBTTagCompound
 
-class DamageRune extends TRune with TActionRune {
+class DamageRune extends TRune with TVerbRune {
 	def mod = OldenMagicMod
 
 	def runeType = DamageRune

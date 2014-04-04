@@ -8,10 +8,10 @@ import net.minecraft.entity.{EntityLivingBase, Entity}
 import cpup.mc.lib.util.Direction
 import net.minecraft.init.Blocks
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
-import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TActionRune
+import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 
-object BurnRune extends SingletonRune with TActionRune {
+object BurnRune extends SingletonRune with TVerbRune {
 	def mod = OldenMagicMod
 
 	def name = s"${mod.ref.modID}:burn"
