@@ -10,6 +10,7 @@ import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpellsContext
+import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TContext, TTransform}
 
 class ProtectRune extends TRune with TVerbRune {
 	def runeType = ProtectRune
@@ -43,4 +44,8 @@ object ProtectRune extends TRuneType {
 	def registerIcons(registerIcon: (String) => IIcon) {
 		icon = registerIcon(s"${mod.ref.modID}:runes/protect")
 	}
+}
+
+object ProtectTransform extends TTransform {
+	def transform(context: TContext, rune: TextRune) = new ProtectRune
 }

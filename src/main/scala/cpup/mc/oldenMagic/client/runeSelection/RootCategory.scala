@@ -13,6 +13,7 @@ object RootCategory {
 		val actions = root.createSubCategory("actions")
 		actions.addRune("a!burn!")
 		actions.addRune("a!grow!")
+		actions.addRune("a!protect!")
 
 		val pronouns = root.createSubCategory("adjectives")
 		pronouns.addRune("adj!this!")

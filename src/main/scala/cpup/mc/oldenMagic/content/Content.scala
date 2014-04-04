@@ -127,6 +127,7 @@ object Content extends CPupContent[TOldenMagicMod] {
 			val actions = new Context
 			actions.transforms("burn") = BurnRune
 			actions.transforms("grow") = GrowRune
+			actions.transforms("protect") = ProtectTransform
 
 			root.subContexts("actions") = actions
 			root.transforms("a") = new SubContextTransform("actions")
