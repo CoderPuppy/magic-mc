@@ -19,7 +19,7 @@ class DamageRune extends TRune with TVerbRune {
 	def runeType = DamageRune
 
 	override def act(context: CastingContext, entity: Entity) {
-		entity.attackEntityFrom(new RuneDamageSource(context.player, context.caster), Int.MaxValue)
+		entity.attackEntityFrom(new RuneDamageSource(context.player, context.caster), 4)
 	}
 	override def act(context: CastingContext, pos: BlockPos) {}
 
