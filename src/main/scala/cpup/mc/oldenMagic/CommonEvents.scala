@@ -5,7 +5,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraft.item.ItemStack
 import net.minecraftforge.event.entity.living.LivingHurtEvent
 import cpup.mc.lib.util.WorldSavedDataUtil
-import cpup.mc.oldenMagic.api.oldenLanguage.{PassiveSpells, PassiveSpellsData}
+import cpup.mc.oldenMagic.api.oldenLanguage.{PassiveSpellsContext, PassiveSpells, PassiveSpellsData}
+import cpup.mc.oldenMagic.content.runes.DamageAction
 
 class CommonEvents {
 	def mod = OldenMagicMod
@@ -40,6 +41,14 @@ class CommonEvents {
 
 		passiveSpellDatas = passiveSpellDatas.filter(_ != null)
 
-		println(passiveSpellDatas, passiveSpellDatas.flatMap(_.spells))
+		val action = new DamageAction(e)
+		val spells = passiveSpellDatas.flatMap(_.actionSpells(action.runeType))
+
+		println(passiveSpellDatas, spells)
+
+		for(spell <- spells) {
+			val context = new PassiveSpellsContext(spell._1, spell._2, spell._3, action)
+			context.cast(spell._4)
+		}
 	}
 }
