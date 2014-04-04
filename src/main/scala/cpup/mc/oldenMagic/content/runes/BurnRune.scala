@@ -15,10 +15,10 @@ object BurnRune extends SingletonRune with TActionRune {
 	def mod = OldenMagicMod
 
 	def name = s"${mod.ref.modID}:burn"
-	def actUponBlock(context: CastingContext, pos: BlockPos) {
+	def act(context: CastingContext, pos: BlockPos) {
 		pos.offset(Direction.Up).tryReplaceWith(Blocks.fire)
 	}
-	def actUponEntity(context: CastingContext, entity: Entity) {
+	def act(context: CastingContext, entity: Entity) {
 		entity.setFire(10) // TODO: more depending on something
 	}
 

@@ -14,13 +14,13 @@ case object GrowRune extends SingletonRune with TActionRune {
 
 	def name = s"${mod.ref.modID}:grow"
 
-	def actUponBlock(context: CastingContext, pos: BlockPos) {
+	def act(context: CastingContext, pos: BlockPos) {
 		for(_ <- 0 to 80) {
 			pos.scheduleUpdateTick(0)
 		}
 	}
 
-	def actUponEntity(context: CastingContext, entity: Entity) {
+	def act(context: CastingContext, entity: Entity) {
 		entity match {
 			case entity: EntityAgeable =>
 				entity.addGrowth(20000)

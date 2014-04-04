@@ -17,10 +17,10 @@ class DamageRune extends TRune with TActionRune {
 
 	def runeType = DamageRune
 
-	override def actUponEntity(context: CastingContext, entity: Entity) {
+	override def act(context: CastingContext, entity: Entity) {
 		entity.attackEntityFrom(new RuneDamageSource(context.player, context.caster), Int.MaxValue)
 	}
-	override def actUponBlock(context: CastingContext, pos: BlockPos) {}
+	override def act(context: CastingContext, pos: BlockPos) {}
 
 	@SideOnly(Side.CLIENT)
 	def icons = List(DamageRune.icon)

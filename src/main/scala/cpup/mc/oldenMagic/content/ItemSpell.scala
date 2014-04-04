@@ -11,7 +11,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage._
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextParser, RootContext}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.RuneParser
 import net.minecraft.world.World
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.PlayerCaster
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingContext, PlayerCaster}
 
 class ItemSpell extends ItemBase with TWritableItem {
 	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "").split(' ')
@@ -75,16 +75,17 @@ class ItemSpell extends ItemBase with TWritableItem {
 	override def onPlayerStoppedUsing(stack: ItemStack, world: World, player: EntityPlayer, oppDur: Int) {
 		try {
 			val spellStr = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "")
-			val context = RootContext.create
+			val transformingContext = RootContext.create
 			val parsedRunes = TextParser.parse(spellStr)
-			val runes = parsedRunes.map(_(context))
+			val runes = parsedRunes.map(_(transformingContext))
 			val parser = new RuneParser
 			parser.handle(runes)
 			parser.finish
 			val spell = parser.spell
 
 			val caster = new PlayerCaster(player.getCommandSenderName)
-			caster.cast(spell)
+			val castingContext = new CastingContext(player.getCommandSenderName, caster)
+			castingContext.cast(spell)
 		} catch {
 			case e: Exception =>
 				mod.logger.error(e)

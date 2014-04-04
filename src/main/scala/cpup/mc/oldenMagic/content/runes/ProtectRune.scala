@@ -14,8 +14,8 @@ class ProtectRune extends TRune with TActionRune {
 	def runeType = ProtectRune
 	def writeToNBT(nbt: NBTTagCompound) {}
 
-	override def actUponEntity(context: CastingContext, entity: Entity) {}
-	override def actUponBlock(context: CastingContext, pos: BlockPos) {}
+	override def act(context: CastingContext, entity: Entity) {}
+	override def act(context: CastingContext, pos: BlockPos) {}
 
 	@SideOnly(Side.CLIENT)
 	def icons = List(ProtectRune.icon)
