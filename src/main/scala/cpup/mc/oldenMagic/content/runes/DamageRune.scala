@@ -50,6 +50,8 @@ object DamageRune extends TRuneType {
 }
 
 class DamageAction(val e: LivingHurtEvent) extends TAction {
+	def runeType = DamageRune
+
 	def affectedBlocks = List()
 	def affectedEntities = List(e.entity)
 
