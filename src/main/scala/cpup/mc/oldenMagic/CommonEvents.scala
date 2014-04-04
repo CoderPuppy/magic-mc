@@ -5,7 +5,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraft.item.ItemStack
 import net.minecraftforge.event.entity.living.LivingHurtEvent
 import cpup.mc.lib.util.WorldSavedDataUtil
-import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpellsData
+import cpup.mc.oldenMagic.api.oldenLanguage.{PassiveSpells, PassiveSpellsData}
 
 class CommonEvents {
 	def mod = OldenMagicMod
@@ -19,7 +19,7 @@ class CommonEvents {
 
 	@SubscribeEvent
 	def passiveDamage(e: LivingHurtEvent) {
-		var passiveSpellDatas = List(WorldSavedDataUtil.get(e.entity.worldObj, classOf[PassiveSpellsData], "passive(ender)"))
+		var passiveSpellDatas = List(PassiveSpells.get(e.entity.worldObj))
 
 		val baseX = e.entity.chunkCoordX
 		val baseZ = e.entity.chunkCoordZ
@@ -35,7 +35,7 @@ class CommonEvents {
 			println(offsetX, offsetZ)
 			println(x, z)
 
-			passiveSpellDatas ++= List(WorldSavedDataUtil.get(e.entity.worldObj, classOf[PassiveSpellsData], s"$x,$z"))
+			passiveSpellDatas ++= List(PassiveSpells.get(e.entity.worldObj, x, z))
 		}
 
 		passiveSpellDatas = passiveSpellDatas.filter(_ != null)
