@@ -1,13 +1,13 @@
 package cpup.mc.oldenMagic.api.oldenLanguage.runeParsing
 
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.runes._
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
 // TODO: limit what runes a player can use
 class RuneParser {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
 	var spell: Spell = null
 

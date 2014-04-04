@@ -2,7 +2,7 @@ package cpup.mc.oldenMagic.content
 
 import net.minecraft.block.Block
 import cpup.mc.lib.content.{CPupTE, CPupBlockContainer}
-import cpup.mc.oldenMagic.{MagicMod, TMagicMod}
+import cpup.mc.oldenMagic.{OldenMagicMod, TOldenMagicMod}
 import net.minecraft.world.World
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemStack
@@ -24,7 +24,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.{TWritableItem, WritingType}
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.ParsedRune
 import net.minecraftforge.common.util.Constants
 
-class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlockContainer[TMagicMod] {
+class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlockContainer[TOldenMagicMod] {
 	setHardness(1)
 	setResistance(2.5f)
 
@@ -100,7 +100,7 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 		}
 	}
 
-	override def handleMessage(rawMsg: BlockMessage[TMagicMod]) {
+	override def handleMessage(rawMsg: BlockMessage[TOldenMagicMod]) {
 		rawMsg match {
 			case WritingDeskMessage(pos: BlockPos, rune: String) => {
 				pos.tileEntity match {
@@ -160,7 +160,7 @@ class TEWritingDesk extends TileEntity with CPupTE {
 }
 
 class WritingDeskInventory(te: TileEntity) extends IInventory {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
 	protected var inv = Array.fill[ItemStack](3) {null}
 
@@ -252,7 +252,7 @@ class WritingDeskInventory(te: TileEntity) extends IInventory {
 	def closeInventory {}
 }
 
-case class WritingDeskMessage(val pos: BlockPos, val rune: String) extends Message with BlockMessage[TMagicMod] {
+case class WritingDeskMessage(val pos: BlockPos, val rune: String) extends Message with BlockMessage[TOldenMagicMod] {
 	def this(pos: BlockPos, parsedRune: ParsedRune) {
 		this(pos, parsedRune.serialize)
 	}

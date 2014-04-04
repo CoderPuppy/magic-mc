@@ -1,9 +1,9 @@
 package cpup.mc.oldenMagic.content
 
 import cpup.mc.lib.content.CPupItem
-import cpup.mc.oldenMagic.{MagicMod, TMagicMod}
+import cpup.mc.oldenMagic.{OldenMagicMod, TOldenMagicMod}
 
-trait TItemBase extends CPupItem[TMagicMod] {
-	def mod = MagicMod
+trait TItemBase extends CPupItem[TOldenMagicMod] {
+	def mod = OldenMagicMod
 }
 class ItemBase extends TItemBase

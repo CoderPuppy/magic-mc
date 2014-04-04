@@ -11,28 +11,42 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runes.TRuneType
 import scala.collection.immutable.HashSet
 import scala.collection.JavaConversions
 import net.minecraft.entity.Entity
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.{PlayerCaster, TCaster}
 
 object PassiveSpells {
-	def apply(world: World) = {
+	def get(world: World) = {
 		WorldSavedDataUtil.get(world, classOf[PassiveSpellsData], "passive(ender)")
 	}
-	def apply(world: World, cx: Int, cz: Int) = {
+	def getOrCreate(world: World) = {
+		WorldSavedDataUtil.getOrCreate(world, classOf[PassiveSpellsData], "passive(ender)")
+	}
+
+	def get(world: World, cx: Int, cz: Int) = {
 		WorldSavedDataUtil.get(world, classOf[PassiveSpellsData], s"$cx,$cz")
+	}
+	def getOrCreate(world: World, cx: Int, cz: Int) = {
+		WorldSavedDataUtil.getOrCreate(world, classOf[PassiveSpellsData], s"$cx,$cz")
 	}
 }
 
 class PassiveSpellsData(name: String) extends WorldSavedData(name) {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
-	protected val casterToSpell = HashMultimap.create[TCaster, (TCaster, TCaster, Spell)]
-	protected val actionToSpell = HashMultimap.create[TRuneType, (TCaster, TCaster, Spell)]
-	protected var _spells = new HashSet[(TCaster, TCaster, Spell)]
+	protected val casterToSpell = HashMultimap.create[TCaster, (String, TCaster, Spell, Spell)]
+	protected val actionToSpell = HashMultimap.create[TRuneType, (String, TCaster, Spell, Spell)]
+	protected var _spells = new HashSet[(String, TCaster, Spell, Spell)]
 
 	def spells = _spells
 	def casterSpells(caster: TCaster) = casterToSpell.get(caster).toArray.asInstanceOf[Array[Spell]]
 	def actionSpells(action: TRuneType) = actionToSpell.get(action).toArray
+
+	def registerSpell(master: String, minion: TCaster, trigger: Spell, response: Spell) {
+		val spell = (master, minion, trigger, response)
+		_spells += spell
+		casterToSpell.put(minion, spell)
+		actionToSpell.put(trigger.action.runeType, spell)
+	}
 
 	def readFromNBT(nbt: NBTTagCompound) {
 		val spellsNBT = nbt.getTagList("spells", Constants.NBT.TAG_COMPOUND)
@@ -40,14 +54,12 @@ class PassiveSpellsData(name: String) extends WorldSavedData(name) {
 		for(i <- 0 until spellsNBT.tagCount) {
 			try {
 				val spellNBT = spellsNBT.getCompoundTagAt(i)
-				val spell = (
-					PlayerCaster(spellNBT.getString("player")),
-					OldenLanguageRegistry.readTargetFromNBT(spellNBT.getCompoundTag("entity")).asInstanceOf[TCaster],
-					Spell.readFromNBT(spellNBT.getCompoundTag("spell"))
+				registerSpell(
+					master   = spellNBT.getString("player"),
+					minion   = OldenLanguageRegistry.readTargetFromNBT(spellNBT.getCompoundTag("entity")).asInstanceOf[TCaster],
+					trigger  = Spell.readFromNBT(spellNBT.getCompoundTag("trigger")),
+					response = Spell.readFromNBT(spellNBT.getCompoundTag("response"))
 				)
-				_spells += spell
-				casterToSpell.put(spell._1, spell)
-				actionToSpell.put(spell._3.action.runeType, spell)
 			} catch {
 				case e: Exception =>
 					mod.logger.error(e.toString)

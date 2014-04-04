@@ -2,24 +2,25 @@ package cpup.mc.oldenMagic.content.runes
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.util.IIcon
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.{EntityAgeable, Entity}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TActionRune
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{SingletonRune, TRune}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 
 case object GrowRune extends SingletonRune with TActionRune {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
-	def name = "grow"
+	def name = s"${mod.ref.modID}:grow"
 
-	def actUponBlock(pos: BlockPos) {
+	def actUponBlock(context: CastingContext, pos: BlockPos) {
 		for(_ <- 0 to 80) {
 			pos.scheduleUpdateTick(0)
 		}
 	}
 
-	def actUponEntity(entity: Entity) {
+	def actUponEntity(context: CastingContext, entity: Entity) {
 		entity match {
 			case entity: EntityAgeable =>
 				entity.addGrowth(20000)

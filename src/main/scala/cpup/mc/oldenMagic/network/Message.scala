@@ -1,8 +1,8 @@
 package cpup.mc.oldenMagic.network
 
 import cpup.mc.lib.network.CPupMessage
-import cpup.mc.oldenMagic.{MagicMod, TMagicMod}
+import cpup.mc.oldenMagic.{OldenMagicMod, TOldenMagicMod}
 
-trait Message extends CPupMessage[TMagicMod] {
-	def mod = MagicMod
+trait Message extends CPupMessage[TOldenMagicMod] {
+	def mod = OldenMagicMod
 }

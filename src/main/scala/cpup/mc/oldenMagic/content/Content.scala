@@ -1,7 +1,7 @@
 package cpup.mc.oldenMagic.content
 
 import cpup.mc.lib.content.CPupContent
-import cpup.mc.oldenMagic.{MagicMod, TMagicMod}
+import cpup.mc.oldenMagic.{OldenMagicMod, TOldenMagicMod}
 import cpw.mods.fml.common.event.FMLPreInitializationEvent
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
@@ -11,8 +11,8 @@ import cpup.mc.oldenMagic.content.runes._
 import cpup.mc.oldenMagic.api.oldenLanguage._
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{SubContextTransform, TextRune, Context}
 
-object Content extends CPupContent[TMagicMod] {
-	def mod = MagicMod
+object Content extends CPupContent[TOldenMagicMod] {
+	def mod = OldenMagicMod
 
 	override def preInit(e: FMLPreInitializationEvent) {
 		super.preInit(e)

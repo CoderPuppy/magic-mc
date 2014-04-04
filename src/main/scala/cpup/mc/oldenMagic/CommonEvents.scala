@@ -8,7 +8,7 @@ import cpup.mc.lib.util.WorldSavedDataUtil
 import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpellsData
 
 class CommonEvents {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
 	@SubscribeEvent
 	def blink(e: PlayerInteractEvent) {

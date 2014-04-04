@@ -2,7 +2,7 @@ package cpup.mc.oldenMagic.content.runes
 
 import net.minecraft.util.IIcon
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TTransform, TContext}
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import net.minecraft.nbt.NBTTagCompound
@@ -18,9 +18,9 @@ case class PlayerRune(name: String) extends TRune {
 }
 
 object PlayerRune extends TRuneType {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
-	def name = "player"
+	def name = s"${mod.ref.modID}:player"
 	def runeClass = classOf[PlayerRune]
 	def readFromNBT(nbt: NBTTagCompound) = PlayerRune(nbt.getString("name"))
 

@@ -2,7 +2,7 @@ package cpup.mc.oldenMagic.content.runes
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.util.IIcon
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 import net.minecraft.entity.{EntityLiving, EntityLivingBase, Entity, EntityList}
 import java.lang.reflect.Constructor
 import net.minecraft.world.World
@@ -13,16 +13,16 @@ import net.minecraft.item.{Item, ItemStack}
 import scala.collection.mutable.ListBuffer
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TContext, TextRune, TTransform}
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRune, TRuneType}
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.TCaster
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingContext, TCaster}
 import cpup.mc.lib.util.pos.BlockPos
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{NonBlockTypeNoun, TNounRune}
 import net.minecraft.nbt.NBTTagCompound
 
 case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
 	val entityClass = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[Entity]]
-	def filterEntity(caster: TCaster, entity: Entity) = true
+	def filterEntity(context: CastingContext, entity: Entity) = true
 
 	def runeType = EntityTypeRune
 	def writeToNBT(nbt: NBTTagCompound) {
@@ -101,7 +101,7 @@ case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {
 }
 
 object EntityTypeRune extends TRuneType {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
 	// TODO: obfuscated: func_70628_a
 	val dropFew = classOf[EntityLivingBase].getDeclaredMethod("dropFewItems", java.lang.Boolean.TYPE, java.lang.Integer.TYPE)
@@ -111,7 +111,7 @@ object EntityTypeRune extends TRuneType {
 	val getDropItem = classOf[EntityLiving].getDeclaredMethod("getDropItem")
 	getDropItem.setAccessible(true)
 
-	def name = "entity"
+	def name = s"${mod.ref.modID}:entity"
 	def runeClass = classOf[EntityTypeRune]
 	def readFromNBT(nbt: NBTTagCompound) = EntityTypeRune(nbt.getString("name"))
 

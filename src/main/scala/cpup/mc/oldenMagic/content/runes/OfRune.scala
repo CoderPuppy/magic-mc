@@ -3,7 +3,7 @@ package cpup.mc.oldenMagic.content.runes
 import cpup.mc.oldenMagic.api.oldenLanguage.runes._
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.util.IIcon
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{TNounPreposition, TNounModifierRune, TNounRune}
 import net.minecraft.nbt.{NBTTagList, NBTTagCompound}
 import cpup.mc.oldenMagic.api.oldenLanguage.OldenLanguageRegistry
@@ -11,9 +11,9 @@ import net.minecraftforge.common.util.Constants
 import scala.collection.mutable.ListBuffer
 
 object OfRune extends SingletonRune with TNounPreposition {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
-	def name = "of"
+	def name = s"${mod.ref.modID}:of"
 	def createNounModifier(targetPath: List[TNounRune]) = OfModifierRune(targetPath)
 
 	@SideOnly(Side.CLIENT)
@@ -49,7 +49,9 @@ case class OfModifierRune(targetPath: List[TNounRune]) extends InternalRune with
 }
 
 object OfModifierRune extends InternalRuneType {
-	def name = "of:mod"
+	def mod = OldenMagicMod
+
+	def name = s"${mod.ref.modID}:of:mod"
 	def runeClass = classOf[OfModifierRune]
 	def readFromNBT(nbt: NBTTagCompound) = {
 		val pathNBT = nbt.getTagList("targetPath", Constants.NBT.TAG_COMPOUND)

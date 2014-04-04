@@ -4,7 +4,7 @@ import cpw.mods.fml.common.eventhandler.{EventPriority, SubscribeEvent}
 import cpw.mods.fml.common.gameevent.{TickEvent, InputEvent}
 import org.lwjgl.input.Keyboard
 import net.minecraft.client.settings.KeyBinding
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 import cpw.mods.fml.common.gameevent.TickEvent.Phase
 import net.minecraft.client.Minecraft
 import net.minecraftforge.client.event.{RenderWorldLastEvent, RenderGameOverlayEvent}
@@ -21,7 +21,7 @@ class ClientEvents(val proxy: ClientProxy) {
 	val mc = Minecraft.getMinecraft
 	val renderBlocks = new RenderBlocks
 
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
 	// -- Wand spell casting --
 	val keysDown = new mutable.HashMap[KeyBinding, Boolean]()

@@ -2,19 +2,20 @@ package cpup.mc.oldenMagic.api.oldenLanguage.runeParsing
 
 import net.minecraft.entity.Entity
 import net.minecraft.block.Block
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{BlockTarget, EntityCaster, TTarget, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting._
+import cpup.mc.lib.util.pos.BlockPos
 import cpup.mc.lib.util.pos.BlockPos
 
 trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
 	def entityClass: Class[ENT]
-	def filterEntity(caster: TCaster, entity: ENT): Boolean
+	def filterEntity(context: CastingContext, entity: ENT): Boolean
 
 	def blockClass: Class[BLK]
-	def filterBlock(caster: TCaster, pos: BlockPos): Boolean
+	def filterBlock(context: CastingContext, pos: BlockPos): Boolean
 
-	def filter(caster: TCaster, target: TTarget) = target.obj match {
-		case Left(entity) => entityClass.isInstance(entity) && filterEntity(caster, entity.asInstanceOf[ENT])
-		case Right(pos) => blockClass.isInstance(pos.block) && filterBlock(caster, pos)
+	def filter(context: CastingContext, target: TTarget) = target.obj match {
+		case Left(entity) => entityClass.isInstance(entity) && filterEntity(context, entity.asInstanceOf[ENT])
+		case Right(pos) => blockClass.isInstance(pos.block) && filterBlock(context, pos)
 		case _ => false
 	}
 
@@ -24,9 +25,9 @@ trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
 		_specification = specification
 	}
 
-	override def getTargets(caster: TCaster, existing: List[TTarget]) = if(_specification == null) {
+	override def getTargets(context: CastingContext, existing: List[TTarget]) = if(_specification == null) {
 		existing.flatMap(_.ownedTargets(this))
 	} else {
-		_specification.getTargets(caster, existing).filter(filter(caster, _))
+		_specification.getTargets(context, existing).filter(filter(context, _))
 	}
 }

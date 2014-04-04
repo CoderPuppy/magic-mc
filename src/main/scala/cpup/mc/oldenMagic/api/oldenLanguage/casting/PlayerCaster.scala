@@ -14,6 +14,7 @@ import net.minecraft.server.MinecraftServer
 import net.minecraft.util.{Vec3, MovingObjectPosition}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.world.World
+import cpup.mc.oldenMagic.OldenMagicMod
 
 case class PlayerCaster(name: String) extends TCaster {
 	def targetType = PlayerCaster
@@ -49,7 +50,9 @@ case class PlayerCaster(name: String) extends TCaster {
 }
 
 object PlayerCaster extends TTargetType {
-	def name = "player"
+	def mod = OldenMagicMod
+
+	def name = s"${mod.ref.modID}:player"
 	def targetClass = classOf[PlayerCaster]
 	def readFromNBT(nbt: NBTTagCompound) = PlayerCaster(nbt.getString("name"))
 }

@@ -9,6 +9,7 @@ import cpw.mods.fml.common.FMLCommonHandler
 import cpw.mods.fml.relauncher.Side
 import net.minecraft.client.Minecraft
 import net.minecraft.server.MinecraftServer
+import cpup.mc.oldenMagic.OldenMagicMod
 
 case class BlockTarget(pos: BlockPos) extends TTarget {
 	def world = pos.world
@@ -24,7 +25,9 @@ case class BlockTarget(pos: BlockPos) extends TTarget {
 }
 
 object BlockTarget extends TTargetType {
-	def name = "block"
+	def mod = OldenMagicMod
+
+	def name = s"${mod.ref.modID}:block"
 	def targetClass = classOf[BlockTarget]
 	def readFromNBT(nbt: NBTTagCompound) = {
 		val dim = nbt.getInteger("dim")

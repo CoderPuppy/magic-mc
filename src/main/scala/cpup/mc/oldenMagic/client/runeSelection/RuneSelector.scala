@@ -5,11 +5,11 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import org.lwjgl.opengl.GL11
 import org.lwjgl.input.Keyboard
 import net.minecraft.client.Minecraft
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 
 @SideOnly(Side.CLIENT)
 class RuneSelector(val player: EntityPlayer, val x: Int, val y: Int, val addRune: (RuneOption) => Unit) {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
 	val mc = Minecraft.getMinecraft
 	var category = RootCategory.create

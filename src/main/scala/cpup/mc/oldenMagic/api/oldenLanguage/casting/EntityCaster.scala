@@ -10,6 +10,7 @@ import cpw.mods.fml.common.FMLCommonHandler
 import cpw.mods.fml.relauncher.Side
 import net.minecraft.client.Minecraft
 import cpup.mc.lib.util.EntityUtil
+import cpup.mc.oldenMagic.OldenMagicMod
 
 case class EntityCaster(var world: World, entityID: Int) extends TCaster {
 	def targetType = EntityCaster
@@ -25,7 +26,9 @@ case class EntityCaster(var world: World, entityID: Int) extends TCaster {
 }
 
 object EntityCaster extends TTargetType {
-	def name = "entity"
+	def mod = OldenMagicMod
+
+	def name = s"${mod.ref.modID}:entity"
 	def targetClass = classOf[EntityCaster]
 	def readFromNBT(nbt: NBTTagCompound) = {
 		val dim = nbt.getInteger("dim")

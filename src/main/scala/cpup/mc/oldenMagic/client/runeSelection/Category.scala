@@ -1,10 +1,10 @@
 package cpup.mc.oldenMagic.client.runeSelection
 
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.TContext
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 
 class Category(val context: TContext, val name: String) extends SelectionOption {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
 	protected var _parent: Category = null
 	def parent = _parent

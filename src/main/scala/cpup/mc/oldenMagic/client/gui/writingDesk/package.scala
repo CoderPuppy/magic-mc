@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack
 import cpup.mc.lib.client.BetterSlot
 import scala.util.control.Breaks
 import cpup.mc.oldenMagic.client.runeSelection.{RuneSelector, RuneOption}
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 
 object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 	def name = "writingDesk"
@@ -29,7 +29,7 @@ object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 }
 
 class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
 	val selector = new RuneSelector(container.player, -200, 0, (runeOpt: RuneOption) => {
 		mod.network.sendToServer(new WritingDeskMessage(container.te.pos, runeOpt.parsedRune))

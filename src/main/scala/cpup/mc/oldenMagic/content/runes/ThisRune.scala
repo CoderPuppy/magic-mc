@@ -2,19 +2,20 @@ package cpup.mc.oldenMagic.content.runes
 
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.util.IIcon
-import cpup.mc.oldenMagic.MagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{EntityCaster, BlockTarget, TTarget, TCaster}
+import cpup.mc.oldenMagic.OldenMagicMod
+import cpup.mc.oldenMagic.api.oldenLanguage.casting._
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.util.MovingObjectPosition.MovingObjectType
 import net.minecraft.entity.Entity
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{TTypeNounRune, TNounModifierRune, TNounRune}
 import net.minecraft.block.Block
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{InternalRuneType, InternalRune, SingletonRune, TRune}
+import cpup.mc.lib.util.pos.BlockPos
 
 object ThisRune extends SingletonRune with TNounModifierRune {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
-	def name = "this"
+	def name = s"${mod.ref.modID}:this"
 	def modifyNoun(rune: TNounRune) {
 		rune match {
 			case rune: TTypeNounRune[_, _] =>
@@ -36,13 +37,15 @@ object ThisRune extends SingletonRune with TNounModifierRune {
 }
 
 object ThisNounRune extends SingletonRune with InternalRune with InternalRuneType with TNounRune {
-	def name = "this:noun"
+	def mod = OldenMagicMod
 
-	override def getTargets(caster: TCaster, existing: List[TTarget]) = {
-		val mop = caster.mop
+	def name = s"${mod.ref.modID}:this:noun"
+
+	override def getTargets(context: CastingContext, existing: List[TTarget]) = {
+		val mop = context.caster.mop
 		mop.typeOfHit match {
 			case MovingObjectType.BLOCK =>
-				List(BlockTarget(BlockPos(caster.world, mop.blockX, mop.blockY, mop.blockZ)))
+				List(BlockTarget(BlockPos(context.caster.world, mop.blockX, mop.blockY, mop.blockZ)))
 
 			case MovingObjectType.ENTITY =>
 				List(new EntityCaster(mop.entityHit.worldObj, mop.entityHit.getEntityId))

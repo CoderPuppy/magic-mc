@@ -13,10 +13,10 @@ import cpup.mc.oldenMagic.client.gui.writingDesk.WritingDeskGUI
 import cpup.mc.oldenMagic.network.Network
 import cpup.mc.oldenMagic.api.oldenLanguage.OldenLanguageRegistry
 
-trait TMagicMod extends CPupMod[TRef] {
+trait TOldenMagicMod extends CPupMod[TRef] {
 	def ref = Ref
 	override def content = Content
-	final val guis = new CPupGUIManager[TMagicMod, GUIBase[_ <: GuiScreen, _ <: Container]](this)
+	final val guis = new CPupGUIManager[TOldenMagicMod, GUIBase[_ <: GuiScreen, _ <: Container]](this)
 	guis.register(WritingDeskGUI)
 	def network = Network
 
@@ -46,4 +46,4 @@ trait TMagicMod extends CPupMod[TRef] {
 }
 
 @Mod(modid = Ref.modID, modLanguage = "scala")
-object MagicMod extends TMagicMod
+object OldenMagicMod extends TOldenMagicMod

@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.oldenMagic.api.oldenLanguage.OldenLanguageRegistry
 import net.minecraftforge.common.util.Constants
 import cpup.mc.lib.util.NBTUtil
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 
 case class Spell(action: TActionRune, targetPath: List[TNounRune]) {
 	def writeToNBT(nbt: NBTTagCompound) {
@@ -13,7 +13,7 @@ case class Spell(action: TActionRune, targetPath: List[TNounRune]) {
 	}
 }
 object Spell {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
 	def readFromNBT(nbt: NBTTagCompound) = try
 		Spell(

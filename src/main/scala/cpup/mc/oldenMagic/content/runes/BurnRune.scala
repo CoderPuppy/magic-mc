@@ -2,22 +2,23 @@ package cpup.mc.oldenMagic.content.runes
 
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.util.IIcon
-import cpup.mc.oldenMagic.MagicMod
+import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.{EntityLivingBase, Entity}
 import cpup.mc.lib.util.Direction
 import net.minecraft.init.Blocks
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TActionRune
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 
 object BurnRune extends SingletonRune with TActionRune {
-	def mod = MagicMod
+	def mod = OldenMagicMod
 
-	def name = "burn"
-	def actUponBlock(pos: BlockPos) {
+	def name = s"${mod.ref.modID}:burn"
+	def actUponBlock(context: CastingContext, pos: BlockPos) {
 		pos.offset(Direction.Up).tryReplaceWith(Blocks.fire)
 	}
-	def actUponEntity(entity: Entity) {
+	def actUponEntity(context: CastingContext, entity: Entity) {
 		entity.setFire(10) // TODO: more depending on something
 	}
 

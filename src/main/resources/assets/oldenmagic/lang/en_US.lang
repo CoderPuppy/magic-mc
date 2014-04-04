@@ -1,8 +1,13 @@
-tile.magic:deedOffice.name=Deed Office
-item.magic:deed.name=Deed
+tile.oldenmagic:deedOffice.name=Deed Office
+item.oldenmagic:deed.name=Deed
 
-container.magic:writingDesk.name=Writing Desk
-tile.magic:writingDesk.name=Writing Desk
+container.oldenmagic:writingDesk.name=Writing Desk
+tile.oldenmagic:writingDesk.name=Writing Desk
 
-item.magic:inkWell.name=Ink Well
-item.magic:quill.name=Quill
+item.oldenmagic:inkWell.name=Ink Well
+item.oldenmagic:quill.name=Quill
+
+item.oldenmagic:bend.name=Bend
+item.oldenmagic:spell.name=Spell
+
+commands.oldenmagic:antidamage.usage=/antidamage <player>

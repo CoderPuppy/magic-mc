@@ -5,8 +5,8 @@ import net.minecraftforge.common.MinecraftForge
 import cpup.mc.lib.CPupCommonProxy
 import net.minecraft.entity.player.EntityPlayer
 
-class CommonProxy extends CPupCommonProxy[TMagicMod] {
-	def mod = MagicMod
+class CommonProxy extends CPupCommonProxy[TOldenMagicMod] {
+	def mod = OldenMagicMod
 	val commonEvents = new CommonEvents
 
 	def registerEvents {
