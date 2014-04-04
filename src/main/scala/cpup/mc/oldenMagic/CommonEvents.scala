@@ -38,6 +38,8 @@ class CommonEvents {
 			passiveSpellDatas ++= List(WorldSavedDataUtil.get(e.entity.worldObj, classOf[PassiveSpellsData], s"$x,$z"))
 		}
 
+		passiveSpellDatas = passiveSpellDatas.filter(_ != null)
+
 		println(passiveSpellDatas)
 	}
 }
