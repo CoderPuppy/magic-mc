@@ -15,6 +15,7 @@ import cpup.mc.oldenMagic.OldenMagicMod
 case class EntityCaster(var world: World, entityID: Int) extends TCaster {
 	def targetType = EntityCaster
 	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
+	def owner = null // TODO: owner
 
 	def mop = EntityUtil.getMOPBoth(obj.a, 4)
 	def obj = Left(world.getEntityByID(entityID))

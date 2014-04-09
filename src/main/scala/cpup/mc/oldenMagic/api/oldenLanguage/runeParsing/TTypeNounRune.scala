@@ -19,8 +19,6 @@ trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
 		case _ => false
 	}
 
-	override def filter(context: CastingContext, targets: List[TTarget]) = targets.filter(filter(context, _))
-
 	protected var _specification: TNounRune = null
 
 	def specify(specification: TNounRune) {
@@ -31,5 +29,12 @@ trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
 		existing.flatMap(_.ownedTargets(this))
 	} else {
 		_specification.getTargets(context, existing).filter(filter(context, _))
+	}
+
+	override def filter(context: CastingContext, prev: List[TNounRune], targets: List[TTarget]) = if(_specification == null) {
+		val owners = prev.head.filter(context, prev.tail, targets.map(_.owner)).toSet
+		targets.filter((target) => owners.contains(target.owner))
+	} else {
+		_specification.filter(context, prev, targets)
 	}
 }

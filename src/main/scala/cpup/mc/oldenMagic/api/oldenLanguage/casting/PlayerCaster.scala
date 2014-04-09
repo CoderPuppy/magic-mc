@@ -18,6 +18,7 @@ import cpup.mc.oldenMagic.OldenMagicMod
 
 case class PlayerCaster(name: String) extends TCaster {
 	def targetType = PlayerCaster
+	def owner = null
 
 	def world = obj.a match {
 		case e: Entity => e.worldObj

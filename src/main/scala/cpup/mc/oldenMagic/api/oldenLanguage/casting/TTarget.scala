@@ -14,4 +14,5 @@ trait TTarget {
 	def world: World
 	def obj: Either[Entity, BlockPos]
 	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]): List[TTarget]
+	def owner: TTarget
 }

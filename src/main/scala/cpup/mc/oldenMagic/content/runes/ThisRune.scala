@@ -59,7 +59,7 @@ object ThisNounRune extends SingletonRune with InternalRune with InternalRuneTyp
 		case null => List()
 	}
 
-	override def filter(context: CastingContext, targets: List[TTarget]) = {
+	override def filter(context: CastingContext, prev: List[TNounRune], targets: List[TTarget]) = {
 		val target = getTarget(context)
 		target.obj match {
 			case Left(entity) =>

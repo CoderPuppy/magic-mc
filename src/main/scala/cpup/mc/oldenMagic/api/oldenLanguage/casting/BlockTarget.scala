@@ -16,6 +16,7 @@ case class BlockTarget(pos: BlockPos) extends TTarget {
 	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
 	def obj = Right(pos)
 	def targetType = BlockTarget
+	def owner = null
 	def writeToNBT(nbt: NBTTagCompound) {
 		nbt.setInteger("dim", pos.world.provider.dimensionId)
 		nbt.setInteger("x", pos.x)
