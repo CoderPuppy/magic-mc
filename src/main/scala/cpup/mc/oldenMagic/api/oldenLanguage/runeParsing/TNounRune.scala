@@ -5,4 +5,5 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runes.TRune
 
 trait TNounRune extends TRune {
 	def getTargets(context: CastingContext, existing: List[TTarget]): List[TTarget]
+	def filter(context: CastingContext, targets: List[TTarget]): List[TTarget]
 }

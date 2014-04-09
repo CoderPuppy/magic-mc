@@ -10,8 +10,9 @@ import cpup.mc.oldenMagic.OldenMagicMod
 object MeRune extends SingletonRune with TNounRune {
 	def mod = OldenMagicMod
 
-	def name = s"${mod.ref.modID}:it"
+	def name = s"${mod.ref.modID}:me"
 	override def getTargets(context: CastingContext, existing: List[TTarget]) = List(context.caster)
+	override def filter(context: CastingContext, targets: List[TTarget]) = targets.filter(_ == context.caster)
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null
@@ -19,6 +20,6 @@ object MeRune extends SingletonRune with TNounRune {
 	def icons = List(icon)
 	@SideOnly(Side.CLIENT)
 	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(s"${mod.ref.modID}:runes/it")
+		icon = registerIcon(s"${mod.ref.modID}:runes/me")
 	}
 }

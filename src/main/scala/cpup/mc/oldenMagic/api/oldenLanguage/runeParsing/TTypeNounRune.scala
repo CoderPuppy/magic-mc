@@ -19,6 +19,8 @@ trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
 		case _ => false
 	}
 
+	override def filter(context: CastingContext, targets: List[TTarget]) = targets.filter(filter(context, _))
+
 	protected var _specification: TNounRune = null
 
 	def specify(specification: TNounRune) {

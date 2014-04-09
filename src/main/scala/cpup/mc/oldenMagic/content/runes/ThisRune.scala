@@ -41,15 +41,43 @@ object ThisNounRune extends SingletonRune with InternalRune with InternalRuneTyp
 
 	def name = s"${mod.ref.modID}:this:noun"
 
-	override def getTargets(context: CastingContext, existing: List[TTarget]) = {
+	def getTarget(context: CastingContext) = {
 		val mop = context.caster.mop
 		mop.typeOfHit match {
 			case MovingObjectType.BLOCK =>
-				List(BlockTarget(BlockPos(context.caster.world, mop.blockX, mop.blockY, mop.blockZ)))
+				BlockTarget(BlockPos(context.caster.world, mop.blockX, mop.blockY, mop.blockZ))
 
 			case MovingObjectType.ENTITY =>
-				List(new EntityCaster(mop.entityHit.worldObj, mop.entityHit.getEntityId))
+				new EntityCaster(mop.entityHit.worldObj, mop.entityHit.getEntityId)
 
+			case _ => null
+		}
+	}
+
+	override def getTargets(context: CastingContext, existing: List[TTarget]) = getTarget(context) match {
+		case target: TTarget => List(target)
+		case null => List()
+	}
+
+	override def filter(context: CastingContext, targets: List[TTarget]) = {
+		val target = getTarget(context)
+		target.obj match {
+			case Left(entity) =>
+				targets.filter((testingTarget) => {
+					testingTarget.obj match {
+						case Left(testingEntity) =>
+							testingEntity == entity
+						case _ => false
+					}
+				})
+			case Right(pos) =>
+				targets.filter((testingTarget) => {
+					testingTarget.obj match {
+						case Right(testingPos) =>
+							testingPos == pos
+						case _ => false
+					}
+				})
 			case _ => List()
 		}
 	}
