@@ -18,6 +18,8 @@ class CommonEvents {
 //		}
 	}
 
+	// TODO: LivingAttackEvent
+
 	@SubscribeEvent
 	def passiveDamage(e: LivingHurtEvent) {
 		var passiveSpellDatas = List(PassiveSpells.get(e.entity.worldObj))
