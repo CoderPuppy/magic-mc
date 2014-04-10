@@ -42,13 +42,20 @@ class CommonEvents {
 		passiveSpellDatas = passiveSpellDatas.filter(_ != null)
 
 		val action = new DamageAction(e)
-		val spells = passiveSpellDatas.flatMap(_.actionSpells(action.runeType))
+		val spells = passiveSpellDatas
+			.flatMap(_.actionSpells(action.runeType))
+			.map((spell) => {
+				(spell, new PassiveSpellsContext(spell._1, spell._2, spell._3, action))
+			})
+			.filter((spell) => {
+				val prev = spell._1._3.targetPath.reverse
+				prev.head.filter(spell._2, prev.tail, action.affectedTarget)
+			})
 
 		println(passiveSpellDatas, spells)
 
 		for(spell <- spells) {
-			val context = new PassiveSpellsContext(spell._1, spell._2, spell._3, action)
-			context.cast(spell._4)
+			spell._2.cast(spell._1._4)
 		}
 	}
 }

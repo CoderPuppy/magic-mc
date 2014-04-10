@@ -31,10 +31,9 @@ trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
 		_specification.getTargets(context, existing).filter(filter(context, _))
 	}
 
-	override def filter(context: CastingContext, prev: List[TNounRune], targets: List[TTarget]) = if(_specification == null) {
-		val owners = prev.head.filter(context, prev.tail, targets.map(_.owner)).toSet
-		targets.filter((target) => owners.contains(target.owner))
+	override def filter(context: CastingContext, prev: List[TNounRune], target: TTarget): Boolean = if(_specification == null) {
+		filter(context, target) && prev.head.filter(context, prev.tail, target.owner)
 	} else {
-		_specification.filter(context, prev, targets)
+		_specification.filter(context, prev, target)
 	}
 }

@@ -3,7 +3,7 @@ package cpup.mc.oldenMagic.content.runes
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TAction, CastingContext, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{EntityCaster, TAction, CastingContext, TCaster}
 import net.minecraft.entity.Entity
 import net.minecraft.util.{IIcon, DamageSource}
 import cpup.mc.lib.util.pos.BlockPos
@@ -52,8 +52,7 @@ object DamageRune extends TRuneType {
 class DamageAction(val e: LivingHurtEvent) extends TAction {
 	def runeType = DamageRune
 
-	def affectedBlocks = List()
-	def affectedEntities = List(e.entity)
+	val affectedTarget = new EntityCaster(e.entity.worldObj, e.entity.getEntityId)
 
 	def src = e.source
 

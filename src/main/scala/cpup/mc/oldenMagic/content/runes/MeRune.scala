@@ -12,7 +12,7 @@ object MeRune extends SingletonRune with TNounRune {
 
 	def name = s"${mod.ref.modID}:me"
 	override def getTargets(context: CastingContext, existing: List[TTarget]) = List(context.caster)
-	override def filter(context: CastingContext, prev: List[TNounRune], targets: List[TTarget]) = targets.filter(_ == context.caster)
+	override def filter(context: CastingContext, prev: List[TNounRune], target: TTarget) = target == context.caster
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null

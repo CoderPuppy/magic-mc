@@ -59,26 +59,22 @@ object ThisNounRune extends SingletonRune with InternalRune with InternalRuneTyp
 		case null => List()
 	}
 
-	override def filter(context: CastingContext, prev: List[TNounRune], targets: List[TTarget]) = {
+	override def filter(context: CastingContext, prev: List[TNounRune], testingTarget: TTarget) = {
 		val target = getTarget(context)
 		target.obj match {
 			case Left(entity) =>
-				targets.filter((testingTarget) => {
-					testingTarget.obj match {
-						case Left(testingEntity) =>
-							testingEntity == entity
-						case _ => false
-					}
-				})
+				testingTarget.obj match {
+					case Left(testingEntity) =>
+						testingEntity == entity
+					case _ => false
+				}
 			case Right(pos) =>
-				targets.filter((testingTarget) => {
-					testingTarget.obj match {
-						case Right(testingPos) =>
-							testingPos == pos
-						case _ => false
-					}
-				})
-			case _ => List()
+				testingTarget.obj match {
+					case Right(testingPos) =>
+						testingPos == pos
+					case _ => false
+				}
+			case _ => false
 		}
 	}
 }
