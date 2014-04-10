@@ -15,4 +15,20 @@ trait TTarget {
 	def obj: Either[Entity, BlockPos]
 	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]): List[TTarget]
 	def owner: TTarget
+
+	def sameObj(other: TTarget) = obj match {
+		case Left(entity) =>
+			other.obj match {
+				case Left(otherEntity) =>
+					otherEntity == entity
+				case _ => false
+			}
+		case Right(pos) =>
+			other.obj match {
+				case Right(otherPos) =>
+					otherPos== pos
+				case _ => false
+			}
+		case _ => false
+	}
 }
