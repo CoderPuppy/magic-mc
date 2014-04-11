@@ -47,7 +47,6 @@ class SeenAction(val e: LivingSetAttackTargetEvent) extends TAction with TCancel
 	override def runeType = SeenRune
 
 	def cancel {
-		e.setCanceled(true)
 //		e.entityLiving.setRevengeTarget(null)
 //		e.entityLiving.setLastAttacker(null)
 
@@ -57,8 +56,6 @@ class SeenAction(val e: LivingSetAttackTargetEvent) extends TAction with TCancel
 	}
 
 	def uncancel {
-		e.setCanceled(false)
-
 //		e.entityLiving.setRevengeTarget(e.target)
 //		e.entityLiving.setLastAttacker(e.target)
 
