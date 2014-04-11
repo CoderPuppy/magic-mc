@@ -2,7 +2,7 @@ package cpup.mc.oldenMagic.content.runes
 
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TNounRune
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, CastingContext}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{PlayerCaster, TTarget, CastingContext}
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
@@ -12,10 +12,9 @@ object MeRune extends SingletonRune with TNounRune {
 	def mod = OldenMagicMod
 
 	def name = s"${mod.ref.modID}:me"
-	override def getTargets(context: CastingContext, existing: List[TTarget]) = List(context.caster)
+	override def getTargets(context: CastingContext, existing: List[TTarget]) = List(new PlayerCaster(context.player))
 	override def filter(context: CastingContext, prev: List[TNounRune], target: TTarget) = {
-		println(target, context.caster)
-		target.sameObj(context.caster)
+		target.sameObj(new PlayerCaster(context.player))
 	}
 
 	@SideOnly(Side.CLIENT)
