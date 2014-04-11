@@ -12,7 +12,11 @@ import net.minecraft.client.Minecraft
 import cpup.mc.lib.util.EntityUtil
 import cpup.mc.oldenMagic.OldenMagicMod
 
-case class EntityCaster(val entity: Entity) extends TCaster {
+case class EntityCaster(entity: Entity) extends TCaster {
+	if(entity == null) {
+		throw new NullPointerException("entity cannot be null")
+	}
+
 	def targetType = EntityCaster
 	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
 	def owner = null // TODO: owner
