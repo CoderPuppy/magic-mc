@@ -108,11 +108,15 @@ object Content extends CPupContent[TOldenMagicMod] {
 		OldenLanguageRegistry.registerRune(GrowRune)
 		OldenLanguageRegistry.registerRune(BurnRune)
 		OldenLanguageRegistry.registerRune(ProtectRune)
+		OldenLanguageRegistry.registerRune(DamageRune)
+		OldenLanguageRegistry.registerRune(SeenRune)
+		OldenLanguageRegistry.registerRune(HideRune)
 
 		// Nouns
 		OldenLanguageRegistry.registerRune(PlayerRune)
 		OldenLanguageRegistry.registerRune(EntityTypeRune)
 		OldenLanguageRegistry.registerRune(BlockTypeRune)
+		OldenLanguageRegistry.registerRune(ThisNounRune)
 
 		// Pronouns
 		OldenLanguageRegistry.registerRune(ThisRune)
