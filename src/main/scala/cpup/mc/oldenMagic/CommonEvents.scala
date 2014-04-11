@@ -27,6 +27,8 @@ class CommonEvents {
 
 	@SubscribeEvent
 	def passiveSeeing(e: LivingSetAttackTargetEvent) {
-		PassiveSpells.trigger(new SeenAction(e))
+		if(e.target != null) {
+			PassiveSpells.trigger(new SeenAction(e))
+		}
 	}
 }
