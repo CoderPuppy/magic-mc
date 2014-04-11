@@ -3,10 +3,10 @@ package cpup.mc.oldenMagic
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraft.item.ItemStack
-import net.minecraftforge.event.entity.living.LivingHurtEvent
+import net.minecraftforge.event.entity.living.{LivingSetAttackTargetEvent, LivingHurtEvent}
 import cpup.mc.lib.util.WorldSavedDataUtil
 import cpup.mc.oldenMagic.api.oldenLanguage.{PassiveSpellsContext, PassiveSpells, PassiveSpellsData}
-import cpup.mc.oldenMagic.content.runes.DamageAction
+import cpup.mc.oldenMagic.content.runes.{SeenAction, DamageAction}
 
 class CommonEvents {
 	def mod = OldenMagicMod
@@ -23,5 +23,10 @@ class CommonEvents {
 	@SubscribeEvent
 	def passiveDamage(e: LivingHurtEvent) {
 		PassiveSpells.trigger(new DamageAction(e))
+	}
+
+	@SubscribeEvent
+	def passiveSeeing(e: LivingSetAttackTargetEvent) {
+		PassiveSpells.trigger(new SeenAction(e))
 	}
 }
