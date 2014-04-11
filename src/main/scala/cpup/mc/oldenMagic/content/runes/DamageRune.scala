@@ -54,6 +54,10 @@ class DamageAction(val e: LivingHurtEvent) extends TAction {
 
 	val affectedTarget = new EntityCaster(e.entity.worldObj, e.entity.getEntityId)
 
+	def world = e.entity.worldObj
+	def chunkX = e.entity.chunkCoordX
+	def chunkZ = e.entity.chunkCoordZ
+
 	def src = e.source
 
 	def amt = e.ammount

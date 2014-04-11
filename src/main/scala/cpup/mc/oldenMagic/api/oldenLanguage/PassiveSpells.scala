@@ -25,6 +25,45 @@ object PassiveSpells {
 	def getOrCreate(world: World, cx: Int, cz: Int) = {
 		WorldSavedDataUtil.getOrCreate(world, classOf[PassiveSpellsData], s"$cx,$cz")
 	}
+
+	def trigger(action: TAction) {
+		var passiveSpellDatas = List(PassiveSpells.get(action.world))
+
+		val baseX = action.chunkX
+		val baseZ = action.chunkZ
+
+		for {
+			offsetX <- -1 to 1
+			offsetZ <- -1 to 1
+		} {
+			val x = baseX + offsetX
+			val z = baseZ + offsetZ
+
+//			println(baseX, baseZ)
+//			println(offsetX, offsetZ)
+//			println(x, z)
+
+			passiveSpellDatas ++= List(PassiveSpells.get(action.world, x, z))
+		}
+
+		passiveSpellDatas = passiveSpellDatas.filter(_ != null)
+
+		val spells = passiveSpellDatas
+			.flatMap(_.actionSpells(action.runeType))
+			.map((spell) => {
+			(spell, new PassiveSpellsContext(spell._1, spell._2, spell._3, action))
+		})
+			.filter((spell) => {
+			val prev = spell._1._3.targetPath.reverse
+			prev.head.filter(spell._2, prev.tail, action.affectedTarget)
+		})
+
+//		println(passiveSpellDatas, spells)
+
+		for(spell <- spells) {
+			spell._2.cast(spell._1._4)
+		}
+	}
 }
 
 class PassiveSpellsContext(player: String, caster: TCaster, val trigger: Spell, val action: TAction) extends CastingContext(player, caster) {
