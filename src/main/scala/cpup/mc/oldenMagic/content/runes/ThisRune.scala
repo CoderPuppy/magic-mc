@@ -48,7 +48,7 @@ object ThisNounRune extends SingletonRune with InternalRune with InternalRuneTyp
 				BlockTarget(BlockPos(context.caster.world, mop.blockX, mop.blockY, mop.blockZ))
 
 			case MovingObjectType.ENTITY =>
-				new EntityCaster(mop.entityHit.worldObj, mop.entityHit.getEntityId)
+				new EntityCaster(mop.entityHit)
 
 			case _ => null
 		}

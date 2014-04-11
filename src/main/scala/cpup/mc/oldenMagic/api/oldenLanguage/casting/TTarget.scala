@@ -12,6 +12,12 @@ trait TTarget {
 	def writeToNBT(nbt: NBTTagCompound)
 
 	def world: World
+	def chunkX: Int
+	def chunkZ: Int
+	def x: Double
+	def y: Double
+	def z: Double
+	def isValid = true
 	def obj: Either[Entity, BlockPos]
 	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]): List[TTarget]
 	def owner: TTarget

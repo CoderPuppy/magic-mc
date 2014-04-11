@@ -52,11 +52,7 @@ object DamageRune extends TRuneType {
 class DamageAction(val e: LivingHurtEvent) extends TAction {
 	def runeType = DamageRune
 
-	val affectedTarget = new EntityCaster(e.entity.worldObj, e.entity.getEntityId)
-
-	def world = e.entity.worldObj
-	def chunkX = e.entity.chunkCoordX
-	def chunkZ = e.entity.chunkCoordZ
+	val affectedTarget = new EntityCaster(e.entity)
 
 	def src = e.source
 

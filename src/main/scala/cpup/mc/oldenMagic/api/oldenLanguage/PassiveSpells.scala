@@ -27,10 +27,14 @@ object PassiveSpells {
 	}
 
 	def trigger(action: TAction) {
-		var passiveSpellDatas = List(PassiveSpells.get(action.world))
+		if(!action.affectedTarget.isValid) {
+			return
+		}
 
-		val baseX = action.chunkX
-		val baseZ = action.chunkZ
+		var passiveSpellDatas = List(PassiveSpells.get(action.affectedTarget.world))
+
+		val baseX = action.affectedTarget.chunkX
+		val baseZ = action.affectedTarget.chunkZ
 
 		for {
 			offsetX <- -1 to 1
@@ -43,7 +47,7 @@ object PassiveSpells {
 //			println(offsetX, offsetZ)
 //			println(x, z)
 
-			passiveSpellDatas ++= List(PassiveSpells.get(action.world, x, z))
+			passiveSpellDatas ++= List(PassiveSpells.get(action.affectedTarget.world, x, z))
 		}
 
 		passiveSpellDatas = passiveSpellDatas.filter(_ != null)

@@ -12,6 +12,8 @@ class CastingContext(val player: String, val caster: TCaster) {
 			targets = noun.getTargets(this, targets)
 		}
 
+		targets = targets.filter(_.isValid)
+
 		spell.action.act(this, targets)
 	}
 }

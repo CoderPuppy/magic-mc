@@ -23,6 +23,11 @@ case class BlockTarget(pos: BlockPos) extends TTarget {
 		nbt.setInteger("y", pos.y)
 		nbt.setInteger("z", pos.z)
 	}
+	def chunkX = pos.chunkX
+	def chunkZ = pos.chunkZ
+	def x = pos.x
+	def y = pos.y
+	def z = pos.z
 }
 
 object BlockTarget extends TTargetType {

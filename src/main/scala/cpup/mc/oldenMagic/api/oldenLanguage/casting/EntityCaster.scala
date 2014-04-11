@@ -12,17 +12,24 @@ import net.minecraft.client.Minecraft
 import cpup.mc.lib.util.EntityUtil
 import cpup.mc.oldenMagic.OldenMagicMod
 
-case class EntityCaster(var world: World, entityID: Int) extends TCaster {
+case class EntityCaster(val entity: Entity) extends TCaster {
 	def targetType = EntityCaster
 	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
 	def owner = null // TODO: owner
 
+	def world = entity.worldObj
+	def chunkX = entity.chunkCoordX
+	def chunkZ = entity.chunkCoordZ
+	def x = entity.posX
+	def y = entity.posY
+	def z = entity.posZ
+
 	def mop = EntityUtil.getMOPBoth(obj.a, 4)
-	def obj = Left(world.getEntityByID(entityID))
+	def obj = Left(entity)
 
 	def writeToNBT(nbt: NBTTagCompound) {
 		nbt.setInteger("dim", world.provider.dimensionId)
-		nbt.setInteger("id", entityID)
+		nbt.setInteger("id", entity.getEntityId)
 	}
 }
 
@@ -34,7 +41,7 @@ object EntityCaster extends TTargetType {
 	def readFromNBT(nbt: NBTTagCompound) = {
 		val dim = nbt.getInteger("dim")
 		EntityCaster(
-			FMLCommonHandler.instance.getEffectiveSide match {
+			(FMLCommonHandler.instance.getEffectiveSide match {
 				case Side.CLIENT =>
 					val world = Minecraft.getMinecraft.theWorld
 					if(world.provider.dimensionId != dim) {
@@ -43,8 +50,8 @@ object EntityCaster extends TTargetType {
 					world
 				case Side.SERVER =>
 					MinecraftServer.getServer.worldServerForDimension(dim)
-			},
-			nbt.getInteger("id")
+				case _ => null
+			}).getEntityByID(nbt.getInteger("id"))
 		)
 	}
 }

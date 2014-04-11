@@ -2,39 +2,21 @@ package cpup.mc.oldenMagic.api.oldenLanguage.casting
 
 import net.minecraft.entity.player.EntityPlayer
 import cpup.mc.lib.util.EntityUtil
-import cpup.mc.lib.util.pos.BlockPos
 import cpw.mods.fml.common.FMLCommonHandler
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TTypeNounRune
 import net.minecraft.entity.Entity
 import net.minecraft.block.Block
-import net.minecraft.server.management.ServerConfigurationManager
 import cpw.mods.fml.relauncher.Side
 import net.minecraft.client.Minecraft
 import net.minecraft.server.MinecraftServer
-import net.minecraft.util.{Vec3, MovingObjectPosition}
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.world.World
 import cpup.mc.oldenMagic.OldenMagicMod
 
 case class PlayerCaster(name: String) extends TCaster {
 	def targetType = PlayerCaster
 	def owner = null
 
-	def world = obj.a match {
-		case e: Entity => e.worldObj
-		case _ => null
-	}
-	def mop = obj.a match {
-		case player: EntityPlayer =>
-			EntityUtil.getMOPBoth(player, if(player.capabilities.isCreativeMode) 6 else 3)
-		case _ => null
-	}
-
-	def writeToNBT(nbt: NBTTagCompound) {
-		nbt.setString("name", name)
-	}
-
-	def obj = Left(FMLCommonHandler.instance.getEffectiveSide match {
+	def entity = FMLCommonHandler.instance.getEffectiveSide match {
 		case Side.CLIENT =>
 			val player = Minecraft.getMinecraft.thePlayer
 			if(player.getCommandSenderName != name) {
@@ -44,7 +26,30 @@ case class PlayerCaster(name: String) extends TCaster {
 
 		case Side.SERVER =>
 			MinecraftServer.getServer.getConfigurationManager.getPlayerForUsername(name)
-	})
+
+		case _ => null
+	}
+
+	def world = entity.worldObj
+	def mop = EntityUtil.getMOPBoth(entity, if(entity.capabilities.isCreativeMode) 6 else 3)
+
+	def x = entity.posX
+	def y = entity.posY
+	def z = entity.posZ
+	def chunkX = entity.chunkCoordX
+	def chunkZ = entity.chunkCoordZ
+
+	def writeToNBT(nbt: NBTTagCompound) {
+		nbt.setString("name", name)
+	}
+
+	override def isValid = FMLCommonHandler.instance.getEffectiveSide match {
+		case Side.CLIENT => Minecraft.getMinecraft.thePlayer.getCommandSenderName == name
+		case Side.SERVER => MinecraftServer.getServer.getConfigurationManager.getPlayerForUsername(name) != null
+		case _ => false
+	}
+
+	def obj = Left(entity)
 
 	// TODO: Implement
 	override def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
