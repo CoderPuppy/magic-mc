@@ -15,6 +15,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTargetType, TCaster}
 case class PlayerCaster(name: String) extends TCaster {
 	def targetType = PlayerCaster
 	def owner = null
+	def power = 10 // TODO: power
 
 	def entity = FMLCommonHandler.instance.getEffectiveSide match {
 		case Side.CLIENT =>
