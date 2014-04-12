@@ -6,11 +6,12 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
 import net.minecraft.nbt.NBTTagCompound
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{EntityCaster, TCancellableAction, TAction, CastingContext}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TCancellableAction, TAction, CastingContext}
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.{EntityLiving, Entity}
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TContext, TTransform}
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent
+import cpup.mc.oldenMagic.content.targets.EntityCaster
 
 class SeenRune extends TVerbRune {
 	def runeType = SeenRune

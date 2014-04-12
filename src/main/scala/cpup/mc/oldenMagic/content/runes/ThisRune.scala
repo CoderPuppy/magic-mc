@@ -8,6 +8,7 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{TTypeNounRune, TNounModifierRune, TNounRune}
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{InternalRuneType, InternalRune, SingletonRune}
 import cpup.mc.lib.util.pos.BlockPos
+import cpup.mc.oldenMagic.content.targets.{EntityCaster, BlockTarget}
 
 object ThisRune extends SingletonRune with TNounModifierRune {
 	def mod = OldenMagicMod

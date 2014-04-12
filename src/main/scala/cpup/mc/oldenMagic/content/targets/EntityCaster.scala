@@ -1,4 +1,4 @@
-package cpup.mc.oldenMagic.api.oldenLanguage.casting
+package cpup.mc.oldenMagic.content.targets
 
 import net.minecraft.entity.Entity
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TTypeNounRune
@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.Side
 import net.minecraft.client.Minecraft
 import cpup.mc.lib.util.EntityUtil
 import cpup.mc.oldenMagic.OldenMagicMod
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTargetType, TCaster}
 
 case class EntityCaster(entity: Entity) extends TCaster {
 	if(entity == null) {

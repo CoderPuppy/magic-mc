@@ -3,7 +3,7 @@ package cpup.mc.oldenMagic.content.runes
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{EntityCaster, TAction, CastingContext, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TAction, CastingContext, TCaster}
 import net.minecraft.entity.Entity
 import net.minecraft.util.{IIcon, DamageSource}
 import cpup.mc.lib.util.pos.BlockPos
@@ -12,6 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly
 import cpw.mods.fml.relauncher.Side
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.event.entity.living.LivingHurtEvent
+import cpup.mc.oldenMagic.content.targets.EntityCaster
 
 class DamageRune extends TRune with TVerbRune {
 	def mod = OldenMagicMod

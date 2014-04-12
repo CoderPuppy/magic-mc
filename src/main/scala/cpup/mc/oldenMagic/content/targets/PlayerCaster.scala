@@ -1,4 +1,4 @@
-package cpup.mc.oldenMagic.api.oldenLanguage.casting
+package cpup.mc.oldenMagic.content.targets
 
 import cpup.mc.lib.util.EntityUtil
 import cpw.mods.fml.common.FMLCommonHandler
@@ -10,6 +10,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.server.MinecraftServer
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.oldenMagic.OldenMagicMod
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTargetType, TCaster}
 
 case class PlayerCaster(name: String) extends TCaster {
 	def targetType = PlayerCaster

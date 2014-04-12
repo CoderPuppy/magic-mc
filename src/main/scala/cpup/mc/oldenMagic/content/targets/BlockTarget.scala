@@ -1,4 +1,4 @@
-package cpup.mc.oldenMagic.api.oldenLanguage.casting
+package cpup.mc.oldenMagic.content.targets
 
 import cpup.mc.lib.util.pos.BlockPos
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TTypeNounRune
@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.Side
 import net.minecraft.client.Minecraft
 import net.minecraft.server.MinecraftServer
 import cpup.mc.oldenMagic.OldenMagicMod
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTargetType, TTarget}
 
 case class BlockTarget(pos: BlockPos) extends TTarget {
 	def world = pos.world
