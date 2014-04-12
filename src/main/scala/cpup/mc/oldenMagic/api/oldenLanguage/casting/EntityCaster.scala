@@ -4,7 +4,6 @@ import net.minecraft.entity.Entity
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TTypeNounRune
 import net.minecraft.block.Block
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.world.World
 import net.minecraft.server.MinecraftServer
 import cpw.mods.fml.common.FMLCommonHandler
 import cpw.mods.fml.relauncher.Side

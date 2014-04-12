@@ -3,8 +3,7 @@ package cpup.mc.oldenMagic.content
 import net.minecraft.item.{EnumAction, ItemStack}
 import net.minecraft.world.World
 import net.minecraft.entity.player.EntityPlayer
-import cpup.mc.lib.util.{Direction, VectorUtil, EntityUtil}
-import net.minecraft.util.MathHelper
+import cpup.mc.lib.util.{VectorUtil, EntityUtil}
 
 class ItemBend extends TItemBase {
 	override def getItemUseAction(stack: ItemStack) = EnumAction.bow

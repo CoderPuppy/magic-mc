@@ -4,12 +4,9 @@ import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.casting._
-import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.util.MovingObjectPosition.MovingObjectType
-import net.minecraft.entity.Entity
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{TTypeNounRune, TNounModifierRune, TNounRune}
-import net.minecraft.block.Block
-import cpup.mc.oldenMagic.api.oldenLanguage.runes.{InternalRuneType, InternalRune, SingletonRune, TRune}
+import cpup.mc.oldenMagic.api.oldenLanguage.runes.{InternalRuneType, InternalRune, SingletonRune}
 import cpup.mc.lib.util.pos.BlockPos
 
 object ThisRune extends SingletonRune with TNounModifierRune {

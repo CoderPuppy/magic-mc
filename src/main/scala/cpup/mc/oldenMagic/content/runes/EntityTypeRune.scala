@@ -13,9 +13,8 @@ import net.minecraft.item.{Item, ItemStack}
 import scala.collection.mutable.ListBuffer
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TContext, TextRune, TTransform}
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRune, TRuneType}
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingContext, TCaster}
-import cpup.mc.lib.util.pos.BlockPos
-import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{NonBlockTypeNoun, TNounRune}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
+import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.NonBlockTypeNoun
 import net.minecraft.nbt.NBTTagCompound
 
 case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {

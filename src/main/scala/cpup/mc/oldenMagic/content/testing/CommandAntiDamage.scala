@@ -2,9 +2,7 @@ package cpup.mc.oldenMagic.content.testing
 
 import net.minecraft.command.{ICommandSender, CommandBase}
 import cpup.mc.lib.ModLifecycleHandler
-import cpw.mods.fml.common.event.FMLServerStartingEvent
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.lib.util.WorldSavedDataUtil
 import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpells
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.PlayerCaster
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.Spell

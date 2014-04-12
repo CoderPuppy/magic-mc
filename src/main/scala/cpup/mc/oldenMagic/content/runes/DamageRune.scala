@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.util.{IIcon, DamageSource}
 import cpup.mc.lib.util.pos.BlockPos
 import cpup.mc.oldenMagic.content.runes.DamageRune.RuneDamageSource
-import cpw.mods.fml.relauncher.{Side, SideOnly}
+import cpw.mods.fml.relauncher.SideOnly
 import cpw.mods.fml.relauncher.Side
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.event.entity.living.LivingHurtEvent

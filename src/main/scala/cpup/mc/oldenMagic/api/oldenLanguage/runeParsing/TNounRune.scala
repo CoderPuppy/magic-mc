@@ -1,6 +1,6 @@
 package cpup.mc.oldenMagic.api.oldenLanguage.runeParsing
 
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingContext, TTarget, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingContext, TTarget}
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.TRune
 
 trait TNounRune extends TRune {

@@ -1,6 +1,6 @@
 package cpup.mc.oldenMagic.client
 
-import cpw.mods.fml.common.eventhandler.{EventPriority, SubscribeEvent}
+import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.gameevent.{TickEvent, InputEvent}
 import org.lwjgl.input.Keyboard
 import net.minecraft.client.settings.KeyBinding
@@ -15,7 +15,7 @@ import cpup.mc.oldenMagic.content.ItemBend
 import net.minecraft.util.ResourceLocation
 import net.minecraft.init.Blocks
 import net.minecraft.client.renderer.texture.TextureMap
-import cpup.mc.lib.util.{Direction, VectorUtil}
+import cpup.mc.lib.util.Direction
 
 class ClientEvents(val proxy: ClientProxy) {
 	val mc = Minecraft.getMinecraft

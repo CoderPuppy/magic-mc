@@ -3,7 +3,7 @@ package cpup.mc.oldenMagic.api.oldenLanguage.runeParsing
 import net.minecraft.entity.Entity
 import cpup.mc.lib.util.pos.BlockPos
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.TRune
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, CastingContext, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, CastingContext}
 
 trait TVerbRune extends TRune {
 	def act(context: CastingContext, targets: List[TTarget]) {

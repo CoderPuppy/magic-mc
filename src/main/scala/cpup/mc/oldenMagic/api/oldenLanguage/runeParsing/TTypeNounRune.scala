@@ -4,7 +4,6 @@ import net.minecraft.entity.Entity
 import net.minecraft.block.Block
 import cpup.mc.oldenMagic.api.oldenLanguage.casting._
 import cpup.mc.lib.util.pos.BlockPos
-import cpup.mc.lib.util.pos.BlockPos
 
 trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
 	def entityClass: Class[ENT]

@@ -6,7 +6,7 @@ import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.{EntityAgeable, Entity}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
-import cpup.mc.oldenMagic.api.oldenLanguage.runes.{SingletonRune, TRune}
+import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 
 case object GrowRune extends SingletonRune with TVerbRune {

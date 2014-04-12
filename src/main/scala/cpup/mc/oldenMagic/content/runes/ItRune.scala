@@ -2,7 +2,7 @@ package cpup.mc.oldenMagic.content.runes
 
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TNounRune
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingContext, TTarget, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingContext, TTarget}
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod

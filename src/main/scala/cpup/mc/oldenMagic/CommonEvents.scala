@@ -2,10 +2,8 @@ package cpup.mc.oldenMagic
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
-import net.minecraft.item.ItemStack
 import net.minecraftforge.event.entity.living.{LivingSetAttackTargetEvent, LivingHurtEvent}
-import cpup.mc.lib.util.WorldSavedDataUtil
-import cpup.mc.oldenMagic.api.oldenLanguage.{PassiveSpellsContext, PassiveSpells, PassiveSpellsData}
+import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpells
 import cpup.mc.oldenMagic.content.runes.{SeenAction, DamageAction}
 
 class CommonEvents {

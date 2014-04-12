@@ -1,6 +1,5 @@
 package cpup.mc.oldenMagic.api.oldenLanguage.casting
 
-import net.minecraft.entity.player.EntityPlayer
 import cpup.mc.lib.util.EntityUtil
 import cpw.mods.fml.common.FMLCommonHandler
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TTypeNounRune

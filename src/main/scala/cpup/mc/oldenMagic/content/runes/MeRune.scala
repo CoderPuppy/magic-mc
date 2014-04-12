@@ -6,7 +6,6 @@ import cpup.mc.oldenMagic.api.oldenLanguage.casting.{PlayerCaster, TTarget, Cast
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
-import net.minecraft.entity.Entity
 
 object MeRune extends SingletonRune with TNounRune {
 	def mod = OldenMagicMod

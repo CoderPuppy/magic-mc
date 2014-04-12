@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.lib.util.pos.BlockPos
-import net.minecraft.entity.{EntityLivingBase, Entity}
+import net.minecraft.entity.Entity
 import cpup.mc.lib.util.Direction
 import net.minecraft.init.Blocks
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
