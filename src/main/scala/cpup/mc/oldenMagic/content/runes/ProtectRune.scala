@@ -20,7 +20,7 @@ class ProtectRune extends TRune with TVerbRune {
 	override def act(context: CastingContext, targets: List[TTarget]) {
 		context match {
 			case PassiveSpellsContext(player, caster, spell, action: DamageAction) =>
-				action.amt = 0
+				action.amt /= caster.power
 			case _ =>
 		}
 	}
