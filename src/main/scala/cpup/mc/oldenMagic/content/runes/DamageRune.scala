@@ -59,7 +59,7 @@ class DamageAction(val e: LivingHurtEvent) extends TAction {
 	def src = e.source
 
 	def amt = e.ammount
-	def amt_=(newAmt: Int) = {
+	def amt_=(newAmt: Float) = {
 		e.ammount = newAmt
 		newAmt
 	}
