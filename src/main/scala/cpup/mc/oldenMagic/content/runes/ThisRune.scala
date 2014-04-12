@@ -9,6 +9,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{TTypeNounRune, TNounMod
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{InternalRuneType, InternalRune, SingletonRune}
 import cpup.mc.lib.util.pos.BlockPos
 import cpup.mc.oldenMagic.content.targets.{EntityCaster, BlockTarget}
+import net.minecraft.client.renderer.texture.IIconRegister
 
 object ThisRune extends SingletonRune with TNounModifierRune {
 	def mod = OldenMagicMod
@@ -29,8 +30,8 @@ object ThisRune extends SingletonRune with TNounModifierRune {
 	def icons = List(icon)
 
 	@SideOnly(Side.CLIENT)
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(s"${mod.ref.modID}:runes/this")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/this")
 	}
 }
 

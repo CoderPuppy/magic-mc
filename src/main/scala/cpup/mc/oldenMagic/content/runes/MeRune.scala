@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.content.targets.PlayerCaster
+import net.minecraft.client.renderer.texture.IIconRegister
 
 object MeRune extends SingletonRune with TNounRune {
 	def mod = OldenMagicMod
@@ -22,7 +23,7 @@ object MeRune extends SingletonRune with TNounRune {
 	@SideOnly(Side.CLIENT)
 	def icons = List(icon)
 	@SideOnly(Side.CLIENT)
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(s"${mod.ref.modID}:runes/me")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/me")
 	}
 }

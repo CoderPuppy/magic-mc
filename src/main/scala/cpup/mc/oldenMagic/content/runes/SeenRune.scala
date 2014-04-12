@@ -12,6 +12,7 @@ import net.minecraft.entity.{EntityLiving, Entity}
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TContext, TTransform}
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent
 import cpup.mc.oldenMagic.content.targets.EntityCaster
+import net.minecraft.client.renderer.texture.IIconRegister
 
 class SeenRune extends TVerbRune {
 	def runeType = SeenRune
@@ -33,8 +34,8 @@ object SeenRune extends TRuneType {
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null
 	@SideOnly(Side.CLIENT)
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(s"${mod.ref.modID}:runes/seen")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/seen")
 	}
 }
 

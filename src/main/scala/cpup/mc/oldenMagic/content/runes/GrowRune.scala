@@ -8,6 +8,7 @@ import net.minecraft.entity.{EntityAgeable, Entity}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
+import net.minecraft.client.renderer.texture.IIconRegister
 
 case object GrowRune extends SingletonRune with TVerbRune {
 	def mod = OldenMagicMod
@@ -33,7 +34,7 @@ case object GrowRune extends SingletonRune with TVerbRune {
 	@SideOnly(Side.CLIENT)
 	def icons = List(icon)
 	@SideOnly(Side.CLIENT)
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(s"${mod.ref.modID}:runes/grow")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/grow")
 	}
 }

@@ -16,6 +16,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRune, TRuneType}
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.NonBlockTypeNoun
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.client.renderer.texture.IIconRegister
 
 case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {
 	def mod = OldenMagicMod
@@ -118,8 +119,8 @@ object EntityTypeRune extends TRuneType {
 	var icon: IIcon = null
 
 	@SideOnly(Side.CLIENT)
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(mod.ref.modID + ":runes/entity")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/entity")
 	}
 }
 

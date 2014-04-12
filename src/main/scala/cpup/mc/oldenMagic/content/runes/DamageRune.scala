@@ -13,6 +13,7 @@ import cpw.mods.fml.relauncher.Side
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.event.entity.living.LivingHurtEvent
 import cpup.mc.oldenMagic.content.targets.EntityCaster
+import net.minecraft.client.renderer.texture.IIconRegister
 
 class DamageRune extends TRune with TVerbRune {
 	def mod = OldenMagicMod
@@ -45,8 +46,8 @@ object DamageRune extends TRuneType {
 	var icon: IIcon = null
 
 	@SideOnly(Side.CLIENT)
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(s"${mod.ref.modID}:runes/damage")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/damage")
 	}
 }
 

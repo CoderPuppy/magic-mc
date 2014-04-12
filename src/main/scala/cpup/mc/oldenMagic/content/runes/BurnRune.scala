@@ -10,6 +10,7 @@ import net.minecraft.init.Blocks
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
+import net.minecraft.client.renderer.texture.IIconRegister
 
 object BurnRune extends SingletonRune with TVerbRune {
 	def mod = OldenMagicMod
@@ -29,7 +30,7 @@ object BurnRune extends SingletonRune with TVerbRune {
 	def icons = List(icon)
 
 	@SideOnly(Side.CLIENT)
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(mod.ref.modID + ":runes/burn")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/burn")
 	}
 }

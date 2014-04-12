@@ -62,7 +62,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 		super.registerIcons(register)
 
 		for(runeType <- OldenLanguageRegistry.runeTypes) {
-			runeType.registerIcons((iconStr: String) => register.registerIcon(iconStr))
+			runeType.registerIcons(register)
 		}
 	}
 

@@ -8,6 +8,7 @@ import cpup.mc.lib.util.GUIUtil
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TTransform, TextRune, TContext}
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.client.renderer.texture.IIconRegister
 
 case class BlockTypeRune(name: String) extends TRune {
 	println(GameData.blockRegistry.getObject(name))
@@ -41,8 +42,8 @@ object BlockTypeRune extends TRuneType {
 	var icon: IIcon = null
 
 	@SideOnly(Side.CLIENT)
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(mod.ref.modID + ":runes/block")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/block")
 	}
 }
 

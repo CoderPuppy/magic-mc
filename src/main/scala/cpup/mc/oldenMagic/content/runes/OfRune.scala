@@ -9,6 +9,7 @@ import net.minecraft.nbt.{NBTTagList, NBTTagCompound}
 import cpup.mc.oldenMagic.api.oldenLanguage.OldenLanguageRegistry
 import net.minecraftforge.common.util.Constants
 import scala.collection.mutable.ListBuffer
+import net.minecraft.client.renderer.texture.IIconRegister
 
 object OfRune extends SingletonRune with TNounPreposition {
 	def mod = OldenMagicMod
@@ -23,8 +24,8 @@ object OfRune extends SingletonRune with TNounPreposition {
 	def icons = List(icon)
 
 	@SideOnly(Side.CLIENT)
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(mod.ref.modID + ":runes/or.png")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/or.png")
 	}
 }
 

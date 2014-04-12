@@ -6,6 +6,7 @@ import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TTransform, TContext}
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.client.renderer.texture.IIconRegister
 
 case class PlayerRune(name: String) extends TRune {
 	def runeType = PlayerRune
@@ -27,8 +28,8 @@ object PlayerRune extends TRuneType {
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null
 
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(mod.ref.modID + ":runes/player")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/player")
 	}
 }
 

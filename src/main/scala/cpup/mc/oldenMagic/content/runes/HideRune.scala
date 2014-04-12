@@ -9,6 +9,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, CastingContext}
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.Entity
 import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpellsContext
+import net.minecraft.client.renderer.texture.IIconRegister
 
 object HideRune extends SingletonRune with TVerbRune {
 	def mod = OldenMagicMod
@@ -31,7 +32,7 @@ object HideRune extends SingletonRune with TVerbRune {
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null
 	@SideOnly(Side.CLIENT)
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(s"${mod.ref.modID}:runes/hide")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/hide")
 	}
 }

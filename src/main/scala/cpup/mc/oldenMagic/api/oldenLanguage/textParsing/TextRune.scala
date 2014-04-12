@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRune, TRuneType}
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.client.renderer.texture.IIconRegister
 
 case class TextRune(text: String) extends TRune {
 	def runeType = TextRune
@@ -27,7 +28,7 @@ object TextRune extends TRuneType {
 	var icon: IIcon = null
 
 	@SideOnly(Side.CLIENT)
-	def registerIcons(registerIcon: (String) => IIcon) {
-		icon = registerIcon(mod.ref.modID + ":runes/text")
+	def registerIcons(register: IIconRegister) {
+		icon = register.registerIcon(s"${mod.ref.modID}:runes/text")
 	}
 }
