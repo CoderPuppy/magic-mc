@@ -2,7 +2,7 @@ package cpup.mc.oldenMagic
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
-import net.minecraftforge.event.entity.living.{LivingSetAttackTargetEvent, LivingHurtEvent}
+import net.minecraftforge.event.entity.living.{LivingFallEvent, LivingSetAttackTargetEvent, LivingHurtEvent}
 import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpells
 import cpup.mc.oldenMagic.content.runes.{SeenAction, DamageAction}
 
@@ -17,6 +17,11 @@ class CommonEvents {
 	}
 
 	// TODO: LivingAttackEvent
+
+	@SubscribeEvent
+	def passiveFall(e: LivingFallEvent) {
+
+	}
 
 	@SubscribeEvent
 	def passiveDamage(e: LivingHurtEvent) {
