@@ -116,16 +116,20 @@ object Content extends CPupContent[TOldenMagicMod] {
 		OldenLanguageRegistry.registerRune(PlayerRune)
 		OldenLanguageRegistry.registerRune(EntityTypeRune)
 		OldenLanguageRegistry.registerRune(BlockTypeRune)
-		OldenLanguageRegistry.registerRune(ThisNounRune)
 
 		// Pronouns
 		OldenLanguageRegistry.registerRune(ThisRune)
 		OldenLanguageRegistry.registerRune(MeRune)
 		OldenLanguageRegistry.registerRune(ItRune)
+		OldenLanguageRegistry.registerRune(YouRune)
+		OldenLanguageRegistry.registerRune(ThisNounRune)
+		OldenLanguageRegistry.registerRune(TheNounRune)
 
 		// Noun Modifiers & Prepositions
 		OldenLanguageRegistry.registerRune(OfRune)
 		OldenLanguageRegistry.registerRune(OfModifierRune)
+		OldenLanguageRegistry.registerRune(ThisRune)
+		OldenLanguageRegistry.registerRune(TheRune)
 
 		OldenLanguageRegistry.registerRootContextTransformer((root: Context) => {
 			val actions = new Context
