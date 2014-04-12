@@ -11,8 +11,8 @@ object ItRune extends SingletonRune with TNounRune {
 	def mod = OldenMagicMod
 
 	def name = s"${mod.ref.modID}:it"
-	override def getTargets(context: CastingContext, existing: List[TTarget]) = List(context.it)
-	override def filter(context: CastingContext, prev: List[TNounRune], target: TTarget) = target == context.it
+	override def getTargets(context: CastingContext, existing: List[TTarget]) = context.it
+	override def filter(context: CastingContext, prev: List[TNounRune], target: TTarget) = context.it.contains(target)
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null
