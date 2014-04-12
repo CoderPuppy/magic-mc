@@ -6,7 +6,7 @@ import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpells
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.Spell
 import cpup.mc.oldenMagic.content.runes.{ItRune, MeRune, ProtectRune, DamageRune}
-import cpup.mc.oldenMagic.content.targets.PlayerCaster
+import cpup.mc.oldenMagic.content.targets.{OPCaster, PlayerCaster}
 
 object CommandAntiDamage extends CommandBase with ModLifecycleHandler {
 	def mod = OldenMagicMod
@@ -23,7 +23,8 @@ object CommandAntiDamage extends CommandBase with ModLifecycleHandler {
 		val enderSpells = PassiveSpells.getOrCreate(player.worldObj)
 		enderSpells.registerSpell(
 			player.getCommandSenderName,
-			PlayerCaster(player.getCommandSenderName),
+			//PlayerCaster(player.getCommandSenderName),
+			new OPCaster(player.getCommandSenderName),
 			Spell(new DamageRune, List(MeRune)),
 			Spell(new ProtectRune, List(ItRune))
 		)
