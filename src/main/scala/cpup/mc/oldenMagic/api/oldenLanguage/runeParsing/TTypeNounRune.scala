@@ -33,6 +33,6 @@ trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
 	override def filter(context: CastingContext, prev: List[TNounRune], target: TTarget): Boolean = if(_specification == null) {
 		filter(context, target) && prev.head.filter(context, prev.tail, target.owner)
 	} else {
-		_specification.filter(context, prev, target)
+		filter(context, target) && _specification.filter(context, prev, target)
 	}
 }
