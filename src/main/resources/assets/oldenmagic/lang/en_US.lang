@@ -1,3 +1,5 @@
+itemGroup.oldenmagic=Olden Magic
+
 tile.oldenmagic:deedOffice.name=Deed Office
 item.oldenmagic:deed.name=Deed
 
@@ -9,6 +11,7 @@ item.oldenmagic:quill.name=Quill
 
 item.oldenmagic:bend.name=Bend
 item.oldenmagic:spell.name=Spell
+item.oldenmagic:wand.name=Wand
 
 commands.oldenmagic:antidamage.usage=/antidamage <player>
 commands.oldenmagic:antiseeing.usage=/antiseeing <player>
