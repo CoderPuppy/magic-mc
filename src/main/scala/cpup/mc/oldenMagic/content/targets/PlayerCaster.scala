@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTargetType, TCaster}
 import cpup.mc.oldenMagic.api.oldenLanguage.EntityMagicData
+import net.minecraft.util.ChatComponentTranslation
 
 case class PlayerCaster(name: String) extends TCaster {
 	def mod = OldenMagicMod
@@ -28,6 +29,16 @@ case class PlayerCaster(name: String) extends TCaster {
 				data.power -= amt
 				amt
 			} else {
+				entity match {
+					case Some(player) =>
+						player.addChatComponentMessage(new ChatComponentTranslation(
+							s"messages.${mod.ref.modID}:testing.outOfPower",
+							name,
+							data.power,
+							amt
+						))
+					//case None =>
+				}
 				data.power = 0
 				data.power
 			}
