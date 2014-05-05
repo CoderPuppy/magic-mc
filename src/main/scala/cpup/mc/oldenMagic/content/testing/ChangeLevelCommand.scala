@@ -25,13 +25,13 @@ object ChangeLevelCommand extends CommandBase with ModLifecycleHandler {
 						if(args.length < 1) {
 							sender.addChatMessage(new ChatComponentTranslation(getCommandUsage(sender)))
 						} else {
-							val amt = parseInt(args(0))
+							val amt = CommandBase.parseInt(sender, args(0))
 							data.level += amt
 							sender.addChatMessage(new ChatComponentTranslation(
 								s"commands.${mod.ref.modID}:$internalName.success",
 								sender.getCommandSenderName,
-								amt,
-								data.level
+								amt: Integer,
+								data.level: Integer
 							))
 						}
 
