@@ -26,6 +26,16 @@ case class PlayerCaster(name: String) extends TCaster {
 	override def usePower(amt: Int) = entity.flatMap(EntityMagicData.get(_)) match {
 		case Some(data) =>
 			if(data.power > amt) {
+				entity match {
+					case Some(player) =>
+						player.addChatComponentMessage(new ChatComponentTranslation(
+							s"messages.${mod.ref.modID}:testing.usedPower",
+							name,
+							data.power: Integer,
+							amt: Integer
+						))
+					case None =>
+				}
 				data.power -= amt
 				amt
 			} else {
@@ -34,10 +44,10 @@ case class PlayerCaster(name: String) extends TCaster {
 						player.addChatComponentMessage(new ChatComponentTranslation(
 							s"messages.${mod.ref.modID}:testing.outOfPower",
 							name,
-							data.power,
-							amt
+							data.power: Integer,
+							amt: Integer
 						))
-					//case None =>
+					case None =>
 				}
 				data.power = 0
 				data.power

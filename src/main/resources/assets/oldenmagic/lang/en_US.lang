@@ -26,3 +26,4 @@ commands.oldenmagic:change-magic.success=Changed %s's %s by %d to %d
 commands.oldenmagic:change-magic.failure=Failed: %s
 
 messages.oldenmagic:testing.outOfPower=%s ran out of power, has: %d, needed: %d
+messages.oldenmagic:testing.usedPower=%s used some power, has: %d, used: %d
