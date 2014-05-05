@@ -7,26 +7,32 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.world.World
 import cpup.mc.oldenMagic.OldenMagicMod
 
-class EntityMagicData(var maxPower: Int, var power: Int) extends IExtendedEntityProperties {
+class EntityMagicData(var naturalPower: Int, var maxSafePower: Int, var power: Int) extends IExtendedEntityProperties {
 	override def init(entity: Entity, world: World) {}
 
 	override def loadNBTData(nbt: NBTTagCompound) {
-		maxPower = nbt.getInteger("maxPower")
+		naturalPower = nbt.getInteger("naturalPower")
+		maxSafePower = nbt.getInteger("maxPower")
 		power = nbt.getInteger("power")
 	}
 	override def saveNBTData(nbt: NBTTagCompound) {
-		nbt.setInteger("maxPower", maxPower)
+		nbt.setInteger("naturalPower", naturalPower)
+		nbt.setInteger("maxPower", maxSafePower)
 		nbt.setInteger("power", power)
 	}
 
 	def datas = Map(
-		"maxPower" -> maxPower,
+		"naturalPower" -> naturalPower,
+		"maxPower" -> maxSafePower,
 		"power"    -> power
 	)
 	def setData(name: String, value: Int) {
 		name match {
+			case "naturalPower" =>
+				naturalPower = value
+
 			case "maxPower" =>
-				maxPower = value
+				maxSafePower = value
 
 			case "power" =>
 				power = value

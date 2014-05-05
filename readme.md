@@ -16,6 +16,8 @@
 
 - somehow using too much can kill you
 - no way to directly check how much you have, but you can figure out when you're low though
+- max safe power - get close to or above this and bad stuff will happen (that will destroy all your stuff)
+- natural power - power level gravitates to this
 
 **Instability in Casting:**
 
