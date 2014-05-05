@@ -16,10 +16,14 @@ object HideRune extends SingletonRune with TVerbRune {
 
 	def name = s"${mod.ref.modID}:hide"
 
+	def powerAmt = 120
+
 	override def act(context: CastingContext, targets: List[TTarget]) {
 		context match {
 			case PassiveSpellsContext(player, caster, spell, action: SeenAction) =>
-				action.cancel
+				if(caster.usePower(powerAmt) == powerAmt) {
+					action.cancel
+				}
 			case _ =>
 		}
 	}

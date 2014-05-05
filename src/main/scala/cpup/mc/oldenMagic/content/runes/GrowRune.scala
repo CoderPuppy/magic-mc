@@ -16,7 +16,7 @@ case object GrowRune extends SingletonRune with TVerbRune {
 	def name = s"${mod.ref.modID}:grow"
 
 	def act(context: CastingContext, pos: BlockPos) {
-		for(_ <- 0 to 80) {
+		for(_ <- 0 to (context.caster.usePower(200) / 5)) {
 			pos.scheduleUpdateTick(0)
 		}
 	}
@@ -24,7 +24,7 @@ case object GrowRune extends SingletonRune with TVerbRune {
 	def act(context: CastingContext, entity: Entity) {
 		entity match {
 			case entity: EntityAgeable =>
-				entity.addGrowth(20000)
+				entity.addGrowth(context.caster.usePower(200) * 100)
 			case _ =>
 		}
 	}

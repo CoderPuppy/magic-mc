@@ -16,11 +16,16 @@ object BurnRune extends SingletonRune with TVerbRune {
 	def mod = OldenMagicMod
 
 	def name = s"${mod.ref.modID}:burn"
+
+	def powerAmt = 50
+
 	def act(context: CastingContext, pos: BlockPos) {
-		pos.offset(Direction.Up).tryReplaceWith(Blocks.fire)
+		if(context.caster.usePower(powerAmt) == powerAmt) {
+			pos.offset(Direction.Up).tryReplaceWith(Blocks.fire)
+		}
 	}
 	def act(context: CastingContext, entity: Entity) {
-		entity.setFire(10) // TODO: more depending on something
+		entity.setFire(context.caster.usePower(context.caster.power / 2))
 	}
 
 	@SideOnly(Side.CLIENT)
