@@ -14,13 +14,10 @@ commands.oldenmagic:antidamage.usage=/antidamage <player>
 commands.oldenmagic:antiseeing.usage=/antiseeing <player>
 
 commands.oldenmagic:check-magic.usage=/check-magic
-commands.oldenmagic:check-magic.result=%s is level %d, with power: %d
+commands.oldenmagic:check-magic.result.header= -- %s
+commands.oldenmagic:check-magic.result.kv    =  - %s = %d
 commands.oldenmagic:check-magic.failure=Failed: %s
 
-commands.oldenmagic:change-level.usage=/change-level <amt>
-commands.oldenmagic:change-level.success=Changed %s's level by %d to %d
-commands.oldenmagic:change-level.failure=Failed: %s
-
-commands.oldenmagic:change-power.usage=/change-power <amt>
-commands.oldenmagic:change-power.success=Changed %s's power by %d to %d
-commands.oldenmagic:change-power.failure=Failed: %s
+commands.oldenmagic:change-magic.usage=/change-level <name> <amt>
+commands.oldenmagic:change-magic.success=Changed %s's %s by %d to %d
+commands.oldenmagic:change-magic.failure=Failed: %s

@@ -3,7 +3,7 @@ package cpup.mc.oldenMagic.content.testing
 import net.minecraft.command.{ICommandSender, CommandBase}
 import cpup.mc.lib.ModLifecycleHandler
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.{EntityPowerData, PassiveSpells}
+import cpup.mc.oldenMagic.api.oldenLanguage.{EntityMagicData, PassiveSpells}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.Spell
 import cpup.mc.oldenMagic.content.runes.{ItRune, MeRune, ProtectRune, DamageRune}
 import cpup.mc.oldenMagic.content.targets.{OPCaster, PlayerCaster}
@@ -20,14 +20,19 @@ object CheckMagicDataCommand extends CommandBase with ModLifecycleHandler {
 	def processCommand(sender: ICommandSender, args: Array[String]) {
 		sender match {
 			case ent: Entity =>
-				EntityPowerData.get(ent) match {
+				EntityMagicData.get(ent) match {
 					case Some(data) =>
 						sender.addChatMessage(new ChatComponentTranslation(
-							s"commands.${mod.ref.modID}:$internalName.result",
-							sender.getCommandSenderName,
-							data.level: Integer,
-							data.power: Integer
+							s"commands.${mod.ref.modID}:$internalName.result.header",
+							sender.getCommandSenderName
 						))
+						for(kv <- data.datas) {
+							sender.addChatMessage(new ChatComponentTranslation(
+								s"commands.${mod.ref.modID}:$internalName.result.kv",
+								kv._1,
+								kv._2: Integer
+							))
+						}
 
 					case None =>
 						sender.addChatMessage(new ChatComponentTranslation(

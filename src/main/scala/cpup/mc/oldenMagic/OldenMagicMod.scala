@@ -51,8 +51,7 @@ trait TOldenMagicMod extends CPupMod[TRef] {
 		e.registerServerCommand(AntiDamageCommand)
 		e.registerServerCommand(AntiSeeingCommand)
 		e.registerServerCommand(CheckMagicDataCommand)
-		e.registerServerCommand(ChangeLevelCommand)
-		e.registerServerCommand(ChangePowerCommand)
+		e.registerServerCommand(ChangeMagicDataCommand)
 	}
 }
 
