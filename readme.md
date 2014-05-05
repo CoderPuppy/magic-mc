@@ -38,5 +38,5 @@
 
 **Upgrade System:**
 
-- maybe a puzzle system?
-- find info then grind?
+- find info then use the spell on low levels
+- do similar spells and you might learn about it
