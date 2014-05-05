@@ -11,3 +11,16 @@ item.oldenmagic:bend.name=Bend
 item.oldenmagic:spell.name=Spell
 
 commands.oldenmagic:antidamage.usage=/antidamage <player>
+commands.oldenmagic:antiseeing.usage=/antiseeing <player>
+
+commands.oldenmagic:check-magic.usage=/checkmagic
+commands.oldenmagic:check-magic.result=%s is level %d, with power: %d
+commands.oldenmagic:check-magic.failure=Failed: %s
+
+commands.oldenmagic:change-level.usage=/change-level <amt>
+commands.oldenmagic:change-level.success=Changed %s's level by %d to %d
+commands.oldenmagic:change-level.failure=Failed: %s
+
+commands.oldenmagic:change-power.usage=/change-power <amt>
+commands.oldenmagic:change-power.success=Changed %s's power by %d to %d
+commands.oldenmagic:change-power.failure=Failed: %s
