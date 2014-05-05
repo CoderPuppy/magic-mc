@@ -4,7 +4,8 @@ import net.minecraft.util.MovingObjectPosition
 
 trait TCaster extends TTarget {
 	def mop: MovingObjectPosition
-	def level: Int
+	def naturalPower: Int
+	def maxSafePower: Int
 	def power: Int
-	def usePower(amt: Int): Boolean
+	def usePower(amt: Int): Int
 }

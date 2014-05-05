@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.world.World
 import cpup.mc.oldenMagic.OldenMagicMod
 
-class EntityMagicData(var naturalPower: Int, var maxSafePower: Int, var power: Int) extends IExtendedEntityProperties {
+class EntityMagicData(var naturalPower: Int = 0, var maxSafePower: Int = 0, var power: Int = 0) extends IExtendedEntityProperties {
 	override def init(entity: Entity, world: World) {}
 
 	override def loadNBTData(nbt: NBTTagCompound) {
@@ -47,6 +47,6 @@ object EntityMagicData {
 	def mod = OldenMagicMod
 
 	def get(e: Entity) = {
-		EntityUtil.getExtendedData(e, s"${mod.ref.modID}:${classOf[EntityMagicData].getName}", new EntityMagicData(0, 0))
+		EntityUtil.getExtendedData(e, s"${mod.ref.modID}:${classOf[EntityMagicData].getName}", new EntityMagicData())
 	}
 }

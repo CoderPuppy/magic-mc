@@ -21,7 +21,7 @@ class ProtectRune extends TRune with TVerbRune {
 		context match {
 			case PassiveSpellsContext(player, caster, spell, action: DamageAction) =>
 //				println(action.amt, caster.power)
-				action.amt = (action.amt - caster.level) / (caster.level / 3)
+				action.amt -= caster.usePower(caster.power / 10)
 			case _ =>
 		}
 	}

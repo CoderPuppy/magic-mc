@@ -11,37 +11,54 @@ import net.minecraft.server.MinecraftServer
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTargetType, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.EntityMagicData
 
 case class PlayerCaster(name: String) extends TCaster {
+	def mod = OldenMagicMod
+
 	def targetType = PlayerCaster
 	def owner = null
 
-	def level = 2 // TODO: leveling
-	def power = 100
-	def usePower(amt: Int) = true
+	override def naturalPower = entity.flatMap(EntityMagicData.get(_)).map(_.naturalPower).getOrElse(0)
+	override def maxSafePower = entity.flatMap(EntityMagicData.get(_)).map(_.maxSafePower).getOrElse(0)
+	override def power = entity.flatMap(EntityMagicData.get(_)).map(_.power).getOrElse(0)
+	override def usePower(amt: Int) = entity.flatMap(EntityMagicData.get(_)) match {
+		case Some(data) =>
+			if(data.power > amt) {
+				data.power -= amt
+				amt
+			} else {
+				data.power = 0
+				data.power
+			}
+		case None =>
+			mod.logger.warn(s"Cannot get EntityMagicData for $entity")
+			0
+	}
 
 	def entity = FMLCommonHandler.instance.getEffectiveSide match {
 		case Side.CLIENT =>
 			val player = Minecraft.getMinecraft.thePlayer
 			if(player.getCommandSenderName != name) {
 				throw new Exception(s"who is this: $name")
+				None
 			}
-			player
+			Some(player)
 
 		case Side.SERVER =>
-			MinecraftServer.getServer.getConfigurationManager.getPlayerForUsername(name)
+			Some(MinecraftServer.getServer.getConfigurationManager.getPlayerForUsername(name))
 
-		case _ => null
+		case _ => None
 	}
 
-	def world = entity.worldObj
-	def mop = EntityUtil.getMOPBoth(entity, if(entity.capabilities.isCreativeMode) 6 else 3)
+	def world = entity.map(_.worldObj).getOrElse(null)
+	def mop = entity.map((e) => EntityUtil.getMOPBoth(e, if(e.capabilities.isCreativeMode) 6 else 3)).getOrElse(null)
 
-	def x = entity.posX
-	def y = entity.posY
-	def z = entity.posZ
-	def chunkX = entity.chunkCoordX
-	def chunkZ = entity.chunkCoordZ
+	def x = entity.map(_.posX).getOrElse(0)
+	def y = entity.map(_.posY).getOrElse(0)
+	def z = entity.map(_.posZ).getOrElse(0)
+	def chunkX = entity.map(_.chunkCoordX).getOrElse(0)
+	def chunkZ = entity.map(_.chunkCoordZ).getOrElse(0)
 
 	def writeToNBT(nbt: NBTTagCompound) {
 		nbt.setString("name", name)
@@ -53,7 +70,7 @@ case class PlayerCaster(name: String) extends TCaster {
 		case _ => false
 	}
 
-	def obj = Left(entity)
+	def obj = entity.map(Left(_)).getOrElse(Left(null))
 
 	// TODO: Implement
 	override def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()

@@ -11,8 +11,12 @@ import net.minecraft.client.Minecraft
 import cpup.mc.lib.util.EntityUtil
 import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTargetType, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.EntityMagicData
+import org.apache.logging.log4j.Marker
 
 case class EntityCaster(entity: Entity) extends TCaster {
+	def mod = OldenMagicMod
+
 	if(entity == null) {
 		throw new NullPointerException("entity cannot be null")
 	}
@@ -21,9 +25,22 @@ case class EntityCaster(entity: Entity) extends TCaster {
 	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
 	def owner = null // TODO: owner
 
-	def level = 0 // TODO: level
-	def power = 0 // TODO: power
-	def usePower(amt: Int) = false
+	override def naturalPower = EntityMagicData.get(entity).map(_.naturalPower).getOrElse(0)
+	override def maxSafePower = EntityMagicData.get(entity).map(_.maxSafePower).getOrElse(0)
+	override def power = EntityMagicData.get(entity).map(_.power).getOrElse(0)
+	override def usePower(amt: Int) = EntityMagicData.get(entity) match {
+		case Some(data) =>
+			if(data.power > amt) {
+				data.power -= amt
+				amt
+			} else {
+				data.power = 0
+				data.power
+			}
+		case None =>
+			mod.logger.warn(s"Cannot get EntityMagicData for $entity")
+			0
+	}
 
 	def world = entity.worldObj
 	def chunkX = entity.chunkCoordX
