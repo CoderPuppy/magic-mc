@@ -14,9 +14,11 @@ import cpup.mc.lib.client.BetterSlot
 import scala.util.control.Breaks
 import cpup.mc.oldenMagic.client.runeSelection.{RuneSelector, RuneOption}
 import cpup.mc.oldenMagic.OldenMagicMod
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 
 object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 	def name = "writingDesk"
+	@SideOnly(Side.CLIENT)
 	def clientGUI(player: EntityPlayer, pos: BlockPos) = new ClientGUI(container(player, pos))
 	def container(player: EntityPlayer, pos: BlockPos) = pos.tileEntity match {
 		case desk: TEWritingDesk =>
@@ -24,10 +26,12 @@ object WritingDeskGUI extends GUIBase[ClientGUI, InvContainer] {
 		case _ => null
 	}
 
+	@SideOnly(Side.CLIENT)
 	final val background = new ResourceLocation(mod.ref.modID + ":textures/gui/writingDesk.png")
 	def playerOffset = 56
 }
 
+@SideOnly(Side.CLIENT)
 class ClientGUI(val container: InvContainer) extends GuiContainer(container) {
 	def mod = OldenMagicMod
 

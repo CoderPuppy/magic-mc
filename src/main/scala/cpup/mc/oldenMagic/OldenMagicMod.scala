@@ -12,7 +12,7 @@ import cpw.mods.fml.common.Mod.EventHandler
 import cpup.mc.oldenMagic.client.gui.writingDesk.WritingDeskGUI
 import cpup.mc.oldenMagic.network.Network
 import cpup.mc.oldenMagic.api.oldenLanguage.OldenLanguageRegistry
-import cpup.mc.oldenMagic.content.testing.{CommandAntiSeeing, CommandAntiDamage}
+import cpup.mc.oldenMagic.content.testing.{AntiSeeingCommand, AntiDamageCommand}
 
 trait TOldenMagicMod extends CPupMod[TRef] {
 	def ref = Ref
@@ -48,8 +48,8 @@ trait TOldenMagicMod extends CPupMod[TRef] {
 	@EventHandler
 	override def serverStarting(e: FMLServerStartingEvent) {
 		super.serverStarting(e)
-		e.registerServerCommand(CommandAntiDamage)
-		e.registerServerCommand(CommandAntiSeeing)
+		e.registerServerCommand(AntiDamageCommand)
+		e.registerServerCommand(AntiSeeingCommand)
 	}
 }
 

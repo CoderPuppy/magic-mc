@@ -15,6 +15,7 @@
 **Magical Energy:**
 
 - somehow using too much can kill you
+- no way to directly check how much you have, but you can figure out when you're low though
 
 **Instability in Casting:**
 
@@ -32,3 +33,8 @@
 - able to block damage
 - when something do something else
 - needs a magical force, either you or a bound magical entity
+
+**Upgrade System:**
+
+- maybe a puzzle system?
+- find info then grind?

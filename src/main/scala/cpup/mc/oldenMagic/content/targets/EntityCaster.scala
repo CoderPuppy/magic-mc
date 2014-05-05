@@ -20,7 +20,10 @@ case class EntityCaster(entity: Entity) extends TCaster {
 	def targetType = EntityCaster
 	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
 	def owner = null // TODO: owner
+
+	def level = 0 // TODO: level
 	def power = 0 // TODO: power
+	def usePower(amt: Int) = false
 
 	def world = entity.worldObj
 	def chunkX = entity.chunkCoordX

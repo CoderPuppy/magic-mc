@@ -8,7 +8,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.Spell
 import cpup.mc.oldenMagic.content.runes._
 import cpup.mc.oldenMagic.content.targets.{OPCaster, PlayerCaster}
 
-object CommandAntiSeeing extends CommandBase with ModLifecycleHandler {
+object AntiSeeingCommand extends CommandBase with ModLifecycleHandler {
 	def mod = OldenMagicMod
 
 	def getCommandName = "antiseeing"

@@ -8,7 +8,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.Spell
 import cpup.mc.oldenMagic.content.runes.{ItRune, MeRune, ProtectRune, DamageRune}
 import cpup.mc.oldenMagic.content.targets.{OPCaster, PlayerCaster}
 
-object CommandAntiDamage extends CommandBase with ModLifecycleHandler {
+object AntiDamageCommand extends CommandBase with ModLifecycleHandler {
 	def mod = OldenMagicMod
 
 	def getCommandName = "antidamage"
