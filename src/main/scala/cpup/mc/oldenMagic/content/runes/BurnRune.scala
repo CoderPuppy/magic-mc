@@ -25,7 +25,7 @@ object BurnRune extends SingletonRune with TVerbRune {
 		}
 	}
 	def act(context: CastingContext, entity: Entity) {
-		entity.setFire(context.caster.usePower(context.caster.power / 2))
+		entity.setFire(context.caster.usePower(Math.max(context.caster.power / 2, powerAmt)))
 	}
 
 	@SideOnly(Side.CLIENT)
