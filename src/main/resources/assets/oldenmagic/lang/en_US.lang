@@ -13,7 +13,7 @@ item.oldenmagic:spell.name=Spell
 commands.oldenmagic:antidamage.usage=/antidamage <player>
 commands.oldenmagic:antiseeing.usage=/antiseeing <player>
 
-commands.oldenmagic:check-magic.usage=/checkmagic
+commands.oldenmagic:check-magic.usage=/check-magic
 commands.oldenmagic:check-magic.result=%s is level %d, with power: %d
 commands.oldenmagic:check-magic.failure=Failed: %s
 
