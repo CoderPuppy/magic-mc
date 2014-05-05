@@ -15,9 +15,9 @@ commands.oldenmagic:antiseeing.usage=/antiseeing <player>
 
 commands.oldenmagic:check-magic.usage=/check-magic
 commands.oldenmagic:check-magic.result.header= -- %s
-commands.oldenmagic:check-magic.result.kv    =  - %s = %d
+commands.oldenmagic:check-magic.result.kv=  - %s = %d
 commands.oldenmagic:check-magic.failure=Failed: %s
 
-commands.oldenmagic:change-magic.usage=/change-level <name> <amt>
+commands.oldenmagic:change-magic.usage=/change-magic <name> <amt>
 commands.oldenmagic:change-magic.success=Changed %s's %s by %d to %d
 commands.oldenmagic:change-magic.failure=Failed: %s
