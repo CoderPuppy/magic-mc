@@ -38,10 +38,10 @@ class ItemBend extends TItemBase {
 					vec = mop.hitVec
 				}
 //				println("vec", vec)
-				val farestMOP = player.worldObj.rayTraceBlocks(vec, farLook)
-				if(farestMOP != null) {
-//					println("farest", farestMOP.hitVec)
-					farLook = farestMOP.hitVec
+				val farthestMOP = player.worldObj.rayTraceBlocks(vec, farLook)
+				if(farthestMOP != null) {
+//					println("farthest", farthestMOP.hitVec)
+					farLook = farthestMOP.hitVec
 				}
 			}
 		}
