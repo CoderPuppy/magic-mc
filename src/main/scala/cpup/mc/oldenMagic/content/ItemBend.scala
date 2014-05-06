@@ -11,7 +11,7 @@ class ItemBend extends TItemBase {
 		"stepBackDist",
 		0.5,
 		"How many blocks bend should go back by each step. Higher = more lag, more accurate. Lower = less lag, less accurate. Setting this higher than 2 would probably make bend derp."
-	)
+	).getDouble(0)
 
 	override def getItemUseAction(stack: ItemStack) = EnumAction.bow
 	override def getMaxItemUseDuration(stack: ItemStack) = 72000
