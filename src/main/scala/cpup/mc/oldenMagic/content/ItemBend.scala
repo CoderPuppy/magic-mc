@@ -6,6 +6,13 @@ import net.minecraft.entity.player.EntityPlayer
 import cpup.mc.lib.util.{VectorUtil, EntityUtil}
 
 class ItemBend extends TItemBase {
+	val stepBackDist = mod.config.get(
+		"bend",
+		"stepBackDist",
+		0.5,
+		"How many blocks bend should go back by each step. Higher = more lag, more accurate. Lower = less lag, less accurate. Setting this higher than 2 would probably make bend derp."
+	)
+
 	override def getItemUseAction(stack: ItemStack) = EnumAction.bow
 	override def getMaxItemUseDuration(stack: ItemStack) = 72000
 
@@ -25,28 +32,14 @@ class ItemBend extends TItemBase {
 
 		val pos = EntityUtil.getPos(player).addVector(-0.5, -0.5, -0.5)
 		val look = EntityUtil.getLook(player)
-		var farLook = VectorUtil.getFarLook(pos, look, dur * 1.5 + 1)
+		val oppLook = VectorUtil.negate(look)
+		var dest = VectorUtil.offset(pos, look, dur * 1.5 + 1)
 
-		{
-			val blockPos = VectorUtil.toBlockPos(player.worldObj, farLook)
-
-			if(!blockPos.isAir) {
-				val mop = player.worldObj.rayTraceBlocks(farLook, pos)
-				var vec = pos
-				if(mop != null && VectorUtil.toBlockPos(player.worldObj, mop.hitVec).isAir) {
-//					println("vec from mop")
-					vec = mop.hitVec
-				}
-//				println("vec", vec)
-				val farthestMOP = player.worldObj.rayTraceBlocks(vec, farLook)
-				if(farthestMOP != null) {
-//					println("farthest", farthestMOP.hitVec)
-					farLook = farthestMOP.hitVec
-				}
-			}
+		while(EntityUtil.wouldSuffocate(player, dest.xCoord, dest.yCoord, dest.zCoord)) {
+			dest = VectorUtil.offset(dest, oppLook, stepBackDist)
 		}
 
-		farLook
+		dest
 	}
 
 	override def onPlayerStoppedUsing(stack: ItemStack, world: World, player: EntityPlayer, oppDur: Int) {
