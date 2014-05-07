@@ -2,15 +2,14 @@
 
 ## Features
 
-**Bend:** Teleporting ability, currently in item form
-
-**Spell:** Do anything from grow cows to burn sponge (only grow and burn right now though)
-
 **Deeds:** WIP method of naming land
 
-## Planned Features
+## The Plan
 
-**Unlock System**
+**Unlock/Upgrade System**
+
+- find info then use the spell on low levels
+- do similar spells and you might learn about it
 
 **Magical Energy:**
 
@@ -32,11 +31,20 @@
 
 **Passive Spells:**
 
-- able to block damage
+- able to block damage ✓
 - when something do something else
 - needs a magical force, either you or a bound magical entity
 
-**Upgrade System:**
+**Subtle Magic**
 
-- find info then use the spell on low levels
-- do similar spells and you might learn about it
+- Spells
+	- cast on the go by right clicking a wand ✓ or pressing a keybind
+	- prepare a spell and then cast it ✓
+
+**Natural Magic**
+
+- natural abilities
+- Bend -- bend timespace (currently only teleports you)
+	- teleport stuff
+	- temporarily connect two positions (basically a complete portal)
+	- change stuff's size
