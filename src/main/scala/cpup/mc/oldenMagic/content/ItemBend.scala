@@ -32,14 +32,19 @@ class ItemBend extends TItemBase {
 
 		val pos = EntityUtil.getPos(player).addVector(-0.5, -0.5, -0.5)
 		val look = EntityUtil.getLook(player)
-		val oppLook = VectorUtil.negate(look)
-		var dest = VectorUtil.offset(pos, look, dur * 1.5 + 1)
+		var dist = dur * 1.5 + 1
+		var dest = VectorUtil.offset(pos, look, dist).addVector(0, -player.getEyeHeight, 0)
 
-		while(EntityUtil.wouldSuffocate(player, dest.xCoord, dest.yCoord, dest.zCoord)) {
-			dest = VectorUtil.offset(dest, oppLook, stepBackDist)
+		while(dist > 0 && dest.yCoord > 0 && EntityUtil.wouldSuffocate(player, dest.xCoord, dest.yCoord, dest.zCoord)) {
+			dist -= stepBackDist
+			dest = VectorUtil.offset(dest, look, -stepBackDist).addVector(0, -player.getEyeHeight, 0)
 		}
 
-		dest
+		if(dist > 0 && dest.yCoord > 0) {
+			dest
+		} else {
+			pos
+		}
 	}
 
 	override def onPlayerStoppedUsing(stack: ItemStack, world: World, player: EntityPlayer, oppDur: Int) {
