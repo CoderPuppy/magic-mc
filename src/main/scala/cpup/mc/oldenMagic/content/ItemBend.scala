@@ -37,7 +37,7 @@ class ItemBend extends TItemBase {
 
 		while(dist > 0 && dest.yCoord > 0 && EntityUtil.wouldSuffocate(player, dest.xCoord, dest.yCoord, dest.zCoord)) {
 			dist -= stepBackDist
-			dest = VectorUtil.offset(dest, look, -stepBackDist).addVector(0, -player.getEyeHeight, 0)
+			dest = VectorUtil.offset(dest, look, -stepBackDist)
 		}
 
 		if(dist > 0 && dest.yCoord > 0) {
