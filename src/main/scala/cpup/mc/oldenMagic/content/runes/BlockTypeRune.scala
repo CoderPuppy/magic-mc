@@ -15,8 +15,10 @@ import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.block.Block
 
 case class BlockTypeRune(name: String) extends TRune with NonEntityTypeNoun {
+	def mod = OldenMagicMod
+
 	val block = GameData.getBlockRegistry.getObject(name)
-	println(block)
+	mod.logger.debug(block)
 	if(block.getIcon(1, 0) == null) {
 		throw new NullPointerException(name + " doesn't have a texture for the top")
 	}
