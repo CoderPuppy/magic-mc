@@ -44,7 +44,7 @@ object SeenTransform extends TTransform {
 }
 
 class SeenAction(val e: LivingSetAttackTargetEvent) extends TAction with TCancellableAction {
-	val affectedTarget = new EntityCaster(e.target)
+	val affectedTarget = EntityCaster.from(e.target).get
 
 	override def runeType = SeenRune
 

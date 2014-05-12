@@ -14,12 +14,16 @@ import cpup.mc.oldenMagic.api.oldenLanguage.casting.TCaster
 import cpup.mc.oldenMagic.api.oldenLanguage.EntityMagicData
 import net.minecraft.util.{MovingObjectPosition, ChatComponentTranslation}
 import cpup.mc.lib.targeting.{TTargetFilter, TTargetType}
+import cpup.mc.lib.inventory.EmptyInventory
 
 case class PlayerCaster(name: String) extends TCaster {
 	def mod = OldenMagicMod
 
 	def targetType = PlayerCaster
 	def owner = null
+
+	override def getActiveItems = entity.map(_.inventory.armorInventory).getOrElse(Array())
+	override def getActiveInventory = entity.map(_.inventory).getOrElse(EmptyInventory)
 
 	override def naturalPower = entity.flatMap(EntityMagicData.get(_)).map(_.naturalPower).getOrElse(0)
 	override def maxSafePower = entity.flatMap(EntityMagicData.get(_)).map(_.maxSafePower).getOrElse(0)
@@ -103,5 +107,5 @@ object PlayerCaster extends TTargetType {
 
 	def name = s"${mod.ref.modID}:player"
 	def targetClass = classOf[PlayerCaster]
-	def readFromNBT(nbt: NBTTagCompound) = PlayerCaster(nbt.getString("name"))
+	def readFromNBT(nbt: NBTTagCompound) = Some(PlayerCaster(nbt.getString("name")))
 }
