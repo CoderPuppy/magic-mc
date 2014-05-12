@@ -10,7 +10,7 @@ import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpellsContext
-import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TContext, TTransform}
+import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TParsingContext, TTransform}
 import net.minecraft.client.renderer.texture.IIconRegister
 
 class ProtectRune extends TRune with TVerbRune {
@@ -49,5 +49,5 @@ object ProtectRune extends TRuneType {
 }
 
 object ProtectTransform extends TTransform {
-	def transform(context: TContext, content: String) = new ProtectRune
+	def transform(context: TParsingContext, content: String) = new ProtectRune
 }

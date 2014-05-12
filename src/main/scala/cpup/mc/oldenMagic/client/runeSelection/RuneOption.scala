@@ -1,11 +1,11 @@
 package cpup.mc.oldenMagic.client.runeSelection
 
-import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{ParsedRune, TContext, TextParser}
+import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{ParsedRune, TParsingContext, TextParser}
 
-class RuneOption(val context: TContext, val parsedRune: ParsedRune) extends SelectionOption {
+class RuneOption(val context: TParsingContext, val parsedRune: ParsedRune) extends SelectionOption {
 	val rune = parsedRune(context)
 
-	def this(context: TContext, rune: String) {
+	def this(context: TParsingContext, rune: String) {
 		this(context, TextParser.parseRune(rune))
 	}
 }

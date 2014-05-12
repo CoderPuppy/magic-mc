@@ -5,7 +5,7 @@ import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
 import cpw.mods.fml.common.registry.GameData
 import cpup.mc.lib.util.GUIUtil
-import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TTransform, TextRune, TContext}
+import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TTransform, TextRune, TParsingContext}
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.client.renderer.texture.IIconRegister
@@ -58,5 +58,5 @@ object BlockTypeRune extends TRuneType {
 }
 
 object BlockTypeTransform extends TTransform {
-	def transform(context: TContext, content: String) = BlockTypeRune(content)
+	def transform(context: TParsingContext, content: String) = BlockTypeRune(content)
 }

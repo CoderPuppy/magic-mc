@@ -1,6 +1,6 @@
 package cpup.mc.oldenMagic.api.oldenLanguage.textParsing
 
-trait TContext {
+trait TParsingContext {
 	def transform(name: String): TTransform
-	def subContext(name: String): TContext
+	def subContext(name: String): TParsingContext
 }

@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TCancellableAction, TAction, CastingContext}
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.{EntityLiving, Entity}
-import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TContext, TTransform}
+import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TParsingContext, TTransform}
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent
 import cpup.mc.oldenMagic.content.targets.EntityCaster
 import net.minecraft.client.renderer.texture.IIconRegister
@@ -40,7 +40,7 @@ object SeenRune extends TRuneType {
 }
 
 object SeenTransform extends TTransform {
-	def transform(context: TContext, content: String) = new SeenRune
+	def transform(context: TParsingContext, content: String) = new SeenRune
 }
 
 class SeenAction(val e: LivingSetAttackTargetEvent) extends TAction with TCancellableAction {

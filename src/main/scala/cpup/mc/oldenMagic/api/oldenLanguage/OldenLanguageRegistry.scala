@@ -1,6 +1,6 @@
 package cpup.mc.oldenMagic.api.oldenLanguage
 
-import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.Context
+import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.ParsingContext
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, TTargetType}
@@ -18,11 +18,11 @@ object OldenLanguageRegistry {
 		_targetTypes ++= List(targetType)
 	}
 
-	protected var _rootContextTransformers = List[(Context) => Unit]()
-	def rootContextTransformers = _rootContextTransformers
+	protected var _rootParsingContextTransformers = List[(ParsingContext) => Unit]()
+	def rootParsingContextTransformers = _rootParsingContextTransformers
 
-	def registerRootContextTransformer(transformer: (Context) => Unit) {
-		_rootContextTransformers ++= List(transformer)
+	def registerParsingRootContextTransformer(transformer: (ParsingContext) => Unit) {
+		_rootParsingContextTransformers ++= List(transformer)
 	}
 
 	protected[oldenMagic] def finish {

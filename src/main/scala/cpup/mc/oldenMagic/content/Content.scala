@@ -9,7 +9,7 @@ import net.minecraft.init.{Blocks, Items}
 import cpw.mods.fml.common.registry.GameRegistry
 import cpup.mc.oldenMagic.content.runes._
 import cpup.mc.oldenMagic.api.oldenLanguage._
-import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{SubContextTransform, TextRune, Context}
+import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{SubContextTransform, TextRune, ParsingContext}
 
 object Content extends CPupContent[TOldenMagicMod] {
 	def mod = OldenMagicMod
@@ -133,8 +133,8 @@ object Content extends CPupContent[TOldenMagicMod] {
 		OldenLanguageRegistry.registerRune(ThisRune)
 		OldenLanguageRegistry.registerRune(TheRune)
 
-		OldenLanguageRegistry.registerRootContextTransformer((root: Context) => {
-			val actions = new Context
+		OldenLanguageRegistry.registerParsingRootContextTransformer((root: ParsingContext) => {
+			val actions = new ParsingContext
 			actions.transforms("burn") = BurnRune
 			actions.transforms("grow") = GrowRune
 			actions.transforms("protect") = ProtectTransform
@@ -142,25 +142,25 @@ object Content extends CPupContent[TOldenMagicMod] {
 			root.subContexts("actions") = actions
 			root.transforms("a") = new SubContextTransform("actions")
 
-			val adjectives = new Context
+			val adjectives = new ParsingContext
 			adjectives.transforms("this") = ThisRune
 
 			root.subContexts("adjectives") = adjectives
 			root.transforms("adj") = new SubContextTransform("adjectives")
 
-			val prepositions = new Context
+			val prepositions = new ParsingContext
 			prepositions.transforms("of") = OfRune
 
 			root.subContexts("prepositions") = prepositions
 			root.transforms("pp") = new SubContextTransform("prepositions")
 
-			val specificNouns = new Context
+			val specificNouns = new ParsingContext
 			specificNouns.transforms("pl") = PlayerTransform
 
 			root.subContexts("specificNouns") = specificNouns
 			root.transforms("sn") = new SubContextTransform("specificNouns")
 
-			val typeNouns = new Context
+			val typeNouns = new ParsingContext
 			typeNouns.transforms("entity") = EntityTypeTransform
 			typeNouns.transforms("generic-entity") = GenericEntityTypeRune
 			typeNouns.transforms("block") = BlockTypeTransform

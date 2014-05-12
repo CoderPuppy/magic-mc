@@ -8,7 +8,7 @@ import cpup.mc.lib.util.ItemUtil
 import net.minecraft.client.renderer.texture.IIconRegister
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import cpup.mc.oldenMagic.api.oldenLanguage._
-import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextParser, RootContext}
+import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextParser, RootParsingContext}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.RuneParser
 import net.minecraft.world.World
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
@@ -30,7 +30,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 		lore.add(spell)
 
 		try {
-			val context = RootContext.create
+			val context = RootParsingContext.create
 			for {
 				parsedRune <- TextParser.parse(spell)
 				rune = parsedRune(context)
@@ -76,7 +76,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 	override def onPlayerStoppedUsing(stack: ItemStack, world: World, player: EntityPlayer, oppDur: Int) {
 		try {
 			val spellStr = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "")
-			val transformingContext = RootContext.create
+			val transformingContext = RootParsingContext.create
 			val parsedRunes = TextParser.parse(spellStr)
 			val runes = parsedRunes.map(_(transformingContext))
 			val parser = new RuneParser

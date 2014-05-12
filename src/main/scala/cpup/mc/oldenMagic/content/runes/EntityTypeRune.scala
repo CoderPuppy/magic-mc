@@ -11,7 +11,7 @@ import net.minecraft.entity.item.EntityItem
 import cpup.mc.lib.util.GUIUtil
 import net.minecraft.item.{Item, ItemStack}
 import scala.collection.mutable.ListBuffer
-import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TContext, TextRune, TTransform}
+import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TParsingContext, TextRune, TTransform}
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRune, TRuneType}
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.NonBlockTypeNoun
@@ -125,5 +125,5 @@ object EntityTypeRune extends TRuneType {
 }
 
 object EntityTypeTransform extends TTransform {
-	def transform(context: TContext, content: String) = EntityTypeRune(content)
+	def transform(context: TParsingContext, content: String) = EntityTypeRune(content)
 }

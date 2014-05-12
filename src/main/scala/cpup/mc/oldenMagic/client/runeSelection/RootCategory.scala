@@ -4,11 +4,11 @@ import net.minecraft.entity.EntityList
 import cpw.mods.fml.common.registry.GameData
 import net.minecraft.block.Block
 import scala.collection.JavaConversions
-import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.RootContext
+import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.RootParsingContext
 
 object RootCategory {
 	def create = {
-		val root = new Category(RootContext.create, "root")
+		val root = new Category(RootParsingContext.create, "root")
 
 		val actions = root.createSubCategory("actions")
 		actions.addRune("a!burn!")

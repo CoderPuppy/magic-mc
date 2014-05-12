@@ -3,7 +3,7 @@ package cpup.mc.oldenMagic.content.runes
 import net.minecraft.util.IIcon
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TTransform, TContext}
+import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TTransform, TParsingContext}
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.client.renderer.texture.IIconRegister
@@ -34,5 +34,5 @@ object PlayerRune extends TRuneType {
 }
 
 object PlayerTransform extends TTransform {
-	def transform(context: TContext, content: String) = PlayerRune(content)
+	def transform(context: TParsingContext, content: String) = PlayerRune(content)
 }

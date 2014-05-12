@@ -13,7 +13,7 @@ case class ParsedRune(val transformName: String, val content: String) {
 		transformName + "!" + content
 	}
 
-	def apply(context: TContext) = if(transformName == null) { TextRune(content) }
+	def apply(context: TParsingContext) = if(transformName == null) { TextRune(content) }
 	else {
 		val transform = context.transform(transformName)
 		if(transform == null) {
