@@ -58,5 +58,5 @@ object BlockTypeRune extends TRuneType {
 }
 
 object BlockTypeTransform extends TTransform {
-	def transform(context: TContext, rune: TextRune) = BlockTypeRune(rune.text)
+	def transform(context: TContext, content: String) = BlockTypeRune(content)
 }

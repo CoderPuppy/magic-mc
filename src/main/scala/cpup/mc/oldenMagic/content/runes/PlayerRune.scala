@@ -34,5 +34,5 @@ object PlayerRune extends TRuneType {
 }
 
 object PlayerTransform extends TTransform {
-	def transform(context: TContext, rune: TextRune) = PlayerRune(rune.text)
+	def transform(context: TContext, content: String) = PlayerRune(content)
 }

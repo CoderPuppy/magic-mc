@@ -40,7 +40,7 @@ object SeenRune extends TRuneType {
 }
 
 object SeenTransform extends TTransform {
-	def transform(context: TContext, rune: TextRune) = new SeenRune
+	def transform(context: TContext, content: String) = new SeenRune
 }
 
 class SeenAction(val e: LivingSetAttackTargetEvent) extends TAction with TCancellableAction {

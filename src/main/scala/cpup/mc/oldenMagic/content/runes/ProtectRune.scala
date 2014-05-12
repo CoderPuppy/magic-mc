@@ -49,5 +49,5 @@ object ProtectRune extends TRuneType {
 }
 
 object ProtectTransform extends TTransform {
-	def transform(context: TContext, rune: TextRune) = new ProtectRune
+	def transform(context: TContext, content: String) = new ProtectRune
 }
