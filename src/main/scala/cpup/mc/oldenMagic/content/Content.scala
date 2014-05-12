@@ -162,7 +162,9 @@ object Content extends CPupContent[TOldenMagicMod] {
 
 			val typeNouns = new Context
 			typeNouns.transforms("entity") = EntityTypeTransform
+			typeNouns.transforms("generic-entity") = GenericEntityTypeRune
 			typeNouns.transforms("block") = BlockTypeTransform
+			typeNouns.transforms("generic-block") = GenericBlockTypeRune
 
 			root.subContexts("typeNouns") = typeNouns
 			root.transforms("tn") = new SubContextTransform("typeNouns")

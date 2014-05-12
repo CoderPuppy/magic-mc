@@ -20,6 +20,7 @@ object RootCategory {
 
 		val entities = root.createSubCategory("entities")
 
+		entities.addRune("tn!generic-entity!")
 		for(name <- JavaConversions.asScalaIterator(EntityList.stringToClassMapping.keySet.iterator)) {
 //			println("entity", name)
 			entities.addRune("tn!entity!" + name)
@@ -27,6 +28,7 @@ object RootCategory {
 
 		val blocks = root.createSubCategory("blocks")
 
+		blocks.addRune("tn!generic-block!")
 		for(block <- JavaConversions.asScalaIterator(GameData.getBlockRegistry.iterator).asInstanceOf[Iterator[Block]]) {
 			println(GameData.getBlockRegistry.getNameForObject(block))
 			blocks.addRune("tn!block!" + GameData.getBlockRegistry.getNameForObject(block))
