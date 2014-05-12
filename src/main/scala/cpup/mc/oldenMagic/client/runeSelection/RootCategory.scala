@@ -27,9 +27,9 @@ object RootCategory {
 
 		val blocks = root.createSubCategory("blocks")
 
-		for(block <- JavaConversions.asScalaIterator(GameData.blockRegistry.iterator).asInstanceOf[Iterator[Block]]) {
-			println(GameData.blockRegistry.getNameForObject(block))
-			blocks.addRune("tn!block!" + GameData.blockRegistry.getNameForObject(block))
+		for(block <- JavaConversions.asScalaIterator(GameData.getBlockRegistry.iterator).asInstanceOf[Iterator[Block]]) {
+			println(GameData.getBlockRegistry.getNameForObject(block))
+			blocks.addRune("tn!block!" + GameData.getBlockRegistry.getNameForObject(block))
 		}
 
 		val prepositions = root.createSubCategory("prepositions")

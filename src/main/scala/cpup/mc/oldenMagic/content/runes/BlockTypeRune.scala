@@ -9,12 +9,20 @@ import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TTransform, TextRune, T
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.client.renderer.texture.IIconRegister
+import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{NonEntityTypeNoun, TTypeNounRune, TNounRune}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, CastingContext}
+import cpup.mc.lib.util.pos.BlockPos
+import net.minecraft.block.Block
 
-case class BlockTypeRune(name: String) extends TRune {
-	println(GameData.blockRegistry.getObject(name))
-	if(GameData.blockRegistry.getObject(name).getIcon(1, 0) == null) {
+case class BlockTypeRune(name: String) extends TRune with NonEntityTypeNoun {
+	val block = GameData.getBlockRegistry.getObject(name)
+	println(block)
+	if(block.getIcon(1, 0) == null) {
 		throw new NullPointerException(name + " doesn't have a texture for the top")
 	}
+
+	override def blockClass = block.getClass.asInstanceOf[Class[Block]]
+	override def filterBlock(context: CastingContext, pos: BlockPos) = block == pos.block
 
 	def runeType = BlockTypeRune
 	def writeToNBT(nbt: NBTTagCompound) {
@@ -27,7 +35,7 @@ case class BlockTypeRune(name: String) extends TRune {
 
 	@SideOnly(Side.CLIENT)
 	override def render(x: Int, y: Int, width: Int, height: Int) {
-		GUIUtil.drawBlockIconAt(GameData.blockRegistry.getObject(name).getIcon(1, 0), x, y, 0, 32, 32)
+		GUIUtil.drawBlockIconAt(GameData.getBlockRegistry.getObject(name).getIcon(1, 0), x, y, 0, 32, 32)
 	}
 }
 
