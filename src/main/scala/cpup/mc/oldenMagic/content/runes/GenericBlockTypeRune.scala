@@ -16,7 +16,7 @@ object GenericBlockTypeRune extends SingletonRune with NonEntityTypeNoun {
 	override def name = s"${mod.ref.modID}:generic-block"
 
 	override def blockClass = classOf[Block]
-	override def filterBlock(context: CastingContext, pos: BlockPos) = true
+	override def filterBlock(pos: BlockPos) = true
 
 	@SideOnly(Side.CLIENT)
 	var icon: IIcon = null

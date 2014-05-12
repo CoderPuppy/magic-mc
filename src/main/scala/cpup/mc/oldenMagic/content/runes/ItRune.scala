@@ -2,11 +2,12 @@ package cpup.mc.oldenMagic.content.runes
 
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.SingletonRune
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TNounRune
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingContext, TTarget}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
 import net.minecraft.client.renderer.texture.IIconRegister
+import cpup.mc.lib.targeting.TTarget
 
 object ItRune extends SingletonRune with TNounRune {
 	def mod = OldenMagicMod

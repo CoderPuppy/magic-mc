@@ -8,7 +8,8 @@ import net.minecraft.client.renderer.texture.IIconRegister
 import cpup.mc.oldenMagic.OldenMagicMod
 import net.minecraft.entity.Entity
 import net.minecraft.block.Block
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, CastingContext}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
+import cpup.mc.lib.targeting.TTarget
 
 object TheRune extends SingletonRune with TNounModifierRune {
 	def mod = OldenMagicMod

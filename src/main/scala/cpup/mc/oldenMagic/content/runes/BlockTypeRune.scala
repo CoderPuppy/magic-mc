@@ -10,7 +10,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.client.renderer.texture.IIconRegister
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{NonEntityTypeNoun, TTypeNounRune, TNounRune}
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, CastingContext}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.block.Block
 
@@ -24,7 +24,7 @@ case class BlockTypeRune(name: String) extends TRune with NonEntityTypeNoun {
 	}
 
 	override def blockClass = block.getClass.asInstanceOf[Class[Block]]
-	override def filterBlock(context: CastingContext, pos: BlockPos) = block == pos.block
+	override def filterBlock(pos: BlockPos) = block == pos.block
 
 	def runeType = BlockTypeRune
 	def writeToNBT(nbt: NBTTagCompound) {

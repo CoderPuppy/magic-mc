@@ -10,6 +10,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runes.{InternalRuneType, InternalRun
 import cpup.mc.lib.util.pos.BlockPos
 import cpup.mc.oldenMagic.content.targets.{EntityCaster, BlockTarget}
 import net.minecraft.client.renderer.texture.IIconRegister
+import cpup.mc.lib.targeting.TTarget
 
 object ThisRune extends SingletonRune with TNounModifierRune {
 	def mod = OldenMagicMod
@@ -40,23 +41,21 @@ object ThisNounRune extends SingletonRune with InternalRune with InternalRuneTyp
 
 	def name = s"${mod.ref.modID}:this:noun"
 
-	def getTarget(context: CastingContext) = {
-		val mop = context.caster.mop
+	def getTarget(context: CastingContext) = context.caster.mop.flatMap((mop) => {
 		mop.typeOfHit match {
 			case MovingObjectType.BLOCK =>
-				BlockTarget(BlockPos(context.caster.world, mop.blockX, mop.blockY, mop.blockZ))
+				context.caster.world.map((world) =>
+					BlockTarget(BlockPos(world, mop.blockX, mop.blockY, mop.blockZ))
+				)
 
 			case MovingObjectType.ENTITY =>
-				new EntityCaster(mop.entityHit)
+				Some(new EntityCaster(mop.entityHit))
 
-			case _ => null
+			case _ => None
 		}
-	}
+	})
 
-	override def getTargets(context: CastingContext, existing: List[TTarget]) = getTarget(context) match {
-		case target: TTarget => List(target)
-		case null => List()
-	}
+	override def getTargets(context: CastingContext, existing: List[TTarget]) = getTarget(context).toList
 
-	override def filter(context: CastingContext, prev: List[TNounRune], testingTarget: TTarget) = testingTarget.sameObj(getTarget(context))
+	override def filter(context: CastingContext, prev: List[TNounRune], testingTarget: TTarget) = getTarget(context).exists(testingTarget.sameObj(_))
 }

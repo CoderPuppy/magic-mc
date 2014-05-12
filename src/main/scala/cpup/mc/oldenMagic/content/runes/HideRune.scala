@@ -5,11 +5,12 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, CastingContext}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.Entity
 import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpellsContext
 import net.minecraft.client.renderer.texture.IIconRegister
+import cpup.mc.lib.targeting.TTarget
 
 object HideRune extends SingletonRune with TVerbRune {
 	def mod = OldenMagicMod

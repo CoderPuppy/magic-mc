@@ -22,7 +22,7 @@ case class EntityTypeRune(name: String) extends TRune with NonBlockTypeNoun {
 	def mod = OldenMagicMod
 
 	val entityClass = EntityList.stringToClassMapping.get(name).asInstanceOf[Class[Entity]]
-	def filterEntity(context: CastingContext, entity: Entity) = true
+	def filterEntity(entity: Entity) = true
 
 	def runeType = EntityTypeRune
 	def writeToNBT(nbt: NBTTagCompound) {

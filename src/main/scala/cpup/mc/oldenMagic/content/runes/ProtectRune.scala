@@ -2,7 +2,7 @@ package cpup.mc.oldenMagic.content.runes
 
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, CastingContext}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 import net.minecraft.entity.Entity
 import cpup.mc.lib.util.pos.BlockPos
 import cpw.mods.fml.relauncher.{Side, SideOnly}
@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpellsContext
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TParsingContext, TTransform}
 import net.minecraft.client.renderer.texture.IIconRegister
+import cpup.mc.lib.targeting.TTarget
 
 class ProtectRune extends TRune with TVerbRune {
 	def runeType = ProtectRune

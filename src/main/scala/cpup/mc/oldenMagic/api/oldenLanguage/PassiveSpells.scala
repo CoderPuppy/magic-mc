@@ -31,23 +31,25 @@ object PassiveSpells {
 			return
 		}
 
-		var passiveSpellDatas = List(PassiveSpells.get(action.affectedTarget.world))
+		var passiveSpellDatas = action.affectedTarget.world.map(PassiveSpells.get(_)).toList
 
-		val baseX = action.affectedTarget.chunkX
-		val baseZ = action.affectedTarget.chunkZ
+		if(action.affectedTarget.chunkX.isDefined && action.affectedTarget.chunkZ.isDefined) {
+			val baseX = action.affectedTarget.chunkX.get
+			val baseZ = action.affectedTarget.chunkZ.get
 
-		for {
-			offsetX <- -1 to 1
-			offsetZ <- -1 to 1
-		} {
-			val x = baseX + offsetX
-			val z = baseZ + offsetZ
+			for {
+				offsetX <- -1 to 1
+				offsetZ <- -1 to 1
+			} {
+				val x = baseX + offsetX
+				val z = baseZ + offsetZ
 
-//			println(baseX, baseZ)
-//			println(offsetX, offsetZ)
-//			println(x, z)
+	//			println(baseX, baseZ)
+	//			println(offsetX, offsetZ)
+	//			println(x, z)
 
-			passiveSpellDatas ++= List(PassiveSpells.get(action.affectedTarget.world, x, z))
+				passiveSpellDatas ++= action.affectedTarget.world.map(PassiveSpells.get(_, x, z)).toList
+			}
 		}
 
 		passiveSpellDatas = passiveSpellDatas.filter(_ != null)

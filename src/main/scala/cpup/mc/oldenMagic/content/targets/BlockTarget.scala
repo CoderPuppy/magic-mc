@@ -10,12 +10,12 @@ import cpw.mods.fml.relauncher.Side
 import net.minecraft.client.Minecraft
 import net.minecraft.server.MinecraftServer
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTargetType, TTarget}
+import cpup.mc.lib.targeting.{TTargetFilter, TTargetType, TTarget}
 
 case class BlockTarget(pos: BlockPos) extends TTarget {
-	def world = pos.world
-	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
-	def obj = Right(pos)
+	def world = Some(pos.world)
+	def ownedTargets(typeNoun: TTargetFilter[_ <: Entity, _ <: Block]) = List()
+	def obj = Some(Right(pos))
 	def targetType = BlockTarget
 	def owner = null
 	def writeToNBT(nbt: NBTTagCompound) {
@@ -24,11 +24,11 @@ case class BlockTarget(pos: BlockPos) extends TTarget {
 		nbt.setInteger("y", pos.y)
 		nbt.setInteger("z", pos.z)
 	}
-	def chunkX = pos.chunkX
-	def chunkZ = pos.chunkZ
-	def x = pos.x
-	def y = pos.y
-	def z = pos.z
+	def chunkX = Some(pos.chunkX)
+	def chunkZ = Some(pos.chunkZ)
+	def x = Some(pos.x)
+	def y = Some(pos.y)
+	def z = Some(pos.z)
 }
 
 object BlockTarget extends TTargetType {

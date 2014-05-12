@@ -4,6 +4,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{TTypeNounRune, Spell}
 import scala.collection.immutable.HashMap
 import net.minecraft.entity.Entity
 import net.minecraft.block.Block
+import cpup.mc.lib.targeting.TTarget
 
 class CastingContext(val player: String, val caster: TCaster) {
 	var it = List[TTarget]()

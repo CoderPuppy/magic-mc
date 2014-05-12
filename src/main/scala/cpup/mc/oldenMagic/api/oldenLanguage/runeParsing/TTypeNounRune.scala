@@ -4,19 +4,10 @@ import net.minecraft.entity.Entity
 import net.minecraft.block.Block
 import cpup.mc.oldenMagic.api.oldenLanguage.casting._
 import cpup.mc.lib.util.pos.BlockPos
+import cpup.mc.lib.targeting.{TTargetFilter, TTarget}
 
-trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
-	def entityClass: Class[ENT]
-	def filterEntity(context: CastingContext, entity: ENT): Boolean
-
-	def blockClass: Class[BLK]
-	def filterBlock(context: CastingContext, pos: BlockPos): Boolean
-
-	def filter(context: CastingContext, target: TTarget) = target.obj match {
-		case Left(entity) => entityClass.isInstance(entity) && filterEntity(context, entity.asInstanceOf[ENT])
-		case Right(pos) => blockClass.isInstance(pos.block) && filterBlock(context, pos)
-		case _ => false
-	}
+trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune with TTargetFilter[ENT, BLK] {
+	def filter(context: CastingContext, target: TTarget): Boolean = filter(target)
 
 	protected var _specification: TNounRune = null
 
@@ -31,7 +22,9 @@ trait TTypeNounRune[ENT <: Entity, BLK <: Block] extends TNounRune {
 	}
 
 	override def filter(context: CastingContext, prev: List[TNounRune], target: TTarget): Boolean = if(_specification == null) {
-		filter(context, target) && prev.head.filter(context, prev.tail, target.owner)
+		filter(context, target) && (if(prev.isEmpty) { true } else {
+			target.owner.exists(prev.head.filter(context, prev.tail, _))
+		})
 	} else {
 		filter(context, target) && _specification.filter(context, prev, target)
 	}

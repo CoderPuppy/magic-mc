@@ -3,7 +3,7 @@ package cpup.mc.oldenMagic.api.oldenLanguage
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.ParsingContext
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import net.minecraft.nbt.NBTTagCompound
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTarget, TTargetType}
+import cpup.mc.lib.targeting.{TTargetType, TTarget}
 
 object OldenLanguageRegistry {
 	protected var _runeTypes = List[TRuneType]()

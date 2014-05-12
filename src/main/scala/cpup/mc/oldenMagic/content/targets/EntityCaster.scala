@@ -10,9 +10,10 @@ import cpw.mods.fml.relauncher.Side
 import net.minecraft.client.Minecraft
 import cpup.mc.lib.util.EntityUtil
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTargetType, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.TCaster
 import cpup.mc.oldenMagic.api.oldenLanguage.EntityMagicData
 import org.apache.logging.log4j.Marker
+import cpup.mc.lib.targeting.{TTargetFilter, TTargetType}
 
 case class EntityCaster(entity: Entity) extends TCaster {
 	def mod = OldenMagicMod
@@ -22,7 +23,7 @@ case class EntityCaster(entity: Entity) extends TCaster {
 	}
 
 	def targetType = EntityCaster
-	def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
+	def ownedTargets(typeNoun: TTargetFilter[_ <: Entity, _ <: Block]) = List()
 	def owner = null // TODO: owner
 
 	override def naturalPower = EntityMagicData.get(entity).map(_.naturalPower).getOrElse(0)
@@ -42,18 +43,18 @@ case class EntityCaster(entity: Entity) extends TCaster {
 			0
 	}
 
-	def world = entity.worldObj
-	def chunkX = entity.chunkCoordX
-	def chunkZ = entity.chunkCoordZ
-	def x = entity.posX
-	def y = entity.posY
-	def z = entity.posZ
+	def world = Some(entity.worldObj)
+	def chunkX = Some(entity.chunkCoordX)
+	def chunkZ = Some(entity.chunkCoordZ)
+	def x = Some(entity.posX)
+	def y = Some(entity.posY)
+	def z = Some(entity.posZ)
 
-	def mop = EntityUtil.getMOPBoth(obj.a, 4)
-	def obj = Left(entity)
+	def mop = Some(EntityUtil.getMOPBoth(entity, 4))
+	def obj = Some(Left(entity))
 
 	def writeToNBT(nbt: NBTTagCompound) {
-		nbt.setInteger("dim", world.provider.dimensionId)
+		nbt.setInteger("dim", world.get.provider.dimensionId)
 		nbt.setInteger("id", entity.getEntityId)
 	}
 }

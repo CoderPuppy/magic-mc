@@ -10,9 +10,10 @@ import net.minecraft.client.Minecraft
 import net.minecraft.server.MinecraftServer
 import net.minecraft.nbt.NBTTagCompound
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TTargetType, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.TCaster
 import cpup.mc.oldenMagic.api.oldenLanguage.EntityMagicData
-import net.minecraft.util.ChatComponentTranslation
+import net.minecraft.util.{MovingObjectPosition, ChatComponentTranslation}
+import cpup.mc.lib.targeting.{TTargetFilter, TTargetType}
 
 case class PlayerCaster(name: String) extends TCaster {
 	def mod = OldenMagicMod
@@ -72,14 +73,14 @@ case class PlayerCaster(name: String) extends TCaster {
 		case _ => None
 	}
 
-	def world = entity.map(_.worldObj).getOrElse(null)
-	def mop = entity.map((e) => EntityUtil.getMOPBoth(e, if(e.capabilities.isCreativeMode) 6 else 3)).getOrElse(null)
+	def world = entity.map(_.worldObj)
+	def mop = entity.map((e) => EntityUtil.getMOPBoth(e, if(e.capabilities.isCreativeMode) 6 else 3))
 
-	def x = entity.map(_.posX).getOrElse(0)
-	def y = entity.map(_.posY).getOrElse(0)
-	def z = entity.map(_.posZ).getOrElse(0)
-	def chunkX = entity.map(_.chunkCoordX).getOrElse(0)
-	def chunkZ = entity.map(_.chunkCoordZ).getOrElse(0)
+	def x = entity.map(_.posX)
+	def y = entity.map(_.posY)
+	def z = entity.map(_.posZ)
+	def chunkX = entity.map(_.chunkCoordX)
+	def chunkZ = entity.map(_.chunkCoordZ)
 
 	def writeToNBT(nbt: NBTTagCompound) {
 		nbt.setString("name", name)
@@ -91,10 +92,10 @@ case class PlayerCaster(name: String) extends TCaster {
 		case _ => false
 	}
 
-	def obj = entity.map(Left(_)).getOrElse(Left(null))
+	def obj = entity.map(Left(_))
 
 	// TODO: Implement
-	override def ownedTargets(typeNoun: TTypeNounRune[_ <: Entity, _ <: Block]) = List()
+	override def ownedTargets(typeNoun: TTargetFilter[_ <: Entity, _ <: Block]) = List()
 }
 
 object PlayerCaster extends TTargetType {

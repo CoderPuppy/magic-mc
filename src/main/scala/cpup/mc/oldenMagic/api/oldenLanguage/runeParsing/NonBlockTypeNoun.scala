@@ -7,5 +7,5 @@ import cpup.mc.lib.util.pos.BlockPos
 
 trait NonBlockTypeNoun extends TTypeNounRune[Entity, Block] {
 	override def blockClass = classOf[Block]
-	override def filterBlock(context: CastingContext, pos: BlockPos) = false
+	override def filterBlock(pos: BlockPos) = false
 }
