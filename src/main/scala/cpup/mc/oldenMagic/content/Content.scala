@@ -10,6 +10,9 @@ import cpw.mods.fml.common.registry.GameRegistry
 import cpup.mc.oldenMagic.content.runes._
 import cpup.mc.oldenMagic.api.oldenLanguage._
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{SubContextTransform, TextRune, ParsingContext}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingRegistry
+import cpup.mc.lib.targeting.{EntityTarget, PlayerTarget}
+import cpup.mc.oldenMagic.content.targets.{EntityCaster, PlayerCaster}
 
 object Content extends CPupContent[TOldenMagicMod] {
 	def mod = OldenMagicMod
@@ -102,6 +105,10 @@ object Content extends CPupContent[TOldenMagicMod] {
 
 		registerItem(new ItemBend().setName("bend").setMaxStackSize(1).asInstanceOf[TItemBase])
 
+		// Casters
+		CastingRegistry.registerCaster(classOf[PlayerTarget], (player: PlayerTarget) => PlayerCaster(player))
+		CastingRegistry.registerCaster(classOf[EntityTarget], (entity: EntityTarget) => EntityCaster(entity))
+		
 		OldenLanguageRegistry.registerRune(TextRune)
 
 		// Actions
