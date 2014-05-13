@@ -16,24 +16,20 @@ import org.apache.logging.log4j.Marker
 import cpup.mc.lib.targeting._
 import scala.Some
 
-case class EntityCaster(entity: Entity, _wrapped: TTarget) extends TCaster with TTargetWrapper {
+case class EntityCaster(entity: EntityTarget) extends TCaster with TTargetWrapper {
 	def mod = OldenMagicMod
 
-	if(entity == null) {
-		throw new NullPointerException("entity cannot be null")
-	}
-
-	override def wrapped = Some(_wrapped)
+	override def wrapped = Some(entity)
 	override def writeToNBT(nbt: NBTTagCompound) {
-		_wrapped.writeToNBT(nbt)
+		entity.writeToNBT(nbt)
 	}
 
 	override def targetType = EntityCaster
 
-	override def naturalPower = EntityMagicData.get(entity).map(_.naturalPower).getOrElse(0)
-	override def maxSafePower = EntityMagicData.get(entity).map(_.maxSafePower).getOrElse(0)
-	override def power = EntityMagicData.get(entity).map(_.power).getOrElse(0)
-	override def usePower(amt: Int) = EntityMagicData.get(entity) match {
+	override def naturalPower = EntityMagicData.get(entity.entity).map(_.naturalPower).getOrElse(0)
+	override def maxSafePower = EntityMagicData.get(entity.entity).map(_.maxSafePower).getOrElse(0)
+	override def power = EntityMagicData.get(entity.entity).map(_.power).getOrElse(0)
+	override def usePower(amt: Int) = EntityMagicData.get(entity.entity) match {
 		case Some(data) =>
 			if(data.power > amt) {
 				data.power -= amt
@@ -67,8 +63,5 @@ object EntityCaster extends TTargetType {
 			case _ => null
 		}).getEntityByID(nbt.getInteger("id")))
 	}
-	def from(entity: Entity) = TargetingRegistry.wrap(entity).map(EntityCaster(
-		entity,
-		_
-	))
+	def from(entity: Entity) = Some(EntityCaster(EntityTarget(entity)))
 }
