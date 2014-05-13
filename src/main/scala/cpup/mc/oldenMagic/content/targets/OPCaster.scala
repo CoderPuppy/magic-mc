@@ -1,10 +1,10 @@
 package cpup.mc.oldenMagic.content.targets
 
-class OPCaster(player: String) extends PlayerCaster(player) {
+import cpup.mc.lib.targeting.PlayerTarget
+
+class OPCaster(player: PlayerTarget) extends PlayerCaster(player) {
 	override def naturalPower = Int.MaxValue
 	override def maxSafePower = Int.MaxValue
 	override def power = Int.MaxValue
 	override def usePower(amt: Int) = amt
-
-	override def getActiveInventory = ???
 }

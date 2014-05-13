@@ -7,6 +7,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.PassiveSpells
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.Spell
 import cpup.mc.oldenMagic.content.runes._
 import cpup.mc.oldenMagic.content.targets.{OPCaster, PlayerCaster}
+import cpup.mc.lib.targeting.PlayerTarget
 
 object AntiSeeingCommand extends CommandBase with ModLifecycleHandler {
 	def mod = OldenMagicMod
@@ -24,7 +25,7 @@ object AntiSeeingCommand extends CommandBase with ModLifecycleHandler {
 		enderSpells.registerSpell(
 			player.getCommandSenderName,
 //			PlayerCaster(player.getCommandSenderName),
-			new OPCaster(player.getCommandSenderName),
+			new OPCaster(PlayerTarget(player.getCommandSenderName)),
 			Spell(new SeenRune, List(MeRune)),
 			Spell(HideRune, List(ItRune))
 		)

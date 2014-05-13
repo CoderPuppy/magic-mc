@@ -13,6 +13,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.RuneParser
 import net.minecraft.world.World
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingContext
 import cpup.mc.oldenMagic.content.targets.PlayerCaster
+import cpup.mc.lib.targeting.PlayerTarget
 
 class ItemSpell extends ItemBase with TWritableItem {
 	def readRunes(stack: ItemStack) = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "").split(' ')
@@ -84,7 +85,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 			parser.finish
 			val spell = parser.spell
 
-			val caster = new PlayerCaster(player.getCommandSenderName)
+			val caster = PlayerCaster(PlayerTarget(player.getCommandSenderName))
 			val castingContext = new CastingContext(player.getCommandSenderName, caster)
 			castingContext.cast(spell)
 		} catch {

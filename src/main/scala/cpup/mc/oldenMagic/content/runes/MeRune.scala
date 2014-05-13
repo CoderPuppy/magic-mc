@@ -8,15 +8,15 @@ import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.content.targets.PlayerCaster
 import net.minecraft.client.renderer.texture.IIconRegister
-import cpup.mc.lib.targeting.TTarget
+import cpup.mc.lib.targeting.{PlayerTarget, TTarget}
 
 object MeRune extends SingletonRune with TNounRune {
 	def mod = OldenMagicMod
 
 	def name = s"${mod.ref.modID}:me"
-	override def getTargets(context: CastingContext, existing: List[TTarget]) = List(new PlayerCaster(context.player))
+	override def getTargets(context: CastingContext, existing: List[TTarget]) = List(PlayerCaster(PlayerTarget(context.player)))
 	override def filter(context: CastingContext, prev: List[TNounRune], target: TTarget) = {
-		target.sameObj(new PlayerCaster(context.player))
+		target.sameObj(PlayerCaster(PlayerTarget(context.player)))
 	}
 
 	@SideOnly(Side.CLIENT)

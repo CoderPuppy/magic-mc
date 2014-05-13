@@ -13,29 +13,27 @@ import cpup.mc.oldenMagic.OldenMagicMod
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.TCaster
 import cpup.mc.oldenMagic.api.oldenLanguage.EntityMagicData
 import net.minecraft.util.{MovingObjectPosition, ChatComponentTranslation}
-import cpup.mc.lib.targeting.{TTargetFilter, TTargetType}
+import cpup.mc.lib.targeting.{TTargetWrapper, PlayerTarget, TTargetFilter, TTargetType}
 import cpup.mc.lib.inventory.EmptyInventory
 
-case class PlayerCaster(name: String) extends TCaster {
+case class PlayerCaster(player: PlayerTarget) extends TCaster with TTargetWrapper {
 	def mod = OldenMagicMod
 
+	def wrapped = Some(player)
+
 	def targetType = PlayerCaster
-	def owner = null
 
-	override def getActiveItems = entity.map(_.inventory.armorInventory).getOrElse(Array())
-	override def getActiveInventory = entity.map(_.inventory).getOrElse(EmptyInventory)
-
-	override def naturalPower = entity.flatMap(EntityMagicData.get(_)).map(_.naturalPower).getOrElse(0)
-	override def maxSafePower = entity.flatMap(EntityMagicData.get(_)).map(_.maxSafePower).getOrElse(0)
-	override def power = entity.flatMap(EntityMagicData.get(_)).map(_.power).getOrElse(0)
-	override def usePower(amt: Int) = entity.flatMap(EntityMagicData.get(_)) match {
+	override def naturalPower = player.entity.flatMap(EntityMagicData.get(_)).map(_.naturalPower).getOrElse(0)
+	override def maxSafePower = player.entity.flatMap(EntityMagicData.get(_)).map(_.maxSafePower).getOrElse(0)
+	override def power = player.entity.flatMap(EntityMagicData.get(_)).map(_.power).getOrElse(0)
+	override def usePower(amt: Int) = player.entity.flatMap(EntityMagicData.get(_)) match {
 		case Some(data) =>
 			if(data.power > amt) {
-				entity match {
-					case Some(player) =>
-						player.addChatComponentMessage(new ChatComponentTranslation(
+				player.entity match {
+					case Some(playerE) =>
+						playerE.addChatComponentMessage(new ChatComponentTranslation(
 							s"messages.${mod.ref.modID}:testing.usedPower",
-							name,
+							player.name,
 							data.power: Integer,
 							amt: Integer
 						))
@@ -44,11 +42,11 @@ case class PlayerCaster(name: String) extends TCaster {
 				data.power -= amt
 				amt
 			} else {
-				entity match {
-					case Some(player) =>
-						player.addChatComponentMessage(new ChatComponentTranslation(
+				player.entity match {
+					case Some(playerE) =>
+						playerE.addChatComponentMessage(new ChatComponentTranslation(
 							s"messages.${mod.ref.modID}:testing.outOfPower",
-							name,
+							player.name,
 							data.power: Integer,
 							amt: Integer
 						))
@@ -58,48 +56,13 @@ case class PlayerCaster(name: String) extends TCaster {
 				data.power
 			}
 		case None =>
-			mod.logger.warn(s"Cannot get EntityMagicData for $entity")
+			mod.logger.warn(s"Cannot get EntityMagicData for ${player.entity}")
 			0
 	}
 
-	def entity = FMLCommonHandler.instance.getEffectiveSide match {
-		case Side.CLIENT =>
-			val player = Minecraft.getMinecraft.thePlayer
-			if(player.getCommandSenderName != name) {
-				throw new Exception(s"who is this: $name")
-				None
-			}
-			Some(player)
-
-		case Side.SERVER =>
-			Some(MinecraftServer.getServer.getConfigurationManager.getPlayerForUsername(name))
-
-		case _ => None
-	}
-
-	def world = entity.map(_.worldObj)
-	def mop = entity.map((e) => EntityUtil.getMOPBoth(e, if(e.capabilities.isCreativeMode) 6 else 3))
-
-	def x = entity.map(_.posX)
-	def y = entity.map(_.posY)
-	def z = entity.map(_.posZ)
-	def chunkX = entity.map(_.chunkCoordX)
-	def chunkZ = entity.map(_.chunkCoordZ)
-
 	def writeToNBT(nbt: NBTTagCompound) {
-		nbt.setString("name", name)
+		player.writeToNBT(nbt)
 	}
-
-	override def isValid = FMLCommonHandler.instance.getEffectiveSide match {
-		case Side.CLIENT => Minecraft.getMinecraft.thePlayer.getCommandSenderName == name
-		case Side.SERVER => MinecraftServer.getServer.getConfigurationManager.getPlayerForUsername(name) != null
-		case _ => false
-	}
-
-	def obj = entity.map(Left(_))
-
-	// TODO: Implement
-	override def ownedTargets(typeNoun: TTargetFilter[_ <: Entity, _ <: Block]) = List()
 }
 
 object PlayerCaster extends TTargetType {
@@ -107,5 +70,5 @@ object PlayerCaster extends TTargetType {
 
 	def name = s"${mod.ref.modID}:player"
 	def targetClass = classOf[PlayerCaster]
-	def readFromNBT(nbt: NBTTagCompound) = Some(PlayerCaster(nbt.getString("name")))
+	def readFromNBT(nbt: NBTTagCompound) = PlayerTarget.readFromNBT(nbt).map(PlayerCaster(_))
 }
