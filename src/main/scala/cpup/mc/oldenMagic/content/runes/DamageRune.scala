@@ -55,7 +55,7 @@ object DamageRune extends TRuneType {
 class DamageAction(val e: LivingHurtEvent) extends TAction {
 	def runeType = DamageRune
 
-	val affectedTarget = TargetingRegistry.wrap(e.entity).flatMap(CastingRegistry.wrap(_)).get
+	val affectedTarget = TargetingRegistry.wrapEntity(e.entity).flatMap(CastingRegistry.wrap(_)).get
 
 	def src = e.source
 

@@ -49,7 +49,7 @@ object ThisNounRune extends SingletonRune with InternalRune with InternalRuneTyp
 				)
 
 			case MovingObjectType.ENTITY =>
-				TargetingRegistry.wrap(mop.entityHit).flatMap(CastingRegistry.wrap(_))
+				TargetingRegistry.wrapEntity(mop.entityHit).flatMap(CastingRegistry.wrap(_))
 
 			case _ => None
 		}

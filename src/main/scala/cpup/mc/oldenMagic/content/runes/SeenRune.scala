@@ -45,7 +45,7 @@ object SeenTransform extends TTransform {
 }
 
 class SeenAction(val e: LivingSetAttackTargetEvent) extends TAction with TCancellableAction {
-	val affectedTarget = TargetingRegistry.wrap(e.target).flatMap(CastingRegistry.wrap(_)).get
+	val affectedTarget = TargetingRegistry.wrapEntity(e.target).flatMap(CastingRegistry.wrap(_)).get
 
 	override def runeType = SeenRune
 
