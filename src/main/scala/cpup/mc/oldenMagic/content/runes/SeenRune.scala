@@ -6,13 +6,14 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
 import net.minecraft.nbt.NBTTagCompound
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TCancellableAction, TAction, CastingContext}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingRegistry, TCancellableAction, TAction, CastingContext}
 import cpup.mc.lib.util.pos.BlockPos
 import net.minecraft.entity.{EntityLiving, Entity}
 import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{TextRune, TParsingContext, TTransform}
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent
 import cpup.mc.oldenMagic.content.targets.EntityCaster
 import net.minecraft.client.renderer.texture.IIconRegister
+import cpup.mc.lib.targeting.TargetingRegistry
 
 class SeenRune extends TVerbRune {
 	def runeType = SeenRune
@@ -44,7 +45,7 @@ object SeenTransform extends TTransform {
 }
 
 class SeenAction(val e: LivingSetAttackTargetEvent) extends TAction with TCancellableAction {
-	val affectedTarget = EntityCaster.from(e.target).get
+	val affectedTarget = TargetingRegistry.wrap(e.target).flatMap(CastingRegistry.wrap(_)).get
 
 	override def runeType = SeenRune
 

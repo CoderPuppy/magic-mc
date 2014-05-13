@@ -67,7 +67,6 @@ object EntityCaster extends TTargetType {
 			case _ => null
 		}).getEntityByID(nbt.getInteger("id")))
 	}
-	// TODO: registry for casters
 	def from(entity: Entity) = TargetingRegistry.wrap(entity).map(EntityCaster(
 		entity,
 		_

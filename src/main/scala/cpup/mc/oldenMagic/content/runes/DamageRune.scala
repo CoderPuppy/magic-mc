@@ -3,7 +3,7 @@ package cpup.mc.oldenMagic.content.runes
 import cpup.mc.oldenMagic.api.oldenLanguage.runes.{TRuneType, TRune}
 import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.TVerbRune
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.casting.{TAction, CastingContext, TCaster}
+import cpup.mc.oldenMagic.api.oldenLanguage.casting.{CastingRegistry, TAction, CastingContext, TCaster}
 import net.minecraft.entity.Entity
 import net.minecraft.util.{IIcon, DamageSource}
 import cpup.mc.lib.util.pos.BlockPos
@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.event.entity.living.LivingHurtEvent
 import cpup.mc.oldenMagic.content.targets.EntityCaster
 import net.minecraft.client.renderer.texture.IIconRegister
+import cpup.mc.lib.targeting.TargetingRegistry
 
 class DamageRune extends TRune with TVerbRune {
 	def mod = OldenMagicMod
@@ -54,7 +55,7 @@ object DamageRune extends TRuneType {
 class DamageAction(val e: LivingHurtEvent) extends TAction {
 	def runeType = DamageRune
 
-	val affectedTarget = EntityCaster.from(e.entity).get
+	val affectedTarget = TargetingRegistry.wrap(e.entity).flatMap(CastingRegistry.wrap(_)).get
 
 	def src = e.source
 

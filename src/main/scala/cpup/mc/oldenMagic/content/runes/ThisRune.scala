@@ -10,7 +10,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runes.{InternalRuneType, InternalRun
 import cpup.mc.lib.util.pos.BlockPos
 import cpup.mc.oldenMagic.content.targets.EntityCaster
 import net.minecraft.client.renderer.texture.IIconRegister
-import cpup.mc.lib.targeting.{BlockTarget, TTarget}
+import cpup.mc.lib.targeting.{TargetingRegistry, BlockTarget, TTarget}
 
 object ThisRune extends SingletonRune with TNounModifierRune {
 	def mod = OldenMagicMod
@@ -49,7 +49,7 @@ object ThisNounRune extends SingletonRune with InternalRune with InternalRuneTyp
 				)
 
 			case MovingObjectType.ENTITY =>
-				EntityCaster.from(mop.entityHit)
+				TargetingRegistry.wrap(mop.entityHit).flatMap(CastingRegistry.wrap(_))
 
 			case _ => None
 		}
