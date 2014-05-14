@@ -2,7 +2,7 @@
 
 rune = (transform "!")? content
 
-spell = noun verb
+spell = verb noun
 preposition = ($noun-preposition noun) | ($verb-preposition verb) | ($condition-preposition condition)
 noun = $noun ($noun-modifier | preposition | ($noun-combinator noun))* noun?
 verb = $verb ($verb-modifier | preposition | ($verb-combinator verb))*
