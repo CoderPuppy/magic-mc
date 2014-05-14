@@ -15,16 +15,18 @@ import net.minecraft.client.renderer.texture.IIconRegister
 object BurnRune extends SingletonRune with TVerbRune {
 	def mod = OldenMagicMod
 
-	def name = s"${mod.ref.modID}:burn"
+	override def toString = name
+
+	override def name = s"${mod.ref.modID}:burn"
 
 	def powerAmt = 50
 
-	def act(context: CastingContext, pos: BlockPos) {
+	override def act(context: CastingContext, pos: BlockPos) {
 		if(context.caster.usePower(powerAmt) == powerAmt) {
 			pos.offset(Direction.Up).tryReplaceWith(Blocks.fire)
 		}
 	}
-	def act(context: CastingContext, entity: Entity) {
+	override def act(context: CastingContext, entity: Entity) {
 		entity.setFire(context.caster.usePower(Math.max(context.caster.power / 4, powerAmt)))
 	}
 
@@ -32,10 +34,10 @@ object BurnRune extends SingletonRune with TVerbRune {
 	var icon: IIcon = null
 
 	@SideOnly(Side.CLIENT)
-	def icons = List(icon)
+	override def icons = List(icon)
 
 	@SideOnly(Side.CLIENT)
-	def registerIcons(register: IIconRegister) {
+	override def registerIcons(register: IIconRegister) {
 		icon = register.registerIcon(s"${mod.ref.modID}:runes/burn")
 	}
 }

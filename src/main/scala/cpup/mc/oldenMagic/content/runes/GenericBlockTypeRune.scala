@@ -13,6 +13,8 @@ import net.minecraft.util.IIcon
 object GenericBlockTypeRune extends SingletonRune with NonEntityTypeNoun {
 	def mod = OldenMagicMod
 
+	override def toString = name
+
 	override def name = s"${mod.ref.modID}:generic-block"
 
 	override def blockClass = classOf[Block]
