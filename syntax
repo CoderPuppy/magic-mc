@@ -1,0 +1,9 @@
+== Syntax
+
+rune = (transform "!")? content
+
+spell = noun verb
+preposition = ($noun-preposition noun) | ($verb-preposition verb) | ($condition-preposition condition)
+noun = $noun ($noun-modifier | preposition | ($noun-combinator noun))*
+verb = $verb ($verb-modifier | preposition | ($verb-combinator verb))*
+condition = $condition ($condition-modifier | preposition | ($condition-combinator condition))*
