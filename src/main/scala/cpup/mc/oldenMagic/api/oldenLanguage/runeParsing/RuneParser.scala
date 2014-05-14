@@ -110,7 +110,7 @@ class SpellMode extends RuneParserMode {
 		}
 	}
 
-	override def toString = s"SpellMode { action = ${action}, targetPath = [ ${targetPath.mkString(", ")} ] }"
+	override def toString = s"SpellMode { action = $action, targetPath = [ ${targetPath.mkString(", ")} ] }"
 }
 case class SpellConjunctionMode(conjunction: TSpellConjunction) extends SpellMode {
 	override def toString = s"${super.toString}, conjunction = $conjunction"
