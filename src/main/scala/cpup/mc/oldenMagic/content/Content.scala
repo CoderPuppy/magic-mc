@@ -13,6 +13,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{SubContextTransform, Te
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingRegistry
 import cpup.mc.lib.targeting.{EntityTarget, PlayerTarget}
 import cpup.mc.oldenMagic.content.targets.{EntityCaster, PlayerCaster}
+import cpup.mc.lib.module.AndCondition
 
 object Content extends CPupContent[TOldenMagicMod] {
 	def mod = OldenMagicMod
@@ -139,6 +140,10 @@ object Content extends CPupContent[TOldenMagicMod] {
 		OldenLanguageRegistry.registerRune(OfModifierRune)
 		OldenLanguageRegistry.registerRune(ThisRune)
 		OldenLanguageRegistry.registerRune(TheRune)
+
+		// Conditions
+		OldenLanguageRegistry.registerRune(ItemConditionFilterRune)
+		OldenLanguageRegistry.registerRune(AndConditionFilterRune)
 
 		OldenLanguageRegistry.registerParsingRootContextTransformer((root: ParsingContext) => {
 			val actions = new ParsingContext

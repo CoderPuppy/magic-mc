@@ -4,14 +4,14 @@ import cpup.mc.oldenMagic.api.oldenLanguage.runes._
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.util.IIcon
 import cpup.mc.oldenMagic.OldenMagicMod
-import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{TNounPreposition, TNounModifierRune, TNounRune}
+import cpup.mc.oldenMagic.api.oldenLanguage.runeParsing.{TNounPrepositionRune, TNounModifierRune, TNounRune}
 import net.minecraft.nbt.{NBTTagList, NBTTagCompound}
 import cpup.mc.oldenMagic.api.oldenLanguage.OldenLanguageRegistry
 import net.minecraftforge.common.util.Constants
 import scala.collection.mutable.ListBuffer
 import net.minecraft.client.renderer.texture.IIconRegister
 
-object OfRune extends SingletonRune with TNounPreposition {
+object OfRune extends SingletonRune with TNounPrepositionRune {
 	def mod = OldenMagicMod
 
 	def name = s"${mod.ref.modID}:of"
