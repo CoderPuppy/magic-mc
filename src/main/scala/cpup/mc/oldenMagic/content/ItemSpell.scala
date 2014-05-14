@@ -37,7 +37,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 				rune = parsedRune(context)
 			} {
 				lore.add(parsedRune.toString)
-				lore.add(rune.toString)
+//				lore.add(rune.toString)
 				parser.handle(rune)
 			}
 			parser.finish
