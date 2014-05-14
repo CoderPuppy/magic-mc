@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 
 trait TRune {
 	def runeType: TRuneType
+	override def toString = runeType.name
 
 	@SideOnly(Side.CLIENT)
 	def icons: List[IIcon]

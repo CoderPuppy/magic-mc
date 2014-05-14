@@ -15,8 +15,6 @@ import net.minecraft.client.renderer.texture.IIconRegister
 object BurnRune extends SingletonRune with TVerbRune {
 	def mod = OldenMagicMod
 
-	override def toString = name
-
 	override def name = s"${mod.ref.modID}:burn"
 
 	def powerAmt = 50
