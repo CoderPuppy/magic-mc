@@ -1,0 +1,3 @@
+== See the magic
+magic is like lines in world
+sometimes you can see them (and then move them)
