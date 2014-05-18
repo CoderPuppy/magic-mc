@@ -1,3 +1,5 @@
 focused around doing small things quickly whenever you want
 start with no power and find some (common) structure to get a bit
 some sort of ritual for transmitting power to you (imagine a circle of ghostly elven mages shooting magic into the sky and it coming down to you (or just directly))
+some way of connecting chests with bend (imagine a draggable ui that can cross inventory boundaries)
+a magical bag can be linked ^

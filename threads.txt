@@ -1,0 +1,5 @@
+== Threads
+magic is like lines (threads) in world
+sometimes you can see them (and then move them)
+you can then link them together to, for example, make a portal
+you can pull threads with you, but they might teleport (pull) you back
