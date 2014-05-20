@@ -75,8 +75,8 @@ class ItemSpell extends ItemBase with TWritableItem {
 		stack
 	}
 	override def onPlayerStoppedUsing(stack: ItemStack, world: World, player: EntityPlayer, oppDur: Int) {
+		val spellStr = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "")
 		try {
-			val spellStr = Util.checkNull(ItemUtil.compound(stack).getString("spell"), "")
 			val transformingContext = RootParsingContext.create
 			val parsedRunes = TextParser.parse(spellStr)
 			val runes = parsedRunes.map(_(transformingContext))
@@ -90,8 +90,7 @@ class ItemSpell extends ItemBase with TWritableItem {
 			castingContext.cast(spell)
 		} catch {
 			case e: Exception =>
-				mod.logger.error(e)
-				mod.logger.error(e.getStackTraceString)
+				mod.logger.error("Error while casting spell: {}", spellStr: Any, e)
 		}
 	}
 }
