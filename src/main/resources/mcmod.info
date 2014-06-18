@@ -1,7 +1,7 @@
 [
 	{
-		"modid": "magic",
-		"name": "Magic Mod",
+		"modid": "oldenmagic",
+		"name": "Olden Magic Mod",
 		"version": "$version",
 		"mcversion": "$mcVersion",
 		"authors": ["CoderPuppy"],
