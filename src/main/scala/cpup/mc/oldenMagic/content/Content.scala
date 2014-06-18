@@ -65,7 +65,7 @@ object Content extends CPupContent[TOldenMagicMod] {
 		)
 
 		registerBlock(new BlockWritingDesk().setName("writingDesk").setCreativeTab(CreativeTabs.tabBlock).asInstanceOf[TBlockBase])
-		GameRegistry.registerTileEntity(classOf[TEWritingDesk], "writingDesk")
+		GameRegistry.registerTileEntity(classOf[TEWritingDesk], s"${mod.ref.modID}:writingDesk")
 		addRecipe(
 			new ItemStack(blocks("writingDesk")),
 			Array(
