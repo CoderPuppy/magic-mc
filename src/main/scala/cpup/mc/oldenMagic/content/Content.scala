@@ -13,6 +13,7 @@ import cpup.mc.oldenMagic.api.oldenLanguage.textParsing.{SubContextTransform, Te
 import cpup.mc.oldenMagic.api.oldenLanguage.casting.CastingRegistry
 import cpup.mc.lib.targeting.{EntityTarget, PlayerTarget}
 import cpup.mc.oldenMagic.content.targets.{EntityCaster, PlayerCaster}
+import cpup.mc.lib.util.RecipeUtil
 
 object Content extends CPupContent[TOldenMagicMod] {
 	def mod = OldenMagicMod
@@ -21,25 +22,25 @@ object Content extends CPupContent[TOldenMagicMod] {
 		super.preInit(e)
 
 		registerItem(new ItemBase().setName("leatherHandle").setMaxStackSize(1).asInstanceOf[TItemBase])
-		addRecipe(
+		registerRecipe(RecipeUtil.shaped(
 			new ItemStack(items("leatherHandle")),
 			Array(
 				"L L",
 				"LLL"
 			),
 			'L', Items.leather
-		)
+		))
 
 		registerItem(new ItemWand().setName("wand").setMaxStackSize(1).asInstanceOf[TItemBase])
 
 		registerItem(new ItemSpell().setName("spell").setMaxStackSize(1).asInstanceOf[TItemBase])
-		addShapelessRecipe(
+		registerRecipe(RecipeUtil.shapeless(
 			new ItemStack(items("spell")),
 			Items.paper
-		)
+		))
 
 		registerItem(new ItemDeed().setName("deed").setCreativeTab(CreativeTabs.tabMisc).asInstanceOf[TItemBase])
-		addRecipe(
+		registerRecipe(RecipeUtil.shaped(
 			new ItemStack(items("deed")),
 			Array(
 				"TRT",
@@ -49,10 +50,10 @@ object Content extends CPupContent[TOldenMagicMod] {
 			'P', Items.paper,
 			'T', Blocks.redstone_torch,
 			'R', Items.redstone
-		)
+		))
 
 		registerBlock(new BlockDeedOffice().setName("deedOffice").setCreativeTab(CreativeTabs.tabBlock).asInstanceOf[TBlockBase])
-		addRecipe(
+		registerRecipe(RecipeUtil.shaped(
 			new ItemStack(blocks("deedOffice"), 6),
 			Array(
 				" D ",
@@ -62,11 +63,11 @@ object Content extends CPupContent[TOldenMagicMod] {
 			'D', items("deed"),
 			'W', "woodPlank",
 			'C', "cobblestone"
-		)
+		))
 
 		registerBlock(new BlockWritingDesk().setName("writingDesk").setCreativeTab(CreativeTabs.tabBlock).asInstanceOf[TBlockBase])
-		GameRegistry.registerTileEntity(classOf[TEWritingDesk], s"${mod.ref.modID}:writingDesk")
-		addRecipe(
+		registerTileEntity(classOf[TEWritingDesk], s"${mod.ref.modID}:writingDesk")
+		registerRecipe(RecipeUtil.shaped(
 			new ItemStack(blocks("writingDesk")),
 			Array(
 				"SSS",
@@ -75,10 +76,10 @@ object Content extends CPupContent[TOldenMagicMod] {
 			'S', "slabWood",
 			'P', "plankWood",
 			'B', Blocks.bookshelf
-		)
+		))
 
 		registerItem(new ItemKnife().setName("knife").setMaxDamage(500).setMaxStackSize(1).asInstanceOf[TItemBase])
-		addRecipe(
+		registerRecipe(RecipeUtil.shaped(
 			new ItemStack(items("knife")),
 			Array(
 				" F",
@@ -86,22 +87,22 @@ object Content extends CPupContent[TOldenMagicMod] {
 			),
 			'F', Items.flint,
 			'S', Items.stick
-		)
+		))
 
 		registerItem(new ItemBase().setName("quill").setMaxDamage(500).setMaxStackSize(1).asInstanceOf[TItemBase])
-		addShapelessRecipe(
+		registerRecipe(RecipeUtil.shapeless(
 			new ItemStack(items("quill")),
 			items("knife"),
 			Items.feather
-		)
+		))
 
 		registerItem(new ItemBase().setName("inkWell").setMaxDamage(200).setMaxStackSize(1).asInstanceOf[TItemBase])
-		addShapelessRecipe(
+		registerRecipe(RecipeUtil.shapeless(
 			new ItemStack(items("inkWell")),
 			Items.dye,
 			Items.potionitem,
 			Items.flower_pot
-		)
+		))
 
 		registerItem(new ItemBend().setName("bend").setMaxStackSize(1).asInstanceOf[TItemBase])
 
