@@ -145,7 +145,7 @@ class BlockWritingDesk extends Block(Material.wood) with TBlockBase with CPupBlo
 	}
 }
 
-class TEWritingDesk extends TileEntity with CPupTE {
+class TEWritingDesk extends TileEntity with BaseTE {
 	val inv = new WritingDeskInventory(this)
 
 	override def writeToNBT(nbt: NBTTagCompound) {
